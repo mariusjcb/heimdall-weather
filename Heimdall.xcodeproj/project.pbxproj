@@ -1,0 +1,547 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7A1A1B101F1036470023A8C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B0F1F1036470023A8C1 /* AppDelegate.swift */; };
+		7A1A1B121F1036470023A8C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B111F1036470023A8C1 /* ViewController.swift */; };
+		7A1A1B151F1036480023A8C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B131F1036480023A8C1 /* Main.storyboard */; };
+		7A1A1B181F1036480023A8C1 /* Heimdall.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B161F1036480023A8C1 /* Heimdall.xcdatamodeld */; };
+		7A1A1B1A1F1036480023A8C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B191F1036480023A8C1 /* Assets.xcassets */; };
+		7A1A1B1D1F1036480023A8C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B1B1F1036480023A8C1 /* LaunchScreen.storyboard */; };
+		7A1A1B281F1036480023A8C1 /* HeimdallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B271F1036480023A8C1 /* HeimdallTests.swift */; };
+		7A1A1B331F1036480023A8C1 /* HeimdallUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B321F1036480023A8C1 /* HeimdallUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7A1A1B241F1036480023A8C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A1A1B041F1036470023A8C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1A1B0B1F1036470023A8C1;
+			remoteInfo = Heimdall;
+		};
+		7A1A1B2F1F1036480023A8C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A1A1B041F1036470023A8C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1A1B0B1F1036470023A8C1;
+			remoteInfo = Heimdall;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7A1A1B0C1F1036470023A8C1 /* Heimdall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heimdall.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A1A1B0F1F1036470023A8C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7A1A1B111F1036470023A8C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7A1A1B141F1036480023A8C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7A1A1B171F1036480023A8C1 /* Heimdall.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Heimdall.xcdatamodel; sourceTree = "<group>"; };
+		7A1A1B191F1036480023A8C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A1A1B1C1F1036480023A8C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7A1A1B1E1F1036480023A8C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A1A1B231F1036480023A8C1 /* HeimdallTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeimdallTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A1A1B271F1036480023A8C1 /* HeimdallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeimdallTests.swift; sourceTree = "<group>"; };
+		7A1A1B291F1036480023A8C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A1A1B2E1F1036480023A8C1 /* HeimdallUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeimdallUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A1A1B321F1036480023A8C1 /* HeimdallUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeimdallUITests.swift; sourceTree = "<group>"; };
+		7A1A1B341F1036480023A8C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A1A1B091F1036470023A8C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A1A1B201F1036480023A8C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A1A1B2B1F1036480023A8C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7A1A1B031F1036470023A8C1 = {
+			isa = PBXGroup;
+			children = (
+				7A1A1B0E1F1036470023A8C1 /* Heimdall */,
+				7A1A1B261F1036480023A8C1 /* HeimdallTests */,
+				7A1A1B311F1036480023A8C1 /* HeimdallUITests */,
+				7A1A1B0D1F1036470023A8C1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7A1A1B0D1F1036470023A8C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A1A1B0C1F1036470023A8C1 /* Heimdall.app */,
+				7A1A1B231F1036480023A8C1 /* HeimdallTests.xctest */,
+				7A1A1B2E1F1036480023A8C1 /* HeimdallUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A1A1B0E1F1036470023A8C1 /* Heimdall */ = {
+			isa = PBXGroup;
+			children = (
+				7A1A1B0F1F1036470023A8C1 /* AppDelegate.swift */,
+				7A1A1B111F1036470023A8C1 /* ViewController.swift */,
+				7A1A1B131F1036480023A8C1 /* Main.storyboard */,
+				7A1A1B191F1036480023A8C1 /* Assets.xcassets */,
+				7A1A1B1B1F1036480023A8C1 /* LaunchScreen.storyboard */,
+				7A1A1B1E1F1036480023A8C1 /* Info.plist */,
+				7A1A1B161F1036480023A8C1 /* Heimdall.xcdatamodeld */,
+			);
+			path = Heimdall;
+			sourceTree = "<group>";
+		};
+		7A1A1B261F1036480023A8C1 /* HeimdallTests */ = {
+			isa = PBXGroup;
+			children = (
+				7A1A1B271F1036480023A8C1 /* HeimdallTests.swift */,
+				7A1A1B291F1036480023A8C1 /* Info.plist */,
+			);
+			path = HeimdallTests;
+			sourceTree = "<group>";
+		};
+		7A1A1B311F1036480023A8C1 /* HeimdallUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7A1A1B321F1036480023A8C1 /* HeimdallUITests.swift */,
+				7A1A1B341F1036480023A8C1 /* Info.plist */,
+			);
+			path = HeimdallUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A1A1B0B1F1036470023A8C1 /* Heimdall */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A1A1B371F1036480023A8C1 /* Build configuration list for PBXNativeTarget "Heimdall" */;
+			buildPhases = (
+				7A1A1B081F1036470023A8C1 /* Sources */,
+				7A1A1B091F1036470023A8C1 /* Frameworks */,
+				7A1A1B0A1F1036470023A8C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Heimdall;
+			productName = Heimdall;
+			productReference = 7A1A1B0C1F1036470023A8C1 /* Heimdall.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7A1A1B221F1036480023A8C1 /* HeimdallTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A1A1B3A1F1036480023A8C1 /* Build configuration list for PBXNativeTarget "HeimdallTests" */;
+			buildPhases = (
+				7A1A1B1F1F1036480023A8C1 /* Sources */,
+				7A1A1B201F1036480023A8C1 /* Frameworks */,
+				7A1A1B211F1036480023A8C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A1A1B251F1036480023A8C1 /* PBXTargetDependency */,
+			);
+			name = HeimdallTests;
+			productName = HeimdallTests;
+			productReference = 7A1A1B231F1036480023A8C1 /* HeimdallTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7A1A1B2D1F1036480023A8C1 /* HeimdallUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A1A1B3D1F1036480023A8C1 /* Build configuration list for PBXNativeTarget "HeimdallUITests" */;
+			buildPhases = (
+				7A1A1B2A1F1036480023A8C1 /* Sources */,
+				7A1A1B2B1F1036480023A8C1 /* Frameworks */,
+				7A1A1B2C1F1036480023A8C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A1A1B301F1036480023A8C1 /* PBXTargetDependency */,
+			);
+			name = HeimdallUITests;
+			productName = HeimdallUITests;
+			productReference = 7A1A1B2E1F1036480023A8C1 /* HeimdallUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A1A1B041F1036470023A8C1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Marius Ilie";
+				TargetAttributes = {
+					7A1A1B0B1F1036470023A8C1 = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+					7A1A1B221F1036480023A8C1 = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 7A1A1B0B1F1036470023A8C1;
+					};
+					7A1A1B2D1F1036480023A8C1 = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 7A1A1B0B1F1036470023A8C1;
+					};
+				};
+			};
+			buildConfigurationList = 7A1A1B071F1036470023A8C1 /* Build configuration list for PBXProject "Heimdall" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7A1A1B031F1036470023A8C1;
+			productRefGroup = 7A1A1B0D1F1036470023A8C1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7A1A1B0B1F1036470023A8C1 /* Heimdall */,
+				7A1A1B221F1036480023A8C1 /* HeimdallTests */,
+				7A1A1B2D1F1036480023A8C1 /* HeimdallUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A1A1B0A1F1036470023A8C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A1A1B1D1F1036480023A8C1 /* LaunchScreen.storyboard in Resources */,
+				7A1A1B1A1F1036480023A8C1 /* Assets.xcassets in Resources */,
+				7A1A1B151F1036480023A8C1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A1A1B211F1036480023A8C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A1A1B2C1F1036480023A8C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A1A1B081F1036470023A8C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A1A1B121F1036470023A8C1 /* ViewController.swift in Sources */,
+				7A1A1B181F1036480023A8C1 /* Heimdall.xcdatamodeld in Sources */,
+				7A1A1B101F1036470023A8C1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A1A1B1F1F1036480023A8C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A1A1B281F1036480023A8C1 /* HeimdallTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A1A1B2A1F1036480023A8C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A1A1B331F1036480023A8C1 /* HeimdallUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7A1A1B251F1036480023A8C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A1A1B0B1F1036470023A8C1 /* Heimdall */;
+			targetProxy = 7A1A1B241F1036480023A8C1 /* PBXContainerItemProxy */;
+		};
+		7A1A1B301F1036480023A8C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A1A1B0B1F1036470023A8C1 /* Heimdall */;
+			targetProxy = 7A1A1B2F1F1036480023A8C1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7A1A1B131F1036480023A8C1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A1A1B141F1036480023A8C1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7A1A1B1B1F1036480023A8C1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A1A1B1C1F1036480023A8C1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7A1A1B351F1036480023A8C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A1A1B361F1036480023A8C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A1A1B381F1036480023A8C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Heimdall/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ro.iliemarius.Heimdall;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		7A1A1B391F1036480023A8C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Heimdall/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ro.iliemarius.Heimdall;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		7A1A1B3B1F1036480023A8C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = HeimdallTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ro.iliemarius.HeimdallTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Heimdall.app/Heimdall";
+			};
+			name = Debug;
+		};
+		7A1A1B3C1F1036480023A8C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = HeimdallTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ro.iliemarius.HeimdallTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Heimdall.app/Heimdall";
+			};
+			name = Release;
+		};
+		7A1A1B3E1F1036480023A8C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = HeimdallUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ro.iliemarius.HeimdallUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Heimdall;
+			};
+			name = Debug;
+		};
+		7A1A1B3F1F1036480023A8C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = HeimdallUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ro.iliemarius.HeimdallUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Heimdall;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A1A1B071F1036470023A8C1 /* Build configuration list for PBXProject "Heimdall" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A1A1B351F1036480023A8C1 /* Debug */,
+				7A1A1B361F1036480023A8C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A1A1B371F1036480023A8C1 /* Build configuration list for PBXNativeTarget "Heimdall" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A1A1B381F1036480023A8C1 /* Debug */,
+				7A1A1B391F1036480023A8C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7A1A1B3A1F1036480023A8C1 /* Build configuration list for PBXNativeTarget "HeimdallTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A1A1B3B1F1036480023A8C1 /* Debug */,
+				7A1A1B3C1F1036480023A8C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7A1A1B3D1F1036480023A8C1 /* Build configuration list for PBXNativeTarget "HeimdallUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A1A1B3E1F1036480023A8C1 /* Debug */,
+				7A1A1B3F1F1036480023A8C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7A1A1B161F1036480023A8C1 /* Heimdall.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7A1A1B171F1036480023A8C1 /* Heimdall.xcdatamodel */,
+			);
+			currentVersion = 7A1A1B171F1036480023A8C1 /* Heimdall.xcdatamodel */;
+			path = Heimdall.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 7A1A1B041F1036470023A8C1 /* Project object */;
+}
