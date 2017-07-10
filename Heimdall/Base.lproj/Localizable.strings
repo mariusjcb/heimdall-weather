@@ -1,0 +1,28 @@
+/* 
+  Messages.strings
+  Heimdall
+
+  Created by Marius Ilie on 09/07/2017.
+  Copyright © 2017 Marius Ilie. All rights reserved.
+*/
+
+"Unknown Error" = "Unknown Error";
+"Unknown Message" = "Unknown Message";
+"API URL is nil" = "API URL is nil";
+"Path has no dynamic variable named " = "Path has no dynamic variable named ";
+"Invalid path:" = "Invalid path:";
+"Invalid URL:" = "Invalid URL:";
+"Failed requesting RestAPI" = "Failed requesting RestAPI";
+"JSON Key doesn't exist" = "JSON Key doesn't exist";
+"JSON Key doesn't exist or can't be converted into dictionary object" = "JSON Key doesn't exist or can't be converted into dictionary object";
+"JSON Key value can't be converted into dictionary object" = "JSON Key value can't be converted into dictionary object";
+"Data object can't be represented as utf8" = "Data object can't be represented as utf8";
+"JSON can't be converted into a dictionary" = "JSON can't be converted into a dictionary";
+"Value can't be converted into Array object" = "Value can't be converted into Array object";
+"Data exists but JSON can't be deserialized" = "Data exists but JSON can't be deserialized";
+"Data is nil" = "Data is nil";
+"Empty path" = "Empty path";
+"Is not a required endpoint by completion handler" = "Is not a required endpoint by completion handler";
+"Main JSON" = "Main JSON";
+"URL called:" = "URL called:";
+"Missing" = "Missing";
