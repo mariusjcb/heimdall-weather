@@ -1,0 +1,28 @@
+/*
+  Messages.strings
+  Heimdall
+
+  Created by Marius Ilie on 09/07/2017.
+  Copyright © 2017 Marius Ilie. All rights reserved.
+*/
+
+"Unknown Error" = "eroare necunoscuta";
+"Unknown Message" = "Mesaj necunoscut";
+"API URL is nil" = "URL-ul este nul";
+"Path has no dynamic variable named " = "Calea nu contine variabila dinamica ";
+"Invalid path:" = "Path Invalid:";
+"Invalid URL:" = "URL Invalid:";
+"Failed requesting RestAPI" = "Trimiterea cererii catre API a esuat";
+"JSON Key doesn't exist" = "Cheia json nu exista";
+"JSON Key doesn't exist or can't be converted into dictionary object" = "Cheia json nu exista sau valoarea ei nu poate fi convertita in dictionar";
+"JSON Key value can't be converted into dictionary object" = "Valoarea cheii nu poate fi convertita in dictionar";
+"Data object can't be represented as utf8" = "Obiectul data nu poate fi reprezentat ca UTF8";
+"JSON can't be converted into a dictionary" = "JSON can't be converted into a dictionary";
+"Value can't be converted into Array object" = "Valoarea nu poate fi convertita in Array";
+"Data exists but JSON can't be deserialized" = "Exista obiectul data dar nu pot deserializa JSON-ul";
+"Data is nil" = "Obiectul data este nul";
+"Empty path" = "Cale goala";
+"Is not a required endpoint by completion handler" = "Nu este un endpoint cerut de completion handler";
+"Main JSON" = "JSON Principal";
+"URL called:" = "URL apelat:";
+"Missing" = "Lipseste";
