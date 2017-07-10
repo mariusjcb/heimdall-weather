@@ -143,43 +143,97 @@ final class WeatherDataManager: DataManager {
     }
     
     //MARK: - Quick call methods
-    func conditions(forLatitude lat: Double, longitude long: Double) {
-        weatherData(forLatitude: lat, longitude: long, as: .conditions, handler: WeatherDataManager.conditionAPIHandler)
+    static func weather(forLatitude lat: Double, longitude long: Double) {
+        shared.weatherData(forLatitude: lat, longitude: long, as: .conditions) { (data, request, error) in
+            do {
+                let _ = try parse(condition: data, for: request, error: error)
+                
+                shared.weatherData(forLatitude: lat, longitude: long, as: .hourly) { (data, request, error) in
+                    do {
+                        let _ = try parse(hourly: data, for: request, error: error)
+                    } catch {
+                        errorHandler(with: error, request: request)
+                    }
+                }
+            } catch {
+                errorHandler(with: error, request: request)
+            }
+        }
     }
     
-    func hourly(forLatitude lat: Double, longitude long: Double) {
-        weatherData(forLatitude: lat, longitude: long, as: .hourly, handler: WeatherDataManager.hourlyAPIHandler)
+    static func conditions(forLatitude lat: Double, longitude long: Double) {
+        shared.weatherData(forLatitude: lat, longitude: long, as: .conditions, handler: WeatherDataManager.conditionAPIHandler)
     }
     
-    func conditions(forCity city: String, country: String) {
-        weatherData(forCity: city, country: country, as: .conditions, handler: WeatherDataManager.conditionAPIHandler)
+    static func hourly(forLatitude lat: Double, longitude long: Double) {
+        shared.weatherData(forLatitude: lat, longitude: long, as: .hourly, handler: WeatherDataManager.hourlyAPIHandler)
     }
     
-    func hourly(forCity city: String, country: String) {
-        weatherData(forCity: city, country: country, as: .hourly, handler: WeatherDataManager.hourlyAPIHandler)
+    static func conditions(forCity city: String, country: String) {
+        shared.weatherData(forCity: city, country: country, as: .conditions, handler: WeatherDataManager.conditionAPIHandler)
+    }
+    
+    static func hourly(forCity city: String, country: String) {
+        shared.weatherData(forCity: city, country: country, as: .hourly, handler: WeatherDataManager.hourlyAPIHandler)
     }
     
     //Unmanaged.passUnretained(obj).toOpaque()
-    //MARK: - Handlers
-    static let conditionAPIHandler: DataManager.DataCompletion = { (response, request, error) in
-        do {
-            if error != nil { return }
-            
-            let endpoint = request.0
-            
-            guard endpoint == .conditions else {
-                printError(endpoint.rawValue + " " + NSLocalizedString("Is not a required endpoint by completion handler", comment: ""));
-                return
+    //MARK: - Fetch methods
+    static func parse(condition response: Any?, for request: DataManager.Request, error: Error?) throws -> Condition? {
+        if error != nil { return nil }
+        
+        let endpoint = request.0
+        
+        guard endpoint == .conditions else {
+            printError(endpoint.rawValue + " " + NSLocalizedString("Is not a required endpoint by completion handler", comment: ""));
+            return nil
+        }
+        
+        let condition = try Condition(json: response!)
+        
+        WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+            DispatchQueue.main.async {
+                eachDelegate.weatherDidChange(for: condition.location, request: request)
             }
-            
-            let condition = try Condition(json: response!)
+        })
+        
+        return condition
+    }
+    
+    static func parse(hourly response: Any?, for request: DataManager.Request, error: Error?) throws -> [Hourly]? {
+        if error != nil { return nil }
+        
+        let endpoint = request.0
+        
+        guard endpoint == .hourly else {
+            printError(endpoint.rawValue + " " + NSLocalizedString("Is not a required endpoint by completion handler", comment: ""));
+            return nil
+        }
+        
+        let hourlyConditions = try [Hourly](json: response!, request: request)
+        if let location = hourlyConditions[0].location {
+            location.hourForecast = hourlyConditions
             
             WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
                 DispatchQueue.main.async {
-                    eachDelegate.weatherDidChange(for: condition.location, request: request)
+                    eachDelegate.weatherDidChange(for: location, request: request)
                 }
             })
-        } catch SerializationError.missing(let member) {
+        } else {
+            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+                DispatchQueue.main.async {
+                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.locationNotFound)
+                }
+            })
+        }
+        
+        return hourlyConditions
+    }
+    
+    //MARK: - Default CompletionHandlers
+    static func errorHandler(with error: Error, request: DataManager.Request) {
+        switch error {
+        case .missing(let member) as SerializationError:
             printError(NSLocalizedString("Missing", comment: "") + " " + member)
             
             WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
@@ -187,7 +241,8 @@ final class WeatherDataManager: DataManager {
                     eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.missing(member))
                 }
             })
-        } catch SerializationError.message(let type, let description) {
+            break
+        case .message(let type, let description) as SerializationError:
             printError(description)
             
             WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
@@ -195,7 +250,8 @@ final class WeatherDataManager: DataManager {
                     eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.message(type, description))
                 }
             })
-        } catch {
+            break
+        default:
             printError(error.localizedDescription)
             
             WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
@@ -206,59 +262,19 @@ final class WeatherDataManager: DataManager {
         }
     }
     
+    static let conditionAPIHandler: DataManager.DataCompletion = { (response, request, error) in
+        do {
+            _ = try parse(condition: response, for: request, error: error)
+        } catch {
+            errorHandler(with: error, request: request)
+        }
+    }
+    
     static let hourlyAPIHandler: DataManager.DataCompletion = { (response, request, error) in
         do {
-            if error != nil { return }
-            
-            let endpoint = request.0
-            
-            guard endpoint == .hourly else {
-                printError(endpoint.rawValue + " " + NSLocalizedString("Is not a required endpoint by completion handler", comment: ""));
-                return
-            }
-            
-            let hourlyConditions = try [Hourly](json: response!)
-            let loc = WeatherDataManager.shared.locations.get(by: request)
-            
-            if let location = loc {
-                location.hourForecast = hourlyConditions
-                
-                WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
-                    DispatchQueue.main.async {
-                        eachDelegate.weatherDidChange(for: location, request: request)
-                    }
-                })
-            } else {
-                WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
-                    DispatchQueue.main.async {
-                        eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.locationNotFound)
-                    }
-                })
-            }
-        } catch SerializationError.missing(let member) {
-            printError(NSLocalizedString("Missing", comment: "") + " " + member)
-            
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
-                DispatchQueue.main.async {
-                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.missing(member))
-                }
-            })
-        } catch SerializationError.message(let type, let description) {
-            printError(description)
-            
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
-                DispatchQueue.main.async {
-                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.message(type, description))
-                }
-            })
+            _ = try parse(hourly: response, for: request, error: error)
         } catch {
-            printError(error.localizedDescription)
-            
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
-                DispatchQueue.main.async {
-                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.cathed(error.localizedDescription))
-                }
-            })
+            errorHandler(with: error, request: request)
         }
     }
 }

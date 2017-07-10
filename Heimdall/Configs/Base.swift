@@ -12,10 +12,12 @@ struct Defaults
 {
     static let settingsPlistDictionary  =   "Heimdall Settings"
     static let errorDVal                =   -99999.999
-    
-    static let logs                     =   false
+
+    static let logs                     =   true
     static let debugJSON                =   false
     static let jsonKeySeparator         =   " => "
+    
+    static let dateFormat               =   "HH:mm yy-MM-dd Z"
     
     struct RestAPI { }
 }

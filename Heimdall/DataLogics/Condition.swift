@@ -141,6 +141,10 @@ class Condition: JSONDecodable
             throw SerializationError.missing(locationKeyPath)
         }
         
+        guard let timeOffset = json.findValue(path: conditionAPI.timeOffset) as? String else {
+            throw SerializationError.missing(conditionAPI.timeOffset)
+        }
+        
         self.uv = uv
         self.humidity = humidity
         self.weather = weather
@@ -163,6 +167,8 @@ class Condition: JSONDecodable
         self.time = Date()
         
         let location = try Location(json: locationJSON)
+        location.timeOffset = timeOffset
+        
         
         self.location = WeatherDataManager.shared.locations.append(location: location)
         self.location.condition = self

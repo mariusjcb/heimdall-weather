@@ -44,7 +44,7 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         latitude = locValue.latitude
         longitude = locValue.longitude
         
-        WeatherDataManager.shared.conditions(forLatitude: latitude, longitude: longitude)
+        WeatherDataManager.weather(forLatitude: latitude, longitude: longitude)
     }
     
     func startMonitoringSignificantLocationChanges() {

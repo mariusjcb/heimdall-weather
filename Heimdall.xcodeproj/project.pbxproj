@@ -16,7 +16,7 @@
 		7A1A1B281F1036480023A8C1 /* HeimdallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B271F1036480023A8C1 /* HeimdallTests.swift */; };
 		7A1A1B331F1036480023A8C1 /* HeimdallUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B321F1036480023A8C1 /* HeimdallUITests.swift */; };
 		7A1A1B421F1036CE0023A8C1 /* WeatherDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B411F1036CE0023A8C1 /* WeatherDataManager.swift */; };
-		7A1A1B441F10393F0023A8C1 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B431F10393F0023A8C1 /* Helpers.swift */; };
+		7A1A1B441F10393F0023A8C1 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B431F10393F0023A8C1 /* Globals.swift */; };
 		7A1A1B4B1F104A9A0023A8C1 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B4A1F104A9A0023A8C1 /* RestAPI.swift */; };
 		7A1A1B4D1F106B7F0023A8C1 /* ComputedDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B4C1F106B7F0023A8C1 /* ComputedDefaults.swift */; };
 		7A1A1B4F1F107C080023A8C1 /* DataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B4E1F107C080023A8C1 /* DataBuilder.swift */; };
@@ -62,7 +62,7 @@
 		7A1A1B321F1036480023A8C1 /* HeimdallUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeimdallUITests.swift; sourceTree = "<group>"; };
 		7A1A1B341F1036480023A8C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A1A1B411F1036CE0023A8C1 /* WeatherDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherDataManager.swift; path = DataLogics/WeatherDataManager.swift; sourceTree = "<group>"; };
-		7A1A1B431F10393F0023A8C1 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		7A1A1B431F10393F0023A8C1 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		7A1A1B4A1F104A9A0023A8C1 /* RestAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestAPI.swift; path = Configs/RestAPI.swift; sourceTree = "<group>"; };
 		7A1A1B4C1F106B7F0023A8C1 /* ComputedDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComputedDefaults.swift; path = Configs/ComputedDefaults.swift; sourceTree = "<group>"; };
 		7A1A1B4E1F107C080023A8C1 /* DataBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataBuilder.swift; path = DataLogics/DataBuilder.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 		7A1A1B0E1F1036470023A8C1 /* Heimdall */ = {
 			isa = PBXGroup;
 			children = (
-				7A1A1B431F10393F0023A8C1 /* Helpers.swift */,
+				7A1A1B431F10393F0023A8C1 /* Globals.swift */,
 				7A1A1B111F1036470023A8C1 /* ViewController.swift */,
 				7A1A1B131F1036480023A8C1 /* Main.storyboard */,
 				7A1A1B501F107C0E0023A8C1 /* DataLogics */,
@@ -353,7 +353,7 @@
 				7A1A1B181F1036480023A8C1 /* Heimdall.xcdatamodeld in Sources */,
 				7AF8F05E1F13290000B58EAA /* LocationManager.swift in Sources */,
 				7A1A1B4F1F107C080023A8C1 /* DataBuilder.swift in Sources */,
-				7A1A1B441F10393F0023A8C1 /* Helpers.swift in Sources */,
+				7A1A1B441F10393F0023A8C1 /* Globals.swift in Sources */,
 				7A1A1B101F1036470023A8C1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

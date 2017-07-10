@@ -85,6 +85,7 @@ extension Defaults.RestAPI
         static let windKpH              =   "wind_kph"
         static let pressureInch         =   "pressure_in"
         static let pressureMetric       =   "pressure_mb"
+        static let timeOffset           =   "local_tz_offset"
     }
     
     struct HourlyAPI {
@@ -97,6 +98,11 @@ extension Defaults.RestAPI
         static let fahrenheitFeels      =   "feelslike => english"
         static let windDirection        =   "wdir => dir"
         static let windDegrees          =   "wdir => degrees"
+        static let hour                 =   "FCTTIME => hour_padded"
+        static let minutes              =   "FCTTIME => min"
+        static let year                 =   "FCTTIME => year"
+        static let month                =   "FCTTIME => mon_padded"
+        static let day                  =   "FCTTIME => mday_padded"
     }
     
     struct Forecast10DayAPI {

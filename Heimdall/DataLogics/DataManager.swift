@@ -48,6 +48,10 @@ class DataManager
     }
 }
 
+protocol RequestJSONDecodable {
+    init(json: Any, request: DataManager.Request) throws
+}
+
 enum DataManagerError: Error {
     case unknown
     case failedRequest

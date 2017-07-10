@@ -8,13 +8,14 @@
 
 import Foundation
 
-class Hourly: JSONDecodable
+class Hourly: RequestJSONDecodable
 {
     let humidity: Double
     let weather: String
     let icon: String
     
-    let time: Date
+    var time: Date
+    weak var location: Location?
     
     let celsius: Double
     let celsiusFeels: Double
@@ -28,7 +29,7 @@ class Hourly: JSONDecodable
     
     
     //MARK: - Failable Initializer
-    required init(json: Any) throws {
+    private init(json: Any) throws {
         let hourlyAPI = Defaults.RestAPI.HourlyAPI.self
         
         guard let json = json as? [String: Any] else {
@@ -83,11 +84,52 @@ class Hourly: JSONDecodable
         self.windDegrees = windDegrees
         
         self.time = Date()
+        self.location = nil
+    }
+    
+    required convenience init(json: Any, request: DataManager.Request) throws {
+        try self.init(json: json)
+        let hourlyAPI = Defaults.RestAPI.HourlyAPI.self
+        
+        guard let json = json as? [String: Any] else {
+            printError(NSLocalizedString("JSON can't be converted into a dictionary", comment: ""))
+            throw SerializationError.missing(NSLocalizedString("Main JSON", comment: ""))
+        }
+        
+        guard let hour = json.findValue(path: hourlyAPI.hour) as? String else {
+            throw SerializationError.missing(hourlyAPI.hour)
+        }
+        
+        guard let minutes = json.findValue(path: hourlyAPI.minutes) as? String else {
+            throw SerializationError.missing(hourlyAPI.minutes)
+        }
+        
+        guard let day = json.findValue(path: hourlyAPI.day) as? String else {
+            throw SerializationError.missing(hourlyAPI.day)
+        }
+        
+        guard let month = json.findValue(path: hourlyAPI.month) as? String else {
+            throw SerializationError.missing(hourlyAPI.month)
+        }
+        
+        guard let year = json.findValue(path: hourlyAPI.year) as? String else {
+            throw SerializationError.missing(hourlyAPI.year)
+        }
+        
+        guard let location = WeatherDataManager.shared.locations.get(by: request) else {
+            throw SerializationError.message(
+                NSLocalizedString("Runtime Exception", comment: ""),
+                NSLocalizedString("Requested location not exist into WeatherDataManager, call condition API first.", comment: "")
+            )
+        }
+        
+        self.location = location
+        self.time = Date(hour, minutes, year, month, day, self.location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
     }
 }
 
 extension Array where Element: Hourly {
-    init(json: Any) throws {
+    init(json: Any, request: DataManager.Request) throws {
         self.init()
         
         let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self
@@ -112,7 +154,7 @@ extension Array where Element: Hourly {
         }
         
         for hourlyJSON in hoursArray {
-            let condition = try Hourly(json: hourlyJSON)
+            let condition = try Hourly(json: hourlyJSON, request: request)
             
             if let element = condition as? Element {
                 self.append(element)

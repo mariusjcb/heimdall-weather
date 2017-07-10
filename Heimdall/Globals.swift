@@ -36,6 +36,33 @@ func ToDouble(from any: Any?) -> Double? {
     return (any as? String)?.toDouble() ?? (any as? Double)
 }
 
+extension Date {
+    init(_ hour: String, _ minute: String, _ year: String, _ month: String, _ day: String, _ offset: String) {
+        var string = Defaults.dateFormat
+        string = string.replacingOccurrences(of: "HH", with: hour)
+        string = string.replacingOccurrences(of: "mm", with: minute)
+        
+        string = string.replacingOccurrences(of: "yyyy", with: year)
+        string = string.replacingOccurrences(of: "yy", with: year)
+        
+        string = string.replacingOccurrences(of: "MMMM", with: month)
+        string = string.replacingOccurrences(of: "MMM", with: month)
+        string = string.replacingOccurrences(of: "MM", with: month)
+        
+        string = string.replacingOccurrences(of: "EEEEEE", with: day)
+        string = string.replacingOccurrences(of: "EEEEE", with: day)
+        string = string.replacingOccurrences(of: "EEE", with: day)
+        string = string.replacingOccurrences(of: "DD", with: day)
+        string = string.replacingOccurrences(of: "dd", with: day)
+        
+        string = string.replacingOccurrences(of: "Z", with: offset)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = Defaults.dateFormat
+        self = formatter.date(from: string) ?? Date()
+    }
+}
+
 extension String {
     /**
      Replace variables like {VAR_NAME} from a "dynamic string"

@@ -19,6 +19,8 @@ class Location: JSONDecodable
     let longitude: Double
     let elevation: Double
     
+    var timeOffset: String
+    
     var condition: Condition? = nil
     var hourForecast = [Hourly]()
     
@@ -63,6 +65,8 @@ class Location: JSONDecodable
         self.latitude = latitude
         self.longitude = longitude
         self.elevation = elevation
+        
+        self.timeOffset = String(describing: TimeZone.current.secondsFromGMT())
     }
 }
 
