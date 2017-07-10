@@ -22,6 +22,7 @@ class Location: JSONDecodable
     var timeOffset: String
     
     var condition: Condition? = nil
+    var forecast = [Forecast]()
     var hourForecast = [Hourly]()
     
     var lastForecastsUpdate: Date? = nil

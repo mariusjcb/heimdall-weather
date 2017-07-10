@@ -103,18 +103,27 @@ final class WeatherDataManager: DataManager {
                         as endpoint: Defaults.RestAPI.EndPoints = .conditions, handler: WeatherDataCompletion? = nil)
     {
         if Defaults.RestAPI.forecasts.contains(endpoint) {
-            let location = locations.get(by: (endpoint, format, params))
-            let lastUpdate = Int(location?.lastForecastsUpdate?.timeIntervalSinceNow ?? TimeInterval(0))  / 3600
-            
-            guard lastUpdate <= Defaults.bigUpdatesInterval else {
-                printError(NSLocalizedString("Time from last all weather data update is too soon", comment: ""))
+            guard let location = locations.get(by: (endpoint, format, params)) else {
+                printError(NSLocalizedString("Forecast Update: Location not found in WeatherDataManager", comment: ""))
                 
                 WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
                     DispatchQueue.main.async {
                         eachDelegate.didReceiveWeatherFetchingError(request: (endpoint, format, params), error: .tooSoonUpdate)
                     }
                 })
+                return
+            }
+            
+            let lastUpdate = Int(location.lastForecastsUpdate?.timeIntervalSinceNow ?? TimeInterval(0))  / 3600
+            
+            guard lastUpdate <= Defaults.bigUpdatesInterval else {
+                printError(NSLocalizedString("Time from last all weather data update is too soon", comment: "") + " @ \(location.city), \(location.country)")
                 
+                WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+                    DispatchQueue.main.async {
+                        eachDelegate.didReceiveWeatherFetchingError(request: (endpoint, format, params), error: .tooSoonUpdate)
+                    }
+                })
                 return
             }
         }
@@ -169,6 +178,10 @@ final class WeatherDataManager: DataManager {
         shared.weatherData(forLatitude: lat, longitude: long, as: .hourly, handler: WeatherDataManager.hourlyAPIHandler)
     }
     
+    static func forecast(forLatitude lat: Double, longitude long: Double) {
+        shared.weatherData(forLatitude: lat, longitude: long, as: .forecast, handler: WeatherDataManager.hourlyAPIHandler)
+    }
+    
     static func conditions(forCity city: String, country: String) {
         shared.weatherData(forCity: city, country: country, as: .conditions, handler: WeatherDataManager.conditionAPIHandler)
     }
@@ -177,16 +190,27 @@ final class WeatherDataManager: DataManager {
         shared.weatherData(forCity: city, country: country, as: .hourly, handler: WeatherDataManager.hourlyAPIHandler)
     }
     
+    static func forecast(forCity city: String, country: String) {
+        shared.weatherData(forCity: city, country: country, as: .forecast, handler: WeatherDataManager.hourlyAPIHandler)
+    }
+    
     static func weather(forLatitude lat: Double, longitude long: Double) {
         shared.weatherData(forLatitude: lat, longitude: long, as: .conditions) { (data, request, error) in
             do {
                 let _ = try parse(condition: data, for: request, error: error)
                 shared.weatherData(forLatitude: lat, longitude: long, as: .hourly) { (data, request, error) in
                     do {
-                        let location = shared.locations.get(by: request)
-                        location?.lastForecastsUpdate = Date()
-                        
                         let _ = try parse(hourly: data, for: request, error: error)
+                        shared.weatherData(forLatitude: lat, longitude: long, as: .forecast) { (data, request, error) in
+                            do {
+                                let location = shared.locations.get(by: request)
+                                location?.lastForecastsUpdate = Date()
+                                
+                                let _ = try parse(forecast: data, for: request, error: error) //mama ei de pyramid of doom ...
+                            } catch {
+                                errorHandler(with: error, request: request)
+                            }
+                        }
                     } catch {
                         errorHandler(with: error, request: request)
                     }
@@ -248,6 +272,36 @@ final class WeatherDataManager: DataManager {
         }
         
         return hourlyConditions
+    }
+    
+    static func parse(forecast response: Any?, for request: DataManager.Request, error: Error?) throws -> [Forecast]? {
+        if error != nil { return nil }
+        
+        let endpoint = request.0
+        
+        guard endpoint == .forecast else {
+            printError(endpoint.rawValue + " " + NSLocalizedString("Is not a required endpoint by completion handler", comment: ""));
+            return nil
+        }
+        
+        let forecastConditions = try [Forecast](json: response!, request: request)
+        if let location = forecastConditions[0].location {
+            location.forecast = forecastConditions
+            
+            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+                DispatchQueue.main.async {
+                    eachDelegate.weatherDidChange(for: location, request: request)
+                }
+            })
+        } else {
+            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+                DispatchQueue.main.async {
+                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.locationNotFound)
+                }
+            })
+        }
+        
+        return forecastConditions
     }
     
     //MARK: - Default CompletionHandlers

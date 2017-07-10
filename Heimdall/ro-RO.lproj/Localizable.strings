@@ -26,5 +26,7 @@
 "Main JSON" = "JSON Principal";
 "URL called:" = "URL apelat:";
 "Missing" = "Lipseste";
+"Forecast Update: Location not found in WeatherDataManager" = "Forecast Update: Locatie negasita in WeatherDataManager";
 "Runtime Exception" = "Exceptie de runtime";
 "Requested location not exist into WeatherDataManager, call condition API first." = "Locatia cautata nu a fost creata anterior. Apelati conditions API mai intai.";
+"Time from last all weather data update is too soon" = "A trecut prea putin timp de la ultimul update a vremii";

@@ -55,6 +55,17 @@ class ViewController: UIViewController, WeatherDataManagerDelegate {
             }
             
             break
+        case .forecast:
+            print(location.city + ", " + location.country + " Daily Weather:")
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = Defaults.dateFormat
+            
+            for day in location.forecast {
+                print(formatter.string(from: day.time) + ": " + day.weather + ", " + String(describing: day.highCelsius) + " | " + String(describing: day.lowCelsius))
+            }
+            
+            break
         default: break
         }
     }

@@ -10,12 +10,12 @@ import Foundation
 
 class Hourly: RequestJSONDecodable
 {
+    weak var location: Location?
+    var time: Date
+    
     let humidity: Double
     let weather: String
     let icon: String
-    
-    var time: Date
-    weak var location: Location?
     
     let celsius: Double
     let celsiusFeels: Double

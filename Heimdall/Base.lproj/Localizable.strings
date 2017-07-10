@@ -26,5 +26,7 @@
 "Main JSON" = "Main JSON";
 "URL called:" = "URL called:";
 "Missing" = "Missing";
+"Forecast Update: Location not found in WeatherDataManager" = "Forecast Update: Location not found in WeatherDataManager";
 "Runtime Exception" = "Runtime Exception";
 "Requested location not exist into WeatherDataManager, call condition API first." = "Requested location not exist into WeatherDataManager, call condition API first.";
+"Time from last all weather data update is too soon" = "Time from last all weather data update is too soon";

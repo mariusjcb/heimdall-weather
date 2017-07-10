@@ -43,7 +43,7 @@ extension Date {
         string = string.replacingOccurrences(of: "mm", with: minute)
         
         string = string.replacingOccurrences(of: "yyyy", with: year)
-        string = string.replacingOccurrences(of: "yy", with: year)
+        string = string.replacingOccurrences(of: "yy", with: year.substring(from: year.index(year.endIndex, offsetBy: -2)))
         
         string = string.replacingOccurrences(of: "MMMM", with: month)
         string = string.replacingOccurrences(of: "MMM", with: month)
@@ -60,6 +60,19 @@ extension Date {
         let formatter = DateFormatter()
         formatter.dateFormat = Defaults.dateFormat
         self = formatter.date(from: string) ?? Date()
+    }
+    
+    init(_ hour: Int, _ minute: String, _ year: Int, _ month: Int, _ day: Int, _ offset: String) {
+        let yStr = "\(year)"
+        var hourStr: String = "\(hour)"
+        var monthStr: String = "\(month)"
+        var dayStr: String = "\(day)"
+        
+        if hour < 10 { hourStr = "0\(minute))" }
+        if month < 10 { monthStr = "0\(minute))" }
+        if day < 10 { dayStr = "0\(minute))" }
+        
+        self.init(hourStr, minute, yStr, monthStr, dayStr, offset)
     }
 }
 

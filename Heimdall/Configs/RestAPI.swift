@@ -38,19 +38,19 @@ extension Defaults.RestAPI
         case error                      =   "error"
         case conditions                 =   "conditions"
         case hourly                     =   "hourly"
-        case forecast10day              =   "forecast10day"
+        case forecast                   =   "forecast10day"
         
         static let keyPaths: Dictionary<EndPoints, String> = [
             .error                      :   "response => error",
             .conditions                 :   "current_observation",
             .hourly                     :   "hourly_forecast",
-            .forecast10day              :   "forecast => simpleforecast"
+            .forecast                   :   "forecast => simpleforecast => forecastday"
         ]
     }
     
     static let forecasts: Array<EndPoints>  =   [
                                             .hourly,
-                                            .forecast10day
+                                            .forecast
     ]
     
     struct ErrorAPI {
@@ -110,15 +110,17 @@ extension Defaults.RestAPI
         static let day                  =   "FCTTIME => mday_padded"
     }
     
-    struct Forecast10DayAPI {
-        static let humidity             =   "humidity"
-        static let weather              =   "condition"
+    struct ForecastAPI {
+        static let weather              =   "conditions"
         static let icon                 =   "icon"
-        static let celsiusTemp          =   "temp => metric"
-        static let fahrenheitTemp       =   "temp => english"
-        static let celsiusFeels         =   "feelslike => metric"
-        static let fahrenheitFeels      =   "feelslike => english"
-        static let windDirection        =   "wdir => dir"
-        static let windDegrees          =   "wdir => degrees"
+        static let highCelsiusTemp      =   "high => celsius"
+        static let highFahrenheitTemp   =   "high => fahrenheit"
+        static let lowCelsiusTemp       =   "low => celsius"
+        static let lowFahrenheitTemp    =   "low => fahrenheit"
+        static let hour                 =   "date => hour"
+        static let minutes              =   "date => min"
+        static let year                 =   "date => year"
+        static let month                =   "date => month"
+        static let day                  =   "date => day"
     }
 }
