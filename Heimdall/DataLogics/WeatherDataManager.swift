@@ -10,6 +10,7 @@ import Foundation
 
 enum WeatherError: Error {
     case locationNotFound
+    case tooSoonUpdate
     case cathed(String)
     case missing(String)
     case message(String, String)
@@ -101,6 +102,23 @@ final class WeatherDataManager: DataManager {
     func weatherData(for params: DataManager.RequestParams, by format: Defaults.RestAPI.QueryFormat = .coordinates,
                         as endpoint: Defaults.RestAPI.EndPoints = .conditions, handler: WeatherDataCompletion? = nil)
     {
+        if Defaults.RestAPI.forecasts.contains(endpoint) {
+            let location = locations.get(by: (endpoint, format, params))
+            let lastUpdate = Int(location?.lastForecastsUpdate?.timeIntervalSinceNow ?? TimeInterval(0))  / 3600
+            
+            guard lastUpdate <= Defaults.bigUpdatesInterval else {
+                printError(NSLocalizedString("Time from last all weather data update is too soon", comment: ""))
+                
+                WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+                    DispatchQueue.main.async {
+                        eachDelegate.didReceiveWeatherFetchingError(request: (endpoint, format, params), error: .tooSoonUpdate)
+                    }
+                })
+                
+                return
+            }
+        }
+        
         let path = query(for: params, by: format, as: endpoint)
         
         guard let callURL = apiURL?.append(path) else
@@ -143,24 +161,6 @@ final class WeatherDataManager: DataManager {
     }
     
     //MARK: - Quick call methods
-    static func weather(forLatitude lat: Double, longitude long: Double) {
-        shared.weatherData(forLatitude: lat, longitude: long, as: .conditions) { (data, request, error) in
-            do {
-                let _ = try parse(condition: data, for: request, error: error)
-                
-                shared.weatherData(forLatitude: lat, longitude: long, as: .hourly) { (data, request, error) in
-                    do {
-                        let _ = try parse(hourly: data, for: request, error: error)
-                    } catch {
-                        errorHandler(with: error, request: request)
-                    }
-                }
-            } catch {
-                errorHandler(with: error, request: request)
-            }
-        }
-    }
-    
     static func conditions(forLatitude lat: Double, longitude long: Double) {
         shared.weatherData(forLatitude: lat, longitude: long, as: .conditions, handler: WeatherDataManager.conditionAPIHandler)
     }
@@ -175,6 +175,26 @@ final class WeatherDataManager: DataManager {
     
     static func hourly(forCity city: String, country: String) {
         shared.weatherData(forCity: city, country: country, as: .hourly, handler: WeatherDataManager.hourlyAPIHandler)
+    }
+    
+    static func weather(forLatitude lat: Double, longitude long: Double) {
+        shared.weatherData(forLatitude: lat, longitude: long, as: .conditions) { (data, request, error) in
+            do {
+                let _ = try parse(condition: data, for: request, error: error)
+                shared.weatherData(forLatitude: lat, longitude: long, as: .hourly) { (data, request, error) in
+                    do {
+                        let location = shared.locations.get(by: request)
+                        location?.lastForecastsUpdate = Date()
+                        
+                        let _ = try parse(hourly: data, for: request, error: error)
+                    } catch {
+                        errorHandler(with: error, request: request)
+                    }
+                }
+            } catch {
+                errorHandler(with: error, request: request)
+            }
+        }
     }
     
     //Unmanaged.passUnretained(obj).toOpaque()

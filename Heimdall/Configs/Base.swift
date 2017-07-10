@@ -16,6 +16,7 @@ struct Defaults
     static let logs                     =   true
     static let debugJSON                =   false
     static let jsonKeySeparator         =   " => "
+    static let bigUpdatesInterval       =   24
     
     static let dateFormat               =   "HH:mm yy-MM-dd Z"
     

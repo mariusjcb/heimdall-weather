@@ -24,6 +24,7 @@ class Location: JSONDecodable
     var condition: Condition? = nil
     var hourForecast = [Hourly]()
     
+    var lastForecastsUpdate: Date? = nil
     
     
     //MARK: - Failable Initializer

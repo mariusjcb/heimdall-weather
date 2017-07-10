@@ -48,6 +48,11 @@ extension Defaults.RestAPI
         ]
     }
     
+    static let forecasts: Array<EndPoints>  =   [
+                                            .hourly,
+                                            .forecast10day
+    ]
+    
     struct ErrorAPI {
         static let type                 =   "type"
         static let description          =   "description"

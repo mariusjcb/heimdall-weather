@@ -26,3 +26,5 @@
 "Main JSON" = "JSON Principal";
 "URL called:" = "URL apelat:";
 "Missing" = "Lipseste";
+"Runtime Exception" = "Exceptie de runtime";
+"Requested location not exist into WeatherDataManager, call condition API first." = "Locatia cautata nu a fost creata anterior. Apelati conditions API mai intai.";

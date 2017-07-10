@@ -32,13 +32,30 @@ class ViewController: UIViewController, WeatherDataManagerDelegate {
     }
     
     func weatherDidChange(for location: Location, request: DataManager.Request) {
-        print(location.city + ", " + location.country + ": " + String(describing: location.condition?.celsius))
-        city.text = location.city
-        
-        if let condition = location.condition
-        {
-            weather.text = condition.weather 
-            temp_c.text = String(describing: condition.celsius) + "°"
+        switch request.0 {
+        case .conditions:
+            print(location.city + ", " + location.country + ": " + String(describing: location.condition?.celsius))
+            city.text = location.city
+            
+            if let condition = location.condition
+            {
+                weather.text = condition.weather
+                temp_c.text = String(describing: condition.celsius) + "°"
+            }
+            
+            break
+        case .hourly:
+            print(location.city + ", " + location.country + " Hourly Weather:")
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = Defaults.dateFormat
+            
+            for hour in location.hourForecast {
+                print(formatter.string(from: hour.time) + ": " + hour.weather + ", " + String(describing: hour.celsius))
+            }
+            
+            break
+        default: break
         }
     }
     
