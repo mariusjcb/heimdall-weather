@@ -19,7 +19,7 @@ class ViewController: UIViewController, WeatherDataManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        WeatherDataManager.shared.delegate += self
+        WeatherDataManager.shared.delegates.add(self)
         
         _ = LocationManager.shared
         LocationManager.shared.startMonitoringSignificantLocationChanges()

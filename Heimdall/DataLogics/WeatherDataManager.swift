@@ -57,7 +57,7 @@ final class WeatherDataManager: DataManager {
         return Singleton.instance
     }
     
-    var delegate = [WeatherDataManagerDelegate]()
+    var delegates = MulticastDelegate<WeatherDataManagerDelegate>()
     
     // NSPointerArray.weakObjects()
     var locations = [Location]()
@@ -106,11 +106,11 @@ final class WeatherDataManager: DataManager {
             guard let location = locations.get(by: (endpoint, format, params)) else {
                 printError(NSLocalizedString("Forecast Update: Location not found in WeatherDataManager", comment: ""))
                 
-                WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+                delegates.invoke { (delegate) in
                     DispatchQueue.main.async {
-                        eachDelegate.didReceiveWeatherFetchingError(request: (endpoint, format, params), error: .tooSoonUpdate)
+                        delegate.didReceiveWeatherFetchingError(request: (endpoint, format, params), error: .tooSoonUpdate)
                     }
-                })
+                }
                 return
             }
             
@@ -119,11 +119,11 @@ final class WeatherDataManager: DataManager {
             guard lastUpdate <= Defaults.bigUpdatesInterval else {
                 printError(NSLocalizedString("Time from last all weather data update is too soon", comment: "") + " @ \(location.city), \(location.country)")
                 
-                WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+                delegates.invoke { (delegate) in
                     DispatchQueue.main.async {
-                        eachDelegate.didReceiveWeatherFetchingError(request: (endpoint, format, params), error: .tooSoonUpdate)
+                        delegate.didReceiveWeatherFetchingError(request: (endpoint, format, params), error: .tooSoonUpdate)
                     }
-                })
+                }
                 return
             }
         }
@@ -138,11 +138,11 @@ final class WeatherDataManager: DataManager {
         
         printLog(NSLocalizedString("URL called:", comment: "") + " " +  callURL.relativeString)
         
-        WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+        delegates.invoke { (delegate) in
             DispatchQueue.main.async {
-                eachDelegate.weatherDataWill(request: (endpoint, format, params))
+                delegate.weatherDataWill(request: (endpoint, format, params))
             }
-        })
+        }
         
         URLSession.shared.dataTask(with: callURL) { (data, response, error) in
             self.didFetch(data: data, response: response, request: (endpoint, format, params), error: error, handler: handler)
@@ -235,11 +235,11 @@ final class WeatherDataManager: DataManager {
         
         let condition = try Condition(json: response!)
         
-        WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+        shared.delegates.invoke { (delegate) in
             DispatchQueue.main.async {
-                eachDelegate.weatherDidChange(for: condition.location, request: request)
+                delegate.weatherDidChange(for: condition.location, request: request)
             }
-        })
+        }
         
         return condition
     }
@@ -258,17 +258,17 @@ final class WeatherDataManager: DataManager {
         if let location = hourlyConditions[0].location {
             location.hourForecast = hourlyConditions
             
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+            shared.delegates.invoke { (delegate) in
                 DispatchQueue.main.async {
-                    eachDelegate.weatherDidChange(for: location, request: request)
+                    delegate.weatherDidChange(for: location, request: request)
                 }
-            })
+            }
         } else {
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+            shared.delegates.invoke { (delegate) in
                 DispatchQueue.main.async {
-                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.locationNotFound)
+                    delegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.locationNotFound)
                 }
-            })
+            }
         }
         
         return hourlyConditions
@@ -288,17 +288,17 @@ final class WeatherDataManager: DataManager {
         if let location = forecastConditions[0].location {
             location.forecast = forecastConditions
             
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+            shared.delegates.invoke { (delegate) in
                 DispatchQueue.main.async {
-                    eachDelegate.weatherDidChange(for: location, request: request)
+                    delegate.weatherDidChange(for: location, request: request)
                 }
-            })
+            }
         } else {
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+            shared.delegates.invoke { (delegate) in
                 DispatchQueue.main.async {
-                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.locationNotFound)
+                    delegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.locationNotFound)
                 }
-            })
+            }
         }
         
         return forecastConditions
@@ -310,29 +310,29 @@ final class WeatherDataManager: DataManager {
         case .missing(let member) as SerializationError:
             printError(NSLocalizedString("Missing", comment: "") + " " + member)
             
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+            shared.delegates.invoke { (delegate) in
                 DispatchQueue.main.async {
-                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.missing(member))
+                    delegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.missing(member))
                 }
-            })
+            }
             break
         case .message(let type, let description) as SerializationError:
             printError(description)
             
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+            shared.delegates.invoke { (delegate) in
                 DispatchQueue.main.async {
-                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.message(type, description))
+                    delegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.message(type, description))
                 }
-            })
+            }
             break
         default:
             printError(error.localizedDescription)
             
-            WeatherDataManager.shared.delegate.forEach({ (eachDelegate) in
+            shared.delegates.invoke { (delegate) in
                 DispatchQueue.main.async {
-                    eachDelegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.cathed(error.localizedDescription))
+                    delegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.cathed(error.localizedDescription))
                 }
-            })
+            }
         }
     }
     
@@ -351,8 +351,4 @@ final class WeatherDataManager: DataManager {
             errorHandler(with: error, request: request)
         }
     }
-}
-
-func += (left: inout [WeatherDataManagerDelegate], right: WeatherDataManagerDelegate) {
-    left.append(right)
 }

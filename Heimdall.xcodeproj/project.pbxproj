@@ -24,6 +24,7 @@
 		7A1A1B571F1083A80023A8C1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B561F1083A80023A8C1 /* Location.swift */; };
 		7A1A1B5B1F1088AB0023A8C1 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B5A1F1088AB0023A8C1 /* Base.swift */; };
 		7A72C26D1F14288A00C766E9 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72C26C1F14288900C766E9 /* Forecast.swift */; };
+		7A72C26F1F14416600C766E9 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72C26E1F14416600C766E9 /* MulticastDelegate.swift */; };
 		7A8464721F113387007CFB35 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8464711F113387007CFB35 /* DataManager.swift */; };
 		7AEE3B7C1F129C10003BC81F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AEE3B7E1F129C10003BC81F /* Localizable.strings */; };
 		7AEE3B871F12AABB003BC81F /* Hourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEE3B861F12AABB003BC81F /* Hourly.swift */; };
@@ -71,6 +72,7 @@
 		7A1A1B561F1083A80023A8C1 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Location.swift; path = DataLogics/Location.swift; sourceTree = "<group>"; };
 		7A1A1B5A1F1088AB0023A8C1 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base.swift; path = Configs/Base.swift; sourceTree = "<group>"; };
 		7A72C26C1F14288900C766E9 /* Forecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		7A72C26E1F14416600C766E9 /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		7A8464711F113387007CFB35 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = DataLogics/DataManager.swift; sourceTree = "<group>"; };
 		7AEE3B811F129D3F003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/Main.strings"; sourceTree = "<group>"; };
 		7AEE3B821F129D40003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				7A8464711F113387007CFB35 /* DataManager.swift */,
 				7A1A1B411F1036CE0023A8C1 /* WeatherDataManager.swift */,
 				7AF8F05D1F13290000B58EAA /* LocationManager.swift */,
+				7A72C26E1F14416600C766E9 /* MulticastDelegate.swift */,
 				7A1A1B4E1F107C080023A8C1 /* DataBuilder.swift */,
 			);
 			name = DataLogics;
@@ -347,6 +350,7 @@
 				7A1A1B4D1F106B7F0023A8C1 /* ComputedDefaults.swift in Sources */,
 				7A8464721F113387007CFB35 /* DataManager.swift in Sources */,
 				7A1A1B5B1F1088AB0023A8C1 /* Base.swift in Sources */,
+				7A72C26F1F14416600C766E9 /* MulticastDelegate.swift in Sources */,
 				7A1A1B531F107E950023A8C1 /* Condition.swift in Sources */,
 				7A72C26D1F14288A00C766E9 /* Forecast.swift in Sources */,
 				7A1A1B571F1083A80023A8C1 /* Location.swift in Sources */,
