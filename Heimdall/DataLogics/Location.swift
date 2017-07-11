@@ -129,3 +129,7 @@ extension Array where Element: Location {
         return nil
     }
 }
+
+func ==(lhs: Location, rhs: Location) -> Bool {
+    return lhs.city == rhs.city && lhs.countryCode == rhs.countryCode
+}
