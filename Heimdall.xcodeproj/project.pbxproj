@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7A1A1B101F1036470023A8C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B0F1F1036470023A8C1 /* AppDelegate.swift */; };
-		7A1A1B121F1036470023A8C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B111F1036470023A8C1 /* ViewController.swift */; };
+		7A1A1B121F1036470023A8C1 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B111F1036470023A8C1 /* LocationVC.swift */; };
 		7A1A1B151F1036480023A8C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B131F1036480023A8C1 /* Main.storyboard */; };
 		7A1A1B181F1036480023A8C1 /* Heimdall.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B161F1036480023A8C1 /* Heimdall.xcdatamodeld */; };
 		7A1A1B1A1F1036480023A8C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B191F1036480023A8C1 /* Assets.xcassets */; };
@@ -54,7 +54,7 @@
 /* Begin PBXFileReference section */
 		7A1A1B0C1F1036470023A8C1 /* Heimdall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heimdall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1A1B0F1F1036470023A8C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7A1A1B111F1036470023A8C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7A1A1B111F1036470023A8C1 /* LocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
 		7A1A1B141F1036480023A8C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A1A1B171F1036480023A8C1 /* Heimdall.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Heimdall.xcdatamodel; sourceTree = "<group>"; };
 		7A1A1B191F1036480023A8C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 		7A72C2771F14780700C766E9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7A1A1B111F1036470023A8C1 /* ViewController.swift */,
+				7A1A1B111F1036470023A8C1 /* LocationVC.swift */,
 				7A72C2751F14780300C766E9 /* PageViewController.swift */,
 			);
 			name = Controllers;
@@ -380,7 +380,7 @@
 				7A1A1B531F107E950023A8C1 /* Condition.swift in Sources */,
 				7A72C26D1F14288A00C766E9 /* Forecast.swift in Sources */,
 				7A1A1B571F1083A80023A8C1 /* Location.swift in Sources */,
-				7A1A1B121F1036470023A8C1 /* ViewController.swift in Sources */,
+				7A1A1B121F1036470023A8C1 /* LocationVC.swift in Sources */,
 				7AEE3B871F12AABB003BC81F /* Hourly.swift in Sources */,
 				7A72C2721F1458B100C766E9 /* HourForecastCollectionViewCell.swift in Sources */,
 				7A1A1B421F1036CE0023A8C1 /* WeatherDataManager.swift in Sources */,
