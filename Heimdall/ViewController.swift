@@ -16,6 +16,10 @@ class ViewController: UIViewController, WeatherDataManagerDelegate {
     
     @IBOutlet weak var temp_c: UILabel!
     
+    @IBOutlet weak var hourly: UICollectionView!
+    
+    @IBOutlet weak var daily: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,11 +31,11 @@ class ViewController: UIViewController, WeatherDataManagerDelegate {
 
     //MARK: WeatherDataManagerDelegate
     
-    func weatherDataWill(request: DataManager.Request) {
+    func weatherDataWill(request: DataManager.APIRequest) {
         print("Will request...")
     }
     
-    func weatherDidChange(for location: Location, request: DataManager.Request) {
+    func weatherDidChange(for location: Location, request: DataManager.APIRequest) {
         switch request.0 {
         case .conditions:
             print(location.city + ", " + location.country + ": " + String(describing: location.condition?.celsius))
@@ -70,7 +74,7 @@ class ViewController: UIViewController, WeatherDataManagerDelegate {
         }
     }
     
-    func didReceiveWeatherFetchingError(request: DataManager.Request, error: WeatherError?) {
+    func didReceiveWeatherFetchingError(request: DataManager.APIRequest, error: WeatherError?) {
         print("EROARE...")
     }
 }

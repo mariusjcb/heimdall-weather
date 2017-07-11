@@ -36,6 +36,12 @@ func ToDouble(from any: Any?) -> Double? {
     return (any as? String)?.toDouble() ?? (any as? Double)
 }
 
+func localPath(_ fileName: String) -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let documentsDirectory = paths[0]
+    return documentsDirectory.appendingPathComponent(fileName)
+}
+
 extension Date {
     init(_ hour: String, _ minute: String, _ year: String, _ month: String, _ day: String, _ offset: String) {
         var string = Defaults.dateFormat

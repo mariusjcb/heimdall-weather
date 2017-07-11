@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Hourly: RequestJSONDecodable
+class Hourly: JSONDecodableByRequest
 {
     weak var location: Location?
     var time: Date
@@ -87,7 +87,7 @@ class Hourly: RequestJSONDecodable
         self.location = nil
     }
     
-    required convenience init(json: Any, request: DataManager.Request) throws {
+    required convenience init(json: Any, request: DataManager.APIRequest) throws {
         try self.init(json: json)
         let hourlyAPI = Defaults.RestAPI.HourlyAPI.self
         
@@ -126,10 +126,42 @@ class Hourly: RequestJSONDecodable
         self.location = location
         self.time = Date(hour, minutes, year, month, day, self.location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        WeatherDataManager.shared.locations.append(aDecoder.decodeObject(forKey: "location") as! Location)
+        self.location = aDecoder.decodeObject(forKey: "location") as? Location
+        
+        icon = aDecoder.decodeObject(forKey: "icon") as! String
+        windDirection = aDecoder.decodeObject(forKey: "windDirection") as! String
+        humidity = aDecoder.decodeObject(forKey: "humidity") as! Double
+        celsius = aDecoder.decodeObject(forKey: "celsius") as! Double
+        celsiusFeels = aDecoder.decodeObject(forKey: "celsiusFeels") as! Double
+        weather = aDecoder.decodeObject(forKey: "weather") as! String
+        fahrenheit = aDecoder.decodeObject(forKey: "fahrenheit") as! Double
+        fahrenheitFeels = aDecoder.decodeObject(forKey: "fahrenheitFeels") as! Double
+        windDegrees = aDecoder.decodeObject(forKey: "windDegrees") as! Double
+        time = aDecoder.decodeObject(forKey: "time") as! Date
+    }
+}
+
+extension Hourly {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(location, forKey: "location")
+        aCoder.encode(time, forKey: "time")
+        aCoder.encode(humidity, forKey: "humidity")
+        aCoder.encode(weather, forKey: "weather")
+        aCoder.encode(icon, forKey: "icon")
+        aCoder.encode(celsius, forKey: "celsius")
+        aCoder.encode(celsiusFeels, forKey: "celsiusFeels")
+        aCoder.encode(fahrenheit, forKey: "fahrenheit")
+        aCoder.encode(fahrenheitFeels, forKey: "fahrenheitFeels")
+        aCoder.encode(windDirection, forKey: "windDirection")
+        aCoder.encode(windDegrees, forKey: "windDegrees")
+    }
 }
 
 extension Array where Element: Hourly {
-    init(json: Any, request: DataManager.Request) throws {
+    init(json: Any, request: DataManager.APIRequest) throws {
         self.init()
         
         let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self

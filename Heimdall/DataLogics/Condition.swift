@@ -174,7 +174,63 @@ class Condition: JSONDecodable
         self.location.condition = self
         
         if self.location.longitude == LocationManager.shared.longitude && self.location.latitude == LocationManager.shared.latitude {
+            let dynvar = Defaults.RestAPI.DynamicVariables.self
+            
+            WeatherDataManager.shared.tracked.append([
+                dynvar.city.rawValue: location.city,
+                dynvar.country.rawValue: location.countryCode
+            ])
+            
             WeatherDataManager.shared.currentLocation = self.location
         }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        uv = aDecoder.decodeObject(forKey: "uv") as! Double
+        humidity = aDecoder.decodeObject(forKey: "humidity") as! String
+        weather = aDecoder.decodeObject(forKey: "weather") as! String
+        icon = aDecoder.decodeObject(forKey: "icon") as! String
+        time = aDecoder.decodeObject(forKey: "time") as! Date
+        celsius = aDecoder.decodeObject(forKey: "celsius") as! Double
+        celsiusFeels = aDecoder.decodeObject(forKey: "celsiusFeels") as! Double
+        fahrenheit = aDecoder.decodeObject(forKey: "fahrenheit") as! Double
+        fahrenheitFeels = aDecoder.decodeObject(forKey: "fahrenheitFeels") as! Double
+        todayPrecipitationPerInch = aDecoder.decodeObject(forKey: "todayPrecipitationPerInch") as! Double
+        todayPrecipitationMetric = aDecoder.decodeObject(forKey: "todayPrecipitationMetric") as! Double
+        todayPrecipitationPerHourInch = aDecoder.decodeObject(forKey: "todayPrecipitationPerHourInch") as! Double
+        todayPrecipitationPerHourMetric = aDecoder.decodeObject(forKey: "todayPrecipitationPerHourMetric") as! Double
+        windDirection = aDecoder.decodeObject(forKey: "windDirection") as! String
+        windDegrees = aDecoder.decodeObject(forKey: "windDegrees") as! Double
+        windMpH = aDecoder.decodeObject(forKey: "windMpH") as! Double
+        windKpH = aDecoder.decodeObject(forKey: "windKpH") as! Double
+        pressureInch = aDecoder.decodeObject(forKey: "pressureInch") as! Double
+        pressureMetric = aDecoder.decodeObject(forKey: "pressureMetric") as! Double
+        
+        WeatherDataManager.shared.locations.append(aDecoder.decodeObject(forKey: "location") as! Location)
+        self.location = aDecoder.decodeObject(forKey: "location") as! Location
+    }
+}
+
+extension Condition {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(uv, forKey: "uv")
+        aCoder.encode(humidity, forKey: "humidity")
+        aCoder.encode(weather, forKey: "weather")
+        aCoder.encode(icon, forKey: "icon")
+        aCoder.encode(time, forKey: "time")
+        aCoder.encode(celsius, forKey: "celsius")
+        aCoder.encode(celsiusFeels, forKey: "celsiusFeels")
+        aCoder.encode(fahrenheit, forKey: "fahrenheit")
+        aCoder.encode(fahrenheitFeels, forKey: "fahrenheitFeels")
+        aCoder.encode(todayPrecipitationPerInch, forKey: "todayPrecipitationPerInch")
+        aCoder.encode(todayPrecipitationMetric, forKey: "todayPrecipitationMetric")
+        aCoder.encode(todayPrecipitationPerHourInch, forKey: "todayPrecipitationPerHourInch")
+        aCoder.encode(todayPrecipitationPerHourMetric, forKey: "todayPrecipitationPerHourMetric")
+        aCoder.encode(windDirection, forKey: "windDirection")
+        aCoder.encode(windDegrees, forKey: "windDegrees")
+        aCoder.encode(windMpH, forKey: "windMpH")
+        aCoder.encode(windKpH, forKey: "windKpH")
+        aCoder.encode(pressureInch, forKey: "pressureInch")
+        aCoder.encode(pressureMetric, forKey: "pressureMetric")
     }
 }

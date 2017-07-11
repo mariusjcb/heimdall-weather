@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Forecast: RequestJSONDecodable
+class Forecast: JSONDecodableByRequest
 {
     weak var location: Location?
     var time: Date
@@ -86,7 +86,7 @@ class Forecast: RequestJSONDecodable
         self.time = Date(hour, minutes, year, month, day, self.location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
     }
     
-    required convenience init(json: Any, request: DataManager.Request) throws {
+    required convenience init(json: Any, request: DataManager.APIRequest) throws {
         try self.init(json: json)
         
         guard let location = WeatherDataManager.shared.locations.get(by: request) else {
@@ -98,10 +98,37 @@ class Forecast: RequestJSONDecodable
         
         self.location = location
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        WeatherDataManager.shared.locations.append(aDecoder.decodeObject(forKey: "location") as! Location)
+        self.location = aDecoder.decodeObject(forKey: "location") as? Location
+        
+        icon = aDecoder.decodeObject(forKey: "icon") as! String
+        weather = aDecoder.decodeObject(forKey: "weather") as! String
+        lowCelsius = aDecoder.decodeObject(forKey: "lowCelsius") as! Double
+        highCelsius = aDecoder.decodeObject(forKey: "highCelsius") as! Double
+        highFahrenheit = aDecoder.decodeObject(forKey: "highFahrenheit") as! Double
+        lowFahrenheit = aDecoder.decodeObject(forKey: "lowFahrenheit") as! Double
+        time = aDecoder.decodeObject(forKey: "time") as! Date
+    }
+}
+
+extension Forecast {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(location, forKey: "location")
+        aCoder.encode(time, forKey: "time")
+        aCoder.encode(weather, forKey: "weather")
+        aCoder.encode(weather, forKey: "weather")
+        aCoder.encode(icon, forKey: "icon")
+        aCoder.encode(highCelsius, forKey: "highCelsius")
+        aCoder.encode(lowCelsius, forKey: "lowCelsius")
+        aCoder.encode(highFahrenheit, forKey: "highFahrenheit")
+        aCoder.encode(lowFahrenheit, forKey: "lowFahrenheit")
+    }
 }
 
 extension Array where Element: Forecast {
-    init(json: Any, request: DataManager.Request) throws {
+    init(json: Any, request: DataManager.APIRequest) throws {
         self.init()
         
         let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self

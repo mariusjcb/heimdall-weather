@@ -18,9 +18,9 @@ enum WeatherError: Error {
 }
 
 protocol WeatherDataManagerDelegate {
-    func weatherDataWill(request: DataManager.Request)
-    func weatherDidChange(for location: Location, request: DataManager.Request)
-    func didReceiveWeatherFetchingError(request: DataManager.Request, error: WeatherError?)
+    func weatherDataWill(request: DataManager.APIRequest)
+    func weatherDidChange(for location: Location, request: DataManager.APIRequest)
+    func didReceiveWeatherFetchingError(request: DataManager.APIRequest, error: WeatherError?)
 }
 
 /**
@@ -45,7 +45,7 @@ protocol WeatherDataManagerDelegate {
  */
 
 final class WeatherDataManager: DataManager {
-    typealias WeatherDataCompletion = DataManager.DataCompletion
+    typealias WeatherDataCompletion = DataManager.APIDataCompletion
     
     class var shared: WeatherDataManager
     {
@@ -60,8 +60,19 @@ final class WeatherDataManager: DataManager {
     var delegates = MulticastDelegate<WeatherDataManagerDelegate>()
     
     // NSPointerArray.weakObjects()
-    var locations = [Location]()
-    weak var currentLocation: Location?
+    final var locations = [Location]()
+    final weak var currentLocation: Location?
+    var tracked = [[String:String]]() {
+        didSet {
+            let data = NSKeyedArchiver.archivedData(withRootObject: tracked)
+            
+            do {
+                try data.write(to: localPath(Defaults.locationsFileName))
+            } catch {
+                printError(NSLocalizedString("Couldn't write file", comment: ""))
+            }
+        }
+    }
     
     private var _apiURL: URL?
     var apiURL: URL? { return _apiURL }
@@ -69,6 +80,16 @@ final class WeatherDataManager: DataManager {
     //MARK: - Initlizer
     private init(URLString url: String?)
     {
+        let path = localPath(Defaults.locationsFileName)
+        if let loadedStrings = NSKeyedUnarchiver.unarchiveObject(withFile: path.absoluteString) as? [[String:String]] {
+            tracked = loadedStrings
+            let dynvar = Defaults.RestAPI.DynamicVariables.self
+            
+            for loc in tracked {
+                WeatherDataManager.conditions(forCity: loc[dynvar.city.rawValue]!, country: loc[dynvar.country.rawValue]!)
+            }
+        }
+        
         if let URLStringUnwrapped = url
         {
             self._apiURL = URL(string: URLStringUnwrapped)
@@ -79,7 +100,7 @@ final class WeatherDataManager: DataManager {
     }
     
     //MARK: - RestAPI Usage
-    private func query(for params: DataManager.RequestParams, by format: Defaults.RestAPI.QueryFormat = .coordinates,
+    private func query(for params: DataManager.APIRequestParams, by format: Defaults.RestAPI.QueryFormat = .coordinates,
                        as endpoint: Defaults.RestAPI.EndPoints = .conditions) -> String {
         var endpointFormat = Defaults.RestAPI.URL.endpointFormat.rawValue
         
@@ -99,7 +120,7 @@ final class WeatherDataManager: DataManager {
         return endpointFormat
     }
     
-    func weatherData(for params: DataManager.RequestParams, by format: Defaults.RestAPI.QueryFormat = .coordinates,
+    func weatherData(for params: DataManager.APIRequestParams, by format: Defaults.RestAPI.QueryFormat = .coordinates,
                         as endpoint: Defaults.RestAPI.EndPoints = .conditions, handler: WeatherDataCompletion? = nil)
     {
         if Defaults.RestAPI.forecasts.contains(endpoint) {
@@ -151,7 +172,7 @@ final class WeatherDataManager: DataManager {
     
     func weatherData(forCity city: String, country: String, as endpoint: Defaults.RestAPI.EndPoints = .conditions, handler: WeatherDataCompletion? = nil)
     {
-        let params: DataManager.RequestParams = [
+        let params: DataManager.APIRequestParams = [
             .country    :  country,
             .city       :  city
         ]
@@ -161,7 +182,7 @@ final class WeatherDataManager: DataManager {
     
     func weatherData(forLatitude lat: Double, longitude long: Double, as endpoint: Defaults.RestAPI.EndPoints = .conditions, handler: WeatherDataCompletion? = nil)
     {
-        let params: DataManager.RequestParams = [
+        let params: DataManager.APIRequestParams = [
             .latitude   :   String(describing: lat),
             .longitude  :   String(describing: long)
         ]
@@ -182,6 +203,17 @@ final class WeatherDataManager: DataManager {
         shared.weatherData(forLatitude: lat, longitude: long, as: .forecast, handler: WeatherDataManager.hourlyAPIHandler)
     }
     
+    static func weather(forLatitude lat: Double, longitude long: Double) {
+        shared.weatherData(forLatitude: lat, longitude: long, as: .conditions) { (data, request, error) in
+            do {
+                let _ = try parse(condition: data, for: request, error: error)
+                forecasts(request: request)
+            } catch {
+                errorHandler(with: error, request: request)
+            }
+        }
+    }
+    
     static func conditions(forCity city: String, country: String) {
         shared.weatherData(forCity: city, country: country, as: .conditions, handler: WeatherDataManager.conditionAPIHandler)
     }
@@ -194,27 +226,32 @@ final class WeatherDataManager: DataManager {
         shared.weatherData(forCity: city, country: country, as: .forecast, handler: WeatherDataManager.hourlyAPIHandler)
     }
     
-    static func weather(forLatitude lat: Double, longitude long: Double) {
-        shared.weatherData(forLatitude: lat, longitude: long, as: .conditions) { (data, request, error) in
+    static func weather(forCity city: String, country: String) {
+        shared.weatherData(forCity: city, country: country, as: .conditions) { (data, request, error) in
             do {
                 let _ = try parse(condition: data, for: request, error: error)
-                shared.weatherData(forLatitude: lat, longitude: long, as: .hourly) { (data, request, error) in
-                    do {
-                        let _ = try parse(hourly: data, for: request, error: error)
-                        shared.weatherData(forLatitude: lat, longitude: long, as: .forecast) { (data, request, error) in
-                            do {
-                                let location = shared.locations.get(by: request)
-                                location?.lastForecastsUpdate = Date()
-                                
-                                let _ = try parse(forecast: data, for: request, error: error) //mama ei de pyramid of doom ...
-                            } catch {
-                                errorHandler(with: error, request: request)
-                            }
-                        }
-                    } catch {
-                        errorHandler(with: error, request: request)
-                    }
-                }
+                forecasts(request: request)
+            } catch {
+                errorHandler(with: error, request: request)
+            }
+        }
+    }
+    
+    static func forecasts(request: DataManager.APIRequest) {
+        shared.weatherData(for: request.2, by: request.1, as: .hourly) { (data, request, error) in
+            do {
+                let _ = try parse(hourly: data, for: request, error: error)
+            } catch {
+                errorHandler(with: error, request: request)
+            }
+        }
+        
+        shared.weatherData(for: request.2, by: request.1, as: .forecast) { (data, request, error) in
+            do {
+                let location = shared.locations.get(by: request)
+                location?.lastForecastsUpdate = Date()
+                
+                let _ = try parse(forecast: data, for: request, error: error)
             } catch {
                 errorHandler(with: error, request: request)
             }
@@ -223,7 +260,7 @@ final class WeatherDataManager: DataManager {
     
     //Unmanaged.passUnretained(obj).toOpaque()
     //MARK: - Fetch methods
-    static func parse(condition response: Any?, for request: DataManager.Request, error: Error?) throws -> Condition? {
+    static func parse(condition response: Any?, for request: DataManager.APIRequest, error: Error?) throws -> Condition? {
         if error != nil { return nil }
         
         let endpoint = request.0
@@ -244,7 +281,7 @@ final class WeatherDataManager: DataManager {
         return condition
     }
     
-    static func parse(hourly response: Any?, for request: DataManager.Request, error: Error?) throws -> [Hourly]? {
+    static func parse(hourly response: Any?, for request: DataManager.APIRequest, error: Error?) throws -> [Hourly]? {
         if error != nil { return nil }
         
         let endpoint = request.0
@@ -274,7 +311,7 @@ final class WeatherDataManager: DataManager {
         return hourlyConditions
     }
     
-    static func parse(forecast response: Any?, for request: DataManager.Request, error: Error?) throws -> [Forecast]? {
+    static func parse(forecast response: Any?, for request: DataManager.APIRequest, error: Error?) throws -> [Forecast]? {
         if error != nil { return nil }
         
         let endpoint = request.0
@@ -305,7 +342,7 @@ final class WeatherDataManager: DataManager {
     }
     
     //MARK: - Default CompletionHandlers
-    static func errorHandler(with error: Error, request: DataManager.Request) {
+    static func errorHandler(with error: Error, request: DataManager.APIRequest) {
         switch error {
         case .missing(let member) as SerializationError:
             printError(NSLocalizedString("Missing", comment: "") + " " + member)
@@ -336,7 +373,7 @@ final class WeatherDataManager: DataManager {
         }
     }
     
-    static let conditionAPIHandler: DataManager.DataCompletion = { (response, request, error) in
+    static let conditionAPIHandler: DataManager.APIDataCompletion = { (response, request, error) in
         do {
             _ = try parse(condition: response, for: request, error: error)
         } catch {
@@ -344,7 +381,7 @@ final class WeatherDataManager: DataManager {
         }
     }
     
-    static let hourlyAPIHandler: DataManager.DataCompletion = { (response, request, error) in
+    static let hourlyAPIHandler: DataManager.APIDataCompletion = { (response, request, error) in
         do {
             _ = try parse(hourly: response, for: request, error: error)
         } catch {

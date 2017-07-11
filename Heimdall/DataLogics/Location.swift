@@ -27,7 +27,7 @@ class Location: JSONDecodable
     
     var lastForecastsUpdate: Date? = nil
     
-    
+
     //MARK: - Failable Initializer
     required init(json: Any) throws {
         let locationAPI = Defaults.RestAPI.LocationAPI.self
@@ -70,7 +70,38 @@ class Location: JSONDecodable
         
         self.timeOffset = String(describing: TimeZone.current.secondsFromGMT())
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        city = aDecoder.decodeObject(forKey: "city") as! String
+        country = aDecoder.decodeObject(forKey: "country") as! String
+        countryCode = aDecoder.decodeObject(forKey: "countryCode") as! String
+        latitude = aDecoder.decodeObject(forKey: "latitude") as! Double
+        longitude = aDecoder.decodeObject(forKey: "longitude") as! Double
+        elevation = aDecoder.decodeObject(forKey: "elevation") as! Double
+        timeOffset = aDecoder.decodeObject(forKey: "timeOffset") as! String
+        condition = aDecoder.decodeObject(forKey: "condition") as? Condition
+        forecast = aDecoder.decodeObject(forKey: "forecast") as! [Forecast]
+        hourForecast = aDecoder.decodeObject(forKey: "hourForecast") as! [Hourly]
+        lastForecastsUpdate = aDecoder.decodeObject(forKey: "lastForecastsUpdate") as? Date
+    }
 }
+
+extension Location {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(city, forKey: "city")
+        aCoder.encode(country, forKey: "country")
+        aCoder.encode(countryCode, forKey: "countryCode")
+        aCoder.encode(latitude, forKey: "latitude")
+        aCoder.encode(longitude, forKey: "longitude")
+        aCoder.encode(elevation, forKey: "elevation")
+        aCoder.encode(timeOffset, forKey: "timeOffset")
+        aCoder.encode(condition, forKey: "condition")
+        aCoder.encode(forecast, forKey: "forecast")
+        aCoder.encode(hourForecast, forKey: "hourForecast")
+        aCoder.encode(lastForecastsUpdate, forKey: "lastForecastsUpdate")
+    }
+}
+
 
 extension Array where Element: Location {
     mutating func append(location newElement: Element) -> Element {
@@ -81,10 +112,10 @@ extension Array where Element: Location {
         }
         
         self.append(newElement)
-        return self.last!
+        return newElement
     }
     
-    func get(by request: DataManager.Request) -> Element? {
+    func get(by request: DataManager.APIRequest) -> Element? {
         let (format, params) = (request.1, request.2)
         
         for elem in self {

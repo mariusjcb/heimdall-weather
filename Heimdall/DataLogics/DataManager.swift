@@ -10,16 +10,16 @@ import Foundation
 
 class DataManager
 {
-    typealias RequestParams = [Defaults.RestAPI.DynamicVariables: String]
-    typealias Request = (Defaults.RestAPI.EndPoints, Defaults.RestAPI.QueryFormat, RequestParams)
-    typealias DataCompletion = (_ json: Any?, _ from: Request, _ error: DataManagerError?) -> ()
+    typealias APIRequestParams = [Defaults.RestAPI.DynamicVariables: String]
+    typealias APIRequest = (Defaults.RestAPI.EndPoints, Defaults.RestAPI.QueryFormat, APIRequestParams)
+    typealias APIDataCompletion = (_ json: Any?, _ from: APIRequest, _ error: DataManagerError?) -> ()
     
-    func didFetch(data: Data?, response: URLResponse?, request: Request, error: Error?, handler: DataCompletion? = nil)
+    func didFetch(data: Data?, response: URLResponse?, request: APIRequest, error: Error?, handler: APIDataCompletion? = nil)
     {
         if let handler = handler, let _ = error
         {
             printError(NSLocalizedString("Failed requesting RestAPI", comment: ""))
-            handler(nil, request, .failedRequest)
+            handler(nil, request, .failedAPIRequest)
             return
         } else if let data = data, let response = response as? HTTPURLResponse
         {
@@ -27,7 +27,7 @@ class DataManager
                 process(data: data, request: request, handler: handler)
             } else if let handler = handler {
                 printError(NSLocalizedString("Failed requesting RestAPI", comment: ""))
-                handler(nil, request, .failedRequest)
+                handler(nil, request, .failedAPIRequest)
             }
         } else if let handler = handler {
             printError(NSLocalizedString("Unknown Error", comment: ""))
@@ -35,7 +35,7 @@ class DataManager
         }
     }
     
-    func process(data: Data, request: Request, handler: DataCompletion? = nil)
+    func process(data: Data, request: APIRequest, handler: APIDataCompletion? = nil)
     {
         guard let handler = handler else {
             if let json = String(data: data, encoding: String.Encoding.utf8) { printJSON(json) }
@@ -48,13 +48,13 @@ class DataManager
     }
 }
 
-protocol RequestJSONDecodable {
-    init(json: Any, request: DataManager.Request) throws
+protocol JSONDecodableByRequest: NSCoding {
+    init(json: Any, request: DataManager.APIRequest) throws
 }
 
 enum DataManagerError: Error {
     case unknown
-    case failedRequest
+    case failedAPIRequest
     case invalidResponse
     case invalidData
     case invalidEndpoint
