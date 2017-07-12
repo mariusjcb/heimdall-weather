@@ -9,6 +9,10 @@
 import Foundation
 import CoreLocation
 
+protocol LocationManagerDelegate {
+    func locationDidChange(latitude: Double, longitude: Double)
+}
+
 final class LocationManager: NSObject, CLLocationManagerDelegate {
     class var shared: LocationManager
     {
@@ -24,6 +28,8 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     var latitude = Defaults.errorDVal
     var longitude = Defaults.errorDVal
     
+    var delegates = MulticastDelegate<LocationManagerDelegate>()
+    
     //MARK: - Initlizer
     private override init()
     {
@@ -33,7 +39,7 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         {
             self.locationManager.delegate = self
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            self.locationManager.requestWhenInUseAuthorization()
+            self.locationManager.requestAlwaysAuthorization()
         }
     }
     
@@ -44,7 +50,9 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         latitude = locValue.latitude
         longitude = locValue.longitude
         
-        WeatherDataManager.weather(forLatitude: latitude, longitude: longitude)
+        delegates.invoke {
+            $0.locationDidChange(latitude: latitude, longitude: longitude)
+        }
     }
     
     func startMonitoringSignificantLocationChanges() {

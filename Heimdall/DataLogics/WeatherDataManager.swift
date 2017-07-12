@@ -44,8 +44,9 @@ protocol WeatherDataManagerDelegate {
  ```
  */
 
-final class WeatherDataManager: DataManager {
+class WeatherDataManager: DataManager, LocationManagerDelegate {
     typealias WeatherDataCompletion = DataManager.APIDataCompletion
+    typealias TrackedLocation = Dictionary<String, Double>
     
     class var shared: WeatherDataManager
     {
@@ -62,15 +63,9 @@ final class WeatherDataManager: DataManager {
     // NSPointerArray.weakObjects()
     final var locations = [Location]()
     final weak var currentLocation: Location?
-    var tracked = [[String:String]]() {
+    var tracked = [TrackedLocation]() {
         didSet {
-            let data = NSKeyedArchiver.archivedData(withRootObject: tracked)
-            
-            do {
-                try data.write(to: localPath(Defaults.locationsFileName))
-            } catch {
-                printError(NSLocalizedString("Couldn't write file", comment: ""))
-            }
+            UserDefaults.standard.set(tracked, forKey: Defaults.trackedUDName)
         }
     }
     
@@ -80,15 +75,7 @@ final class WeatherDataManager: DataManager {
     //MARK: - Initlizer
     private init(URLString url: String?)
     {
-        let path = localPath(Defaults.locationsFileName)
-        if let loadedStrings = NSKeyedUnarchiver.unarchiveObject(withFile: path.absoluteString) as? [[String:String]] {
-            tracked = loadedStrings
-            let dynvar = Defaults.RestAPI.DynamicVariables.self
-            
-            for loc in tracked {
-                WeatherDataManager.conditions(forCity: loc[dynvar.city.rawValue]!, country: loc[dynvar.country.rawValue]!)
-            }
-        }
+        super.init()
         
         if let URLStringUnwrapped = url
         {
@@ -96,7 +83,44 @@ final class WeatherDataManager: DataManager {
             if _apiURL == nil {
                 printError(NSLocalizedString("Invalid URL:", comment: "") + " " +  String(describing: URLStringUnwrapped))
             }
+            
+            LocationManager.shared.delegates.add(self)
+            LocationManager.shared.startMonitoringSignificantLocationChanges()
+            
+            if let loaded = UserDefaults.standard.object(forKey: Defaults.trackedUDName) as? [TrackedLocation] {
+                tracked = loaded
+                
+                let dynvar = Defaults.RestAPI.DynamicVariables.self
+                for loc in tracked {
+                    weatherData(forLatitude: loc[dynvar.latitude.rawValue]!, longitude: loc[dynvar.longitude.rawValue]!, handler: WeatherDataManager.conditionAPIHandler)
+                }
+            }
         } else { printError(NSLocalizedString("API URL is nil", comment: "")) }
+    }
+    
+    //MARK: - Data
+    func track(latitude: Double, longitude: Double) {
+        let dynvar = Defaults.RestAPI.DynamicVariables.self
+        
+        let toTrack = [
+            dynvar.latitude.rawValue: latitude,
+            dynvar.longitude.rawValue: longitude
+        ]
+        
+        guard tracked.contains(where: { $0 == toTrack }) == false else { return }
+        tracked.append(toTrack)
+    }
+    
+    func untrack(latitude: Double, longitude: Double) {
+        let dynvar = Defaults.RestAPI.DynamicVariables.self
+        
+        let toTrack = [
+            dynvar.latitude.rawValue: latitude,
+            dynvar.longitude.rawValue: longitude
+        ]
+        
+        guard let index = tracked.index(where: { $0 == toTrack }) else { return }
+        tracked.remove(at: index)
     }
     
     //MARK: - RestAPI Usage
@@ -151,8 +175,7 @@ final class WeatherDataManager: DataManager {
         
         let path = query(for: params, by: format, as: endpoint)
         
-        guard let callURL = apiURL?.append(path) else
-        {
+        guard let callURL = apiURL?.append(path) else {
             printError(NSLocalizedString("Invalid path:", comment: "") + " " +  String(describing: path))
             return
         }
@@ -165,8 +188,29 @@ final class WeatherDataManager: DataManager {
             }
         }
         
-        URLSession.shared.dataTask(with: callURL) { (data, response, error) in
-            self.didFetch(data: data, response: response, request: (endpoint, format, params), error: error, handler: handler)
+        URLSession.shared.dataTask(with: callURL) { [weak self] (data, response, error) in
+            self?.didFetch(data: data, response: response, request: (endpoint, format, params), error: error) { [weak self]
+                (json, request, error) in
+                
+                guard error == nil else {
+                    self?.delegates.invoke { (delegate) in
+                        DispatchQueue.main.async {
+                            delegate.didReceiveWeatherFetchingError(
+                                request: (endpoint, format, params),
+                                error: .message(
+                                    NSLocalizedString("Runtime Exception", comment: ""),
+                                    error?.localizedDescription ?? NSLocalizedString("Unknown Error", comment: "")
+                                )
+                            )
+                        }
+                    }
+                    return
+                }
+                
+                if let handler = handler {
+                    handler(json, request, error)
+                }
+            }
         }.resume()
     }
     
@@ -191,7 +235,7 @@ final class WeatherDataManager: DataManager {
     }
     
     //MARK: - Quick call methods
-    static func conditions(forLatitude lat: Double, longitude long: Double) {
+    static func conditions(forLatitude lat: Double, longitude long: Double) {print(lat)
         shared.weatherData(forLatitude: lat, longitude: long, as: .conditions, handler: WeatherDataManager.conditionAPIHandler)
     }
     
@@ -387,5 +431,11 @@ final class WeatherDataManager: DataManager {
         } catch {
             errorHandler(with: error, request: request)
         }
+    }
+    
+    //MARK: LocationManagerDelegate
+    
+    func locationDidChange(latitude: Double, longitude: Double) {
+        weatherData(forLatitude: latitude, longitude: longitude, handler: WeatherDataManager.conditionAPIHandler)
     }
 }

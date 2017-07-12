@@ -27,6 +27,7 @@
 "URL called:" = "URL apelat:";
 "Missing" = "Lipseste";
 "Couldn't write file" = "Nu pot scrie fisierul";
+"Data processing need a handler" = "Procesarea datelor are nevoie de un handler";
 "Forecast Update: Location not found in WeatherDataManager" = "Forecast Update: Locatie negasita in WeatherDataManager";
 "Runtime Exception" = "Exceptie de runtime";
 "Requested location not exist into WeatherDataManager, call condition API first." = "Locatia cautata nu a fost creata anterior. Apelati conditions API mai intai.";

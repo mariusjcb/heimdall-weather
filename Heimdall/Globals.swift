@@ -100,7 +100,7 @@ extension String {
         let formatter = NumberFormatter()
         formatter.decimalSeparator = separator
         
-        return formatter.number(from: self.contains("-") ? "0.0" : self)?.doubleValue
+        return formatter.number(from: self.contains("--") ? "0.0" : self)?.doubleValue
     }
 }
 

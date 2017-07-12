@@ -8,46 +8,120 @@
 
 import UIKit
 
-class PageViewController: UIPageViewController, WeatherDataManagerDelegate {
-    var vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LocationVC1") as! LocationVC
+class PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WeatherDataManagerDelegate
+{
+    let backgroundImage = UIImageView(image: UIImage(named: "colorful-bokeh-bubbles-effect-iphone-6-dark-bubble-bokeh-rain-drops-flare-outside-iphone-6-wallpaper-18"))
+    
+    var LocationViewControllers = [UIViewController]()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
-        self.dataSource = self as? UIPageViewControllerDataSource
-        self.delegate = self as? UIPageViewControllerDelegate
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        backgroundImage.clipsToBounds = true
+        self.view.insertSubview(backgroundImage, at: 0)
         
-        setViewControllers([vc],
+        self.dataSource = self
+        self.delegate = self
+        
+        guard let firstVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationVC") else {
+            return
+        }
+        
+        LocationViewControllers.append(firstVC)
+        updatePageControl()
+        
+        WeatherDataManager.shared.delegates.add(self)
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let vcIndex = LocationViewControllers.index(of: viewController) else {
+            return nil
+        }
+        
+        let prevIndex = vcIndex - 1
+        
+        guard LocationViewControllers.count > prevIndex && prevIndex >= 0 else {
+            return nil
+        }
+        
+        return LocationViewControllers[prevIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let vcIndex = LocationViewControllers.index(of: viewController) else {
+            return nil
+        }
+        
+        let nextIndex = vcIndex + 1
+        
+        guard LocationViewControllers.count > nextIndex else {
+            return nil
+        }
+        
+        return LocationViewControllers[nextIndex]
+    }
+    
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return LocationViewControllers.count
+    }
+    
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        guard let vcIndex = LocationViewControllers.index(of: pageViewController) else {
+            return 0
+        }
+        
+        return vcIndex
+    }
+    
+    func updatePageControl() {
+        let currentPage = viewControllers!.first?.view.tag ?? 0
+        
+        setViewControllers([LocationViewControllers[currentPage]],
                            direction: .forward,
                            animated: true,
                            completion: nil)
-        
-        WeatherDataManager.shared.delegates.add(self)
-        
-        _ = LocationManager.shared
-        LocationManager.shared.startMonitoringSignificantLocationChanges()
     }
     
-    //MARK: WeatherDataManagerDelegate
+    //MARK: - WeatherDataManagerDelegate
     
     func weatherDataWill(request: DataManager.APIRequest) {
-        print("Will request...")
+        print("LOADING...")
     }
     
     func weatherDidChange(for location: Location, request: DataManager.APIRequest) {
-        for vc in viewControllers! {
+        var okVC = false
+        
+        for vc in LocationViewControllers.reversed() {
             let vc = vc as! LocationVC
             var ok = false
             
-            if location.city == vc.params[.city] && location.country == vc.params[.country] {
+            if location.city == vc.location?.city && location.countryCode == vc.location?.countryCode {
                 ok = true
-            } else if location.longitude == ToDouble(from: vc.params[.longitude]) && location.latitude == ToDouble(from: vc.params[.latitude]) {
-                ok = true
-            } else if let cLoc = WeatherDataManager.shared.currentLocation, location == cLoc && vc.index == 0 {
+            } else if let cLoc = WeatherDataManager.shared.currentLocation,
+                location.city == cLoc.city && location.countryCode == cLoc.countryCode && vc.index == 0 {
                 ok = true
             }
             
-            vc.location = location
             guard ok else { continue }
+            
+            if vc.location == nil {
+                vc.location = location
+            } else {
+               vc.updateUI()
+            }
+            
+            okVC = true
+        }
+        
+        if okVC == false {
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationVC") as! LocationVC
+            
+            newVC.location = location
+            newVC.index = LocationViewControllers.count
+            
+            LocationViewControllers.append(newVC)
+            updatePageControl()
         }
     }
     

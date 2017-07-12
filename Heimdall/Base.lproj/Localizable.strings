@@ -27,6 +27,7 @@
 "URL called:" = "URL called:";
 "Missing" = "Missing";
 "Couldn't write file" = "Couldn't write file";
+"Data processing need a handler" = "Data processing need a handler";
 "Forecast Update: Location not found in WeatherDataManager" = "Forecast Update: Location not found in WeatherDataManager";
 "Runtime Exception" = "Runtime Exception";
 "Requested location not exist into WeatherDataManager, call condition API first." = "Requested location not exist into WeatherDataManager, call condition API first.";

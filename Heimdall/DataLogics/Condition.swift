@@ -39,8 +39,6 @@ class Condition: JSONDecodable
     let pressureInch: Double
     let pressureMetric: Double
     
-    
-    
     //MARK: - Failable Initializer
     required init(json: Any) throws {
         let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self
@@ -173,15 +171,11 @@ class Condition: JSONDecodable
         self.location = WeatherDataManager.shared.locations.append(location: location)
         self.location.condition = self
         
-        if self.location.longitude == LocationManager.shared.longitude && self.location.latitude == LocationManager.shared.latitude {
-            let dynvar = Defaults.RestAPI.DynamicVariables.self
-            
-            WeatherDataManager.shared.tracked.append([
-                dynvar.city.rawValue: location.city,
-                dynvar.country.rawValue: location.countryCode
-            ])
-            
+        if Int(self.location.longitude) == Int(LocationManager.shared.longitude),
+            Int(self.location.latitude) == Int(LocationManager.shared.latitude) {
             WeatherDataManager.shared.currentLocation = self.location
+        } else {
+            WeatherDataManager.shared.track(latitude: self.location.latitude, longitude: self.location.longitude)
         }
     }
     

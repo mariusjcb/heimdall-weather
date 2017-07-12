@@ -38,9 +38,7 @@ class DataManager
     func process(data: Data, request: APIRequest, handler: APIDataCompletion? = nil)
     {
         guard let handler = handler else {
-            if let json = String(data: data, encoding: String.Encoding.utf8) { printJSON(json) }
-            else { printError(NSLocalizedString("Data object can't be represented as utf8", comment: "")) }
-            
+            printError(NSLocalizedString("Data processing need a handler", comment: ""))
             return
         }
         
