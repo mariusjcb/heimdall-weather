@@ -83,19 +83,21 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
             if _apiURL == nil {
                 printError(NSLocalizedString("Invalid URL:", comment: "") + " " +  String(describing: URLStringUnwrapped))
             }
-            
-            LocationManager.shared.delegates.add(self)
-            LocationManager.shared.startMonitoringSignificantLocationChanges()
-            
-            if let loaded = UserDefaults.standard.object(forKey: Defaults.trackedUDName) as? [TrackedLocation] {
-                tracked = loaded
-                
-                let dynvar = Defaults.RestAPI.DynamicVariables.self
-                for loc in tracked {
-                    weatherData(forLatitude: loc[dynvar.latitude.rawValue]!, longitude: loc[dynvar.longitude.rawValue]!, handler: WeatherDataManager.conditionAPIHandler)
-                }
-            }
         } else { printError(NSLocalizedString("API URL is nil", comment: "")) }
+    }
+    
+    func loadData() {
+        LocationManager.shared.delegates.add(self)
+        LocationManager.shared.startMonitoringSignificantLocationChanges()
+        
+        if let loaded = UserDefaults.standard.object(forKey: Defaults.trackedUDName) as? [TrackedLocation] {
+            tracked = loaded
+            
+            let dynvar = Defaults.RestAPI.DynamicVariables.self
+            for loc in tracked {
+                WeatherDataManager.weather(forLatitude: loc[dynvar.latitude.rawValue]!, longitude: loc[dynvar.longitude.rawValue]!)
+            }
+        }
     }
     
     //MARK: - Data
@@ -311,6 +313,13 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         
         guard endpoint == .conditions else {
             printError(endpoint.rawValue + " " + NSLocalizedString("Is not a required endpoint by completion handler", comment: ""));
+            
+            shared.delegates.invoke { (delegate) in
+                DispatchQueue.main.async {
+                    delegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.missing("endpoint"))
+                }
+            }
+            
             return nil
         }
         
@@ -332,6 +341,13 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         
         guard endpoint == .hourly else {
             printError(endpoint.rawValue + " " + NSLocalizedString("Is not a required endpoint by completion handler", comment: ""));
+            
+            shared.delegates.invoke { (delegate) in
+                DispatchQueue.main.async {
+                    delegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.missing("endpoint"))
+                }
+            }
+            
             return nil
         }
         
@@ -436,6 +452,6 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
     //MARK: LocationManagerDelegate
     
     func locationDidChange(latitude: Double, longitude: Double) {
-        weatherData(forLatitude: latitude, longitude: longitude, handler: WeatherDataManager.conditionAPIHandler)
+        WeatherDataManager.weather(forLatitude: latitude, longitude: longitude)
     }
 }

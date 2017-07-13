@@ -32,6 +32,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         updatePageControl()
         
         WeatherDataManager.shared.delegates.add(self)
+        WeatherDataManager.shared.loadData()
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -41,7 +42,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         let prevIndex = vcIndex - 1
         
-        guard LocationViewControllers.count > prevIndex && prevIndex >= 0 else {
+        guard prevIndex >= 0 else {
             return nil
         }
         
