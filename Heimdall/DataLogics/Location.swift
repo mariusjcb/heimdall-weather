@@ -121,7 +121,7 @@ extension Array where Element: Location {
         for elem in self {
             if format == .city && elem.city == params[.city] && elem.country == params[.country] {
                 return elem
-            } else if format == .coordinates && elem.longitude == ToDouble(from: params[.longitude]) && elem.latitude == ToDouble(from: params[.latitude]) {
+            } else if format == .coordinates && elem.longitude == ToDouble(from: params[.longitude]!) && elem.latitude == ToDouble(from: params[.latitude]!) {
                 return elem
             }
         }
@@ -132,4 +132,8 @@ extension Array where Element: Location {
 
 func ==(lhs: Location, rhs: Location) -> Bool {
     return lhs.city == rhs.city && lhs.countryCode == rhs.countryCode
+}
+
+protocol JSONDecodableWithLocation: NSCoding {
+    init(json: Any, location: Location?) throws
 }

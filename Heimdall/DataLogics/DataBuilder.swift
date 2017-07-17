@@ -18,7 +18,6 @@ protocol JSONDecodable: NSCoding {
     init(json: Any) throws
 }
 
-
 final class DataBuilder
 {
     typealias DataBuilderCompletion = (_ json: Any?, _ from: Defaults.RestAPI.EndPoints, _ error: SerializationError?) -> Void

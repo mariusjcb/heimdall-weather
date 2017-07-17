@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Forecast: JSONDecodableByRequest
+class Forecast: JSONDecodableWithLocation
 {
     weak var location: Location?
     var time: Date
@@ -23,7 +23,7 @@ class Forecast: JSONDecodableByRequest
     let lowFahrenheit: Double
     
     //MARK: - Failable Initializer
-    private init(json: Any) throws {
+    required init(json: Any, location: Location?) throws {
         let forecastAPI = Defaults.RestAPI.ForecastAPI.self
         
         guard let json = json as? [String: Any] else {
@@ -82,21 +82,8 @@ class Forecast: JSONDecodableByRequest
         self.highFahrenheit = highFahrenheit
         self.lowFahrenheit = lowFahrenheit
         
-        self.location = nil
-        self.time = Date(hour, minutes, year, month, day, self.location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
-    }
-    
-    required convenience init(json: Any, request: DataManager.APIRequest) throws {
-        try self.init(json: json)
-        
-        guard let location = WeatherDataManager.shared.locations.get(by: request) else {
-            throw SerializationError.message(
-                NSLocalizedString("Runtime Exception", comment: ""),
-                NSLocalizedString("Requested location not exist into WeatherDataManager, call condition API first.", comment: "")
-            )
-        }
-        
         self.location = location
+        self.time = Date(hour, minutes, year, month, day, self.location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -128,7 +115,7 @@ extension Forecast {
 }
 
 extension Array where Element: Forecast {
-    init(json: Any, request: DataManager.APIRequest) throws {
+    init(json: Any, location: Location?) throws {
         self.init()
         
         let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self
@@ -153,7 +140,7 @@ extension Array where Element: Forecast {
         }
         
         for forecastJSON in forecastArray {
-            let condition = try Forecast(json: forecastJSON, request: request)
+            let condition = try Forecast(json: forecastJSON, location: location)
             
             if let element = condition as? Element {
                 self.append(element)

@@ -351,20 +351,23 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
             return nil
         }
         
-        let hourlyConditions = try [Hourly](json: response!, request: request)
-        if let location = hourlyConditions[0].location {
-            location.hourForecast = hourlyConditions
-            
-            shared.delegates.invoke { (delegate) in
-                DispatchQueue.main.async {
-                    delegate.weatherDidChange(for: location, request: request)
-                }
-            }
-        } else {
+        guard let location = shared.locations.get(by: request) else {
             shared.delegates.invoke { (delegate) in
                 DispatchQueue.main.async {
                     delegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.locationNotFound)
                 }
+            }
+            
+            return nil
+        }
+        
+        let hourlyConditions = try [Hourly](json: response!, location: location)
+        
+        location.hourForecast = hourlyConditions
+        
+        shared.delegates.invoke { (delegate) in
+            DispatchQueue.main.async {
+                delegate.weatherDidChange(for: location, request: request)
             }
         }
         
@@ -381,20 +384,23 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
             return nil
         }
         
-        let forecastConditions = try [Forecast](json: response!, request: request)
-        if let location = forecastConditions[0].location {
-            location.forecast = forecastConditions
-            
-            shared.delegates.invoke { (delegate) in
-                DispatchQueue.main.async {
-                    delegate.weatherDidChange(for: location, request: request)
-                }
-            }
-        } else {
+        guard let location = shared.locations.get(by: request) else {
             shared.delegates.invoke { (delegate) in
                 DispatchQueue.main.async {
                     delegate.didReceiveWeatherFetchingError(request: request, error: WeatherError.locationNotFound)
                 }
+            }
+            
+            return nil
+        }
+        
+        let forecastConditions = try [Forecast](json: response!, location: location)
+        
+        location.forecast = forecastConditions
+        
+        shared.delegates.invoke { (delegate) in
+            DispatchQueue.main.async {
+                delegate.weatherDidChange(for: location, request: request)
             }
         }
         

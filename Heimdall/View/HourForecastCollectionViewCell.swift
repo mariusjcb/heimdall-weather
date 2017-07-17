@@ -9,21 +9,18 @@
 import UIKit
 
 class HourForecastCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var time: UILabel!
 
     @IBOutlet weak var icon: UIImageView!
     
     @IBOutlet weak var temp: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    convenience init(time: String, icon: String, temp: String) {
+    /*convenience init(time: String, icon: String, temp: String) {
         self.init()
+        
         self.time.text = time
         self.icon.image = UIImage(named: icon)
         self.temp.text = temp + "°"
-    }
+    }*/
 }

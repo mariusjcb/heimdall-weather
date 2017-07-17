@@ -8,9 +8,11 @@
 
 import UIKit
 
-class LocationVC: UIViewController, UICollectionViewDataSource {
+class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataSource
+{
     var index = 0
-    weak var location: Location? = nil {
+    
+    weak var location: Location? {
         didSet {
             updateUI()
         }
@@ -39,12 +41,13 @@ class LocationVC: UIViewController, UICollectionViewDataSource {
         hourly.backgroundColor = UIColor.clear
         hourly.backgroundView = UIView()
         
-        /*daily.delegate = self
-        daily.dataSource = self*/
+        daily.dataSource = self
+        daily.register(UINib(nibName: "DailyForecastTableViewCell", bundle: nil), forCellReuseIdentifier: "dayCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         updateUI()
     }
     
@@ -68,20 +71,17 @@ class LocationVC: UIViewController, UICollectionViewDataSource {
             print(formatter.string(from: hour.time) + ": " + hour.weather + ", " + String(describing: hour.celsius))
         }
         
-        hourly?.reloadData()
-        
         print(location.city + ", " + location.country + " Daily Weather:")
         for day in location.forecast {
             print(formatter.string(from: day.time) + ": " + day.weather + ", " + String(describing: day.highCelsius) + " | " + String(describing: day.lowCelsius))
         }
+        
+        hourly?.reloadData()
+        daily?.reloadData()
     }
     
     
     //MARK: - UICollectionViewDataSource
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return location?.hourForecast.count ?? 0
@@ -101,6 +101,30 @@ class LocationVC: UIViewController, UICollectionViewDataSource {
         cell.temp.text = "\(Int(hour.celsius))°"
         
         return cell
+    }
+    
+    
+    //MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, dd"
+        
+        let cell = daily.dequeueReusableCell(withIdentifier: "dayCell", for: indexPath) as! DailyForecastTableViewCell
+        guard let day = location?.forecast[indexPath.row] else { return cell }
+        
+        cell.day.text = formatter.string(from: day.time)
+        cell.icon.image = UIImage(named: day.icon)
+        cell.min.text = "\(Int(day.lowCelsius))°"
+        cell.max.text = "\(Int(day.highCelsius))°"
+        
+        cell.backgroundColor = cell.contentView.backgroundColor
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return location?.forecast.count ?? 0
     }
 }
 

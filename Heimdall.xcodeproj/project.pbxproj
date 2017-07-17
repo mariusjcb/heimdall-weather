@@ -28,6 +28,8 @@
 		7A72C2731F1458B100C766E9 /* HourForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A72C2711F1458B100C766E9 /* HourForecastCollectionViewCell.xib */; };
 		7A72C2761F14780300C766E9 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72C2751F14780300C766E9 /* PageViewController.swift */; };
 		7A8464721F113387007CFB35 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8464711F113387007CFB35 /* DataManager.swift */; };
+		7A9D10BA1F1CA53E0050495F /* DailyForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D10B81F1CA53E0050495F /* DailyForecastTableViewCell.swift */; };
+		7A9D10BB1F1CA53E0050495F /* DailyForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9D10B91F1CA53E0050495F /* DailyForecastTableViewCell.xib */; };
 		7AEE3B7C1F129C10003BC81F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AEE3B7E1F129C10003BC81F /* Localizable.strings */; };
 		7AEE3B871F12AABB003BC81F /* Hourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEE3B861F12AABB003BC81F /* Hourly.swift */; };
 		7AF8F05E1F13290000B58EAA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8F05D1F13290000B58EAA /* LocationManager.swift */; };
@@ -78,6 +80,8 @@
 		7A72C2711F1458B100C766E9 /* HourForecastCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HourForecastCollectionViewCell.xib; path = View/HourForecastCollectionViewCell.xib; sourceTree = "<group>"; };
 		7A72C2751F14780300C766E9 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = Controllers/PageViewController.swift; sourceTree = "<group>"; };
 		7A8464711F113387007CFB35 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = DataLogics/DataManager.swift; sourceTree = "<group>"; };
+		7A9D10B81F1CA53E0050495F /* DailyForecastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyForecastTableViewCell.swift; sourceTree = "<group>"; };
+		7A9D10B91F1CA53E0050495F /* DailyForecastTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailyForecastTableViewCell.xib; sourceTree = "<group>"; };
 		7AEE3B811F129D3F003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/Main.strings"; sourceTree = "<group>"; };
 		7AEE3B821F129D40003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		7AEE3B831F129D40003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -214,6 +218,8 @@
 			children = (
 				7A72C2701F1458B100C766E9 /* HourForecastCollectionViewCell.swift */,
 				7A72C2711F1458B100C766E9 /* HourForecastCollectionViewCell.xib */,
+				7A9D10B81F1CA53E0050495F /* DailyForecastTableViewCell.swift */,
+				7A9D10B91F1CA53E0050495F /* DailyForecastTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -345,6 +351,7 @@
 				7A1A1B1D1F1036480023A8C1 /* LaunchScreen.storyboard in Resources */,
 				7A1A1B1A1F1036480023A8C1 /* Assets.xcassets in Resources */,
 				7A1A1B151F1036480023A8C1 /* Main.storyboard in Resources */,
+				7A9D10BB1F1CA53E0050495F /* DailyForecastTableViewCell.xib in Resources */,
 				7A72C2731F1458B100C766E9 /* HourForecastCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,6 +379,7 @@
 			files = (
 				7A1A1B4D1F106B7F0023A8C1 /* ComputedDefaults.swift in Sources */,
 				7A8464721F113387007CFB35 /* DataManager.swift in Sources */,
+				7A9D10BA1F1CA53E0050495F /* DailyForecastTableViewCell.swift in Sources */,
 				7A1A1B5B1F1088AB0023A8C1 /* Base.swift in Sources */,
 				7A72C26F1F14416600C766E9 /* MulticastDelegate.swift in Sources */,
 				7A1A1B531F107E950023A8C1 /* Condition.swift in Sources */,

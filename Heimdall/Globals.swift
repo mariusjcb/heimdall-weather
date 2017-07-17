@@ -44,40 +44,37 @@ func localPath(_ fileName: String) -> URL {
 
 extension Date {
     init(_ hour: String, _ minute: String, _ year: String, _ month: String, _ day: String, _ offset: String) {
-        var string = Defaults.dateFormat
-        string = string.replacingOccurrences(of: "HH", with: hour)
-        string = string.replacingOccurrences(of: "mm", with: minute)
+        var dateString = Defaults.dateFormat
+        dateString = dateString.replacingOccurrences(of: "HH", with: hour)
+        dateString = dateString.replacingOccurrences(of: "mm", with: minute)
         
-        string = string.replacingOccurrences(of: "yyyy", with: year)
-        string = string.replacingOccurrences(of: "yy", with: year.substring(from: year.index(year.endIndex, offsetBy: -2)))
+        dateString = dateString.replacingOccurrences(of: "yyyy", with: year)
+        dateString = dateString.replacingOccurrences(of: "yy", with: year.substring(from: year.index(year.endIndex, offsetBy: -2)))
         
-        string = string.replacingOccurrences(of: "MMMM", with: month)
-        string = string.replacingOccurrences(of: "MMM", with: month)
-        string = string.replacingOccurrences(of: "MM", with: month)
+        dateString = dateString.replacingOccurrences(of: "MMMM", with: month)
+        dateString = dateString.replacingOccurrences(of: "MMM", with: month)
+        dateString = dateString.replacingOccurrences(of: "MM", with: month)
         
-        string = string.replacingOccurrences(of: "EEEEEE", with: day)
-        string = string.replacingOccurrences(of: "EEEEE", with: day)
-        string = string.replacingOccurrences(of: "EEE", with: day)
-        string = string.replacingOccurrences(of: "DD", with: day)
-        string = string.replacingOccurrences(of: "dd", with: day)
+        dateString = dateString.replacingOccurrences(of: "EEEEEE", with: day)
+        dateString = dateString.replacingOccurrences(of: "EEEEE", with: day)
+        dateString = dateString.replacingOccurrences(of: "EEE", with: day)
+        dateString = dateString.replacingOccurrences(of: "DD", with: day)
+        dateString = dateString.replacingOccurrences(of: "dd", with: day)
         
-        string = string.replacingOccurrences(of: "Z", with: offset)
+        dateString = dateString.replacingOccurrences(of: "Z", with: offset)
         
         let formatter = DateFormatter()
         formatter.dateFormat = Defaults.dateFormat
-        self = formatter.date(from: string) ?? Date()
+        self = formatter.date(from: dateString) ?? Date()
     }
     
     init(_ hour: Int, _ minute: String, _ year: Int, _ month: Int, _ day: Int, _ offset: String) {
         let yStr = "\(year)"
-        var hourStr: String = "\(hour)"
-        var monthStr: String = "\(month)"
-        var dayStr: String = "\(day)"
         
-        if hour < 10 { hourStr = "0\(minute))" }
-        if month < 10 { monthStr = "0\(minute))" }
-        if day < 10 { dayStr = "0\(minute))" }
-        
+        let hourStr = String(format: "%02d", hour)
+        let monthStr = String(format: "%02d", Int(month))
+        let dayStr = String(format: "%02d", day)
+        print("!!! \(offset)")
         self.init(hourStr, minute, yStr, monthStr, dayStr, offset)
     }
 }

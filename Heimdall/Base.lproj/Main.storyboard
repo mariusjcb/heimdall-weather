@@ -103,14 +103,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="skZ-C7-x0a">
-                                <rect key="frame" x="0.0" y="291" width="360" height="376"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="skZ-C7-x0a">
+                                <rect key="frame" x="16" y="291" width="343" height="376"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="skZ-C7-x0a" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="ITf-nn-Ln0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="skZ-C7-x0a" secondAttribute="trailing" constant="-1" id="Iub-m9-nE5"/>
+                            <constraint firstItem="skZ-C7-x0a" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ITf-nn-Ln0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="skZ-C7-x0a" secondAttribute="trailing" id="Iub-m9-nE5"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="skZ-C7-x0a" secondAttribute="bottom" id="LNn-6Z-smO"/>
                             <constraint firstItem="cJB-H1-UuZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O2V-jc-V8Q"/>
                             <constraint firstItem="otZ-d4-bnr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="U7f-PI-RZU"/>

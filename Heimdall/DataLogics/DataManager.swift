@@ -46,10 +46,6 @@ class DataManager
     }
 }
 
-protocol JSONDecodableByRequest: NSCoding {
-    init(json: Any, request: DataManager.APIRequest) throws
-}
-
 enum DataManagerError: Error {
     case unknown
     case failedAPIRequest

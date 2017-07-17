@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Hourly: JSONDecodableByRequest
+class Hourly: JSONDecodableWithLocation
 {
     weak var location: Location?
     var time: Date
@@ -29,12 +29,32 @@ class Hourly: JSONDecodableByRequest
     
     
     //MARK: - Failable Initializer
-    private init(json: Any) throws {
+    required init(json: Any, location: Location?) throws {
         let hourlyAPI = Defaults.RestAPI.HourlyAPI.self
         
         guard let json = json as? [String: Any] else {
             printError(NSLocalizedString("JSON can't be converted into a dictionary", comment: ""))
             throw SerializationError.missing(NSLocalizedString("Main JSON", comment: ""))
+        }
+        
+        guard let hour = json.findValue(path: hourlyAPI.hour) as? String else {
+            throw SerializationError.missing(hourlyAPI.hour)
+        }
+        
+        guard let minutes = json.findValue(path: hourlyAPI.minutes) as? String else {
+            throw SerializationError.missing(hourlyAPI.minutes)
+        }
+        
+        guard let day = json.findValue(path: hourlyAPI.day) as? String else {
+            throw SerializationError.missing(hourlyAPI.day)
+        }
+        
+        guard let month = json.findValue(path: hourlyAPI.month) as? String else {
+            throw SerializationError.missing(hourlyAPI.month)
+        }
+        
+        guard let year = json.findValue(path: hourlyAPI.year) as? String else {
+            throw SerializationError.missing(hourlyAPI.year)
         }
         
         guard let humidity = ToDouble(from: json.findValue(path: hourlyAPI.humidity)) else {
@@ -83,46 +103,6 @@ class Hourly: JSONDecodableByRequest
         self.windDirection = windDirection
         self.windDegrees = windDegrees
         
-        self.time = Date()
-        self.location = nil
-    }
-    
-    required convenience init(json: Any, request: DataManager.APIRequest) throws {
-        try self.init(json: json)
-        let hourlyAPI = Defaults.RestAPI.HourlyAPI.self
-        
-        guard let json = json as? [String: Any] else {
-            printError(NSLocalizedString("JSON can't be converted into a dictionary", comment: ""))
-            throw SerializationError.missing(NSLocalizedString("Main JSON", comment: ""))
-        }
-        
-        guard let hour = json.findValue(path: hourlyAPI.hour) as? String else {
-            throw SerializationError.missing(hourlyAPI.hour)
-        }
-        
-        guard let minutes = json.findValue(path: hourlyAPI.minutes) as? String else {
-            throw SerializationError.missing(hourlyAPI.minutes)
-        }
-        
-        guard let day = json.findValue(path: hourlyAPI.day) as? String else {
-            throw SerializationError.missing(hourlyAPI.day)
-        }
-        
-        guard let month = json.findValue(path: hourlyAPI.month) as? String else {
-            throw SerializationError.missing(hourlyAPI.month)
-        }
-        
-        guard let year = json.findValue(path: hourlyAPI.year) as? String else {
-            throw SerializationError.missing(hourlyAPI.year)
-        }
-        
-        guard let location = WeatherDataManager.shared.locations.get(by: request) else {
-            throw SerializationError.message(
-                NSLocalizedString("Runtime Exception", comment: ""),
-                NSLocalizedString("Requested location not exist into WeatherDataManager, call condition API first.", comment: "")
-            )
-        }
-        
         self.location = location
         self.time = Date(hour, minutes, year, month, day, self.location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
     }
@@ -161,7 +141,7 @@ extension Hourly {
 }
 
 extension Array where Element: Hourly {
-    init(json: Any, request: DataManager.APIRequest) throws {
+    init(json: Any, location: Location?) throws {
         self.init()
         
         let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self
@@ -186,7 +166,7 @@ extension Array where Element: Hourly {
         }
         
         for hourlyJSON in hoursArray {
-            let condition = try Hourly(json: hourlyJSON, request: request)
+            let condition = try Hourly(json: hourlyJSON, location: location)
             
             if let element = condition as? Element {
                 self.append(element)
