@@ -75,6 +75,13 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         return vcIndex
     }
     
+    func remove(_ vc: LocationVC) {
+        guard let index = LocationViewControllers.index(of: vc) else { return }
+        LocationViewControllers.remove(at: index)
+        updateIndexes()
+        updatePageControl()
+    }
+    
     func updatePageControl() {
         let currentPage = viewControllers!.first?.view.tag ?? 0
         
@@ -84,13 +91,18 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
                            completion: nil)
     }
     
-    //MARK: - WeatherDataManagerDelegate
-    
-    func weatherDataWill(request: DataManager.APIRequest) {
-        print("LOADING...")
+    func updateIndexes() {
+        for locvc in LocationViewControllers {
+            guard let locvc = locvc as? LocationVC else { continue }
+            guard let index = LocationViewControllers.index(of: locvc) else { continue }
+            
+            locvc.view.tag = index
+            locvc.index = index
+        }
     }
     
-    func weatherDidChange(for location: Location, request: DataManager.APIRequest) {
+    //MARK: Set location page
+    func set(location: Location) {
         var okVC = false
         
         for vc in LocationViewControllers.reversed() {
@@ -102,6 +114,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             } else if let cLoc = WeatherDataManager.shared.currentLocation,
                 location.city == cLoc.city && location.countryCode == cLoc.countryCode && vc.index == 0 {
                 ok = true
+                vc.removeBtn.removeFromSuperview()
             }
             
             guard ok else { continue }
@@ -109,7 +122,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             if vc.location == nil {
                 vc.location = location
             } else {
-               vc.updateUI()
+                vc.updateUI()
             }
             
             okVC = true
@@ -124,6 +137,16 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             LocationViewControllers.append(newVC)
             updatePageControl()
         }
+    }
+    
+    //MARK: - WeatherDataManagerDelegate
+    
+    func weatherDataWill(request: DataManager.APIRequest) {
+        print("LOADING...")
+    }
+    
+    func weatherDidChange(for location: Location, request: DataManager.APIRequest) {
+        set(location: location)
     }
     
     func didReceiveWeatherFetchingError(request: DataManager.APIRequest, error: WeatherError?) {

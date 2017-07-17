@@ -121,7 +121,8 @@ extension Array where Element: Location {
         for elem in self {
             if format == .city && elem.city == params[.city] && elem.country == params[.country] {
                 return elem
-            } else if format == .coordinates && elem.longitude == ToDouble(from: params[.longitude]!) && elem.latitude == ToDouble(from: params[.latitude]!) {
+            } else if format == .coordinates && Int(elem.longitude) == Int(ToDouble(from: params[.longitude]!)!)
+                && Int(elem.latitude) == Int(ToDouble(from: params[.latitude]!)!) {
                 return elem
             }
         }

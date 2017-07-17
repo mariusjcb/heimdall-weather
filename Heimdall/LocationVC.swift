@@ -19,8 +19,31 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
     }
     
     @IBAction func on(_ sender: Any) {
-        WeatherDataManager.weather(forLatitude: 48, longitude: 19)
-        WeatherDataManager.weather(forLatitude: 53, longitude: 14)
+        let alert = UIAlertController(title: "Locatie noua", message: "Introduceti tara si orasul\n\nPentru locatiile care nu apar sau nu se incarca corect verifica consola, api-ul returneaza un autocomplete cand nu stie sa gaseasca orasul :)", preferredStyle: .alert)
+        
+        alert.addTextField { $0.text = "UK" }
+        alert.addTextField { $0.text = "London" }
+        
+        alert.addAction(UIAlertAction(title: "Adauga", style: .default, handler: { [weak alert] (_) in
+            let country = alert?.textFields![0].text
+            let city = alert?.textFields![1].text
+            WeatherDataManager.weather(forCity: city!, country: country!)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Anuleaza", style: .default, handler: { [weak alert] (_) in
+            alert?.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBOutlet weak var removeBtn: UIButton!
+    @IBAction func remove(_ sender: UIButton) {
+        guard let location = location else { return }
+        WeatherDataManager.shared.untrack(latitude: location.latitude, longitude: location.longitude)
+        
+        guard let parentpvc = parent as? PageViewController else { return }
+        parentpvc.remove(self)
     }
     
     @IBOutlet weak var city: UILabel!
