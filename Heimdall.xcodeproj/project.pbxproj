@@ -30,6 +30,7 @@
 		7A8464721F113387007CFB35 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8464711F113387007CFB35 /* DataManager.swift */; };
 		7A9D10BA1F1CA53E0050495F /* DailyForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D10B81F1CA53E0050495F /* DailyForecastTableViewCell.swift */; };
 		7A9D10BB1F1CA53E0050495F /* DailyForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9D10B91F1CA53E0050495F /* DailyForecastTableViewCell.xib */; };
+		7ABB455E1F1CCD0100D0BABD /* BorderedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABB455D1F1CCD0100D0BABD /* BorderedCollectionView.swift */; };
 		7AEE3B7C1F129C10003BC81F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AEE3B7E1F129C10003BC81F /* Localizable.strings */; };
 		7AEE3B871F12AABB003BC81F /* Hourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEE3B861F12AABB003BC81F /* Hourly.swift */; };
 		7AF8F05E1F13290000B58EAA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8F05D1F13290000B58EAA /* LocationManager.swift */; };
@@ -82,6 +83,7 @@
 		7A8464711F113387007CFB35 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = DataLogics/DataManager.swift; sourceTree = "<group>"; };
 		7A9D10B81F1CA53E0050495F /* DailyForecastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyForecastTableViewCell.swift; sourceTree = "<group>"; };
 		7A9D10B91F1CA53E0050495F /* DailyForecastTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailyForecastTableViewCell.xib; sourceTree = "<group>"; };
+		7ABB455D1F1CCD0100D0BABD /* BorderedCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BorderedCollectionView.swift; path = View/BorderedCollectionView.swift; sourceTree = "<group>"; };
 		7AEE3B811F129D3F003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/Main.strings"; sourceTree = "<group>"; };
 		7AEE3B821F129D40003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		7AEE3B831F129D40003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		7A72C2741F1458B700C766E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7ABB455D1F1CCD0100D0BABD /* BorderedCollectionView.swift */,
 				7A72C2701F1458B100C766E9 /* HourForecastCollectionViewCell.swift */,
 				7A72C2711F1458B100C766E9 /* HourForecastCollectionViewCell.xib */,
 				7A9D10B81F1CA53E0050495F /* DailyForecastTableViewCell.swift */,
@@ -388,6 +391,7 @@
 				7A1A1B121F1036470023A8C1 /* LocationVC.swift in Sources */,
 				7AEE3B871F12AABB003BC81F /* Hourly.swift in Sources */,
 				7A72C2721F1458B100C766E9 /* HourForecastCollectionViewCell.swift in Sources */,
+				7ABB455E1F1CCD0100D0BABD /* BorderedCollectionView.swift in Sources */,
 				7A1A1B421F1036CE0023A8C1 /* WeatherDataManager.swift in Sources */,
 				7A1A1B4B1F104A9A0023A8C1 /* RestAPI.swift in Sources */,
 				7AF8F05E1F13290000B58EAA /* LocationManager.swift in Sources */,

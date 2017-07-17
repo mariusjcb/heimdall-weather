@@ -29,25 +29,24 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
     
     @IBOutlet weak var temp_c: UILabel!
     
-    @IBOutlet weak var hourly: UICollectionView!
+    @IBOutlet weak var hourly: BorderedCollectionView!
     
     @IBOutlet weak var daily: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        daily.dataSource = self
+        daily.register(UINib(nibName: "DailyForecastTableViewCell", bundle: nil), forCellReuseIdentifier: "dayCell")
+        
         hourly.dataSource = self
         hourly.register(UINib(nibName: "HourForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "hourCell")
         hourly.backgroundColor = UIColor.clear
         hourly.backgroundView = UIView()
-        
-        daily.dataSource = self
-        daily.register(UINib(nibName: "DailyForecastTableViewCell", bundle: nil), forCellReuseIdentifier: "dayCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         updateUI()
     }
     
@@ -78,13 +77,16 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
         
         hourly?.reloadData()
         daily?.reloadData()
+        
+        hourly?.updateLayers()
     }
     
     
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return location?.hourForecast.count ?? 0
+        let hours = location?.hourForecast.filter { Calendar.current.dateComponents([.hour], from: Date(), to: $0.time).hour! < 24 }
+        return hours?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -95,6 +97,12 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
         
         let cell = hourly.dequeueReusableCell(withReuseIdentifier: "hourCell", for: indexPath) as! HourForecastCollectionViewCell
         guard let hour = location?.hourForecast[indexPath.item] else { return cell }
+        
+        if hour.time.isToday() {
+            cell.day.text = NSLocalizedString("Today", comment: "")
+        } else {
+            cell.day.text = NSLocalizedString("Tomorrow", comment: "")
+        }
         
         cell.time.text = formatter.string(from: hour.time)
         cell.icon.image = UIImage(named: hour.icon)
@@ -113,7 +121,7 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
         let cell = daily.dequeueReusableCell(withIdentifier: "dayCell", for: indexPath) as! DailyForecastTableViewCell
         guard let day = location?.forecast[indexPath.row] else { return cell }
         
-        cell.day.text = formatter.string(from: day.time)
+        cell.day.text = day.time.isToday() ? NSLocalizedString("Today", comment: "") : formatter.string(from: day.time)
         cell.icon.image = UIImage(named: day.icon)
         cell.min.text = "\(Int(day.lowCelsius))°"
         cell.max.text = "\(Int(day.highCelsius))°"

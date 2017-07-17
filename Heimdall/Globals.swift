@@ -77,6 +77,11 @@ extension Date {
         print("!!! \(offset)")
         self.init(hourStr, minute, yStr, monthStr, dayStr, offset)
     }
+    
+    func isToday() -> Bool {
+        let calendar = Calendar.current
+        return calendar.isDateInToday(self)
+    }
 }
 
 extension String {

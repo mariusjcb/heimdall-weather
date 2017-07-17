@@ -18,13 +18,13 @@ class DailyForecastTableViewCell: UITableViewCell {
     
     @IBOutlet weak var max: UILabel!
     
-    /*convenience init(day: String, icon: String, min: String, max: String) {
+    convenience init(day: String, icon: String, min: String, max: String) {
         self.init()
         
         self.day.text = day
         self.icon.image = UIImage(named: icon)
         self.min.text = min + "°"
         self.max.text = max + "°"
-    }*/
+    }
     
 }

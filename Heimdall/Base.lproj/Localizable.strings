@@ -32,3 +32,5 @@
 "Runtime Exception" = "Runtime Exception";
 "Requested location not exist into WeatherDataManager, call condition API first." = "Requested location not exist into WeatherDataManager, call condition API first.";
 "Time from last all weather data update is too soon" = "Time from last all weather data update is too soon";
+"Today" = "Today";
+"Tomorrow" = "Tomorrow";
