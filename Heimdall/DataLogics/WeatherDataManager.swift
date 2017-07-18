@@ -143,6 +143,9 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         endpointFormat.replace(variable: Defaults.RestAPI.DynamicVariables.endpoint.rawValue, with: endpoint.rawValue)
         endpointFormat.replace(variable: Defaults.RestAPI.DynamicVariables.query.rawValue, with: queryFormat)
         
+        let lang = Locale.current.identifier.uppercased()
+        endpointFormat.replace(variable: Defaults.RestAPI.DynamicVariables.language.rawValue, with: lang)
+        
         return endpointFormat
     }
     

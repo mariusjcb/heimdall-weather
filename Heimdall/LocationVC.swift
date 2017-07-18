@@ -21,8 +21,8 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
     @IBAction func on(_ sender: Any) {
         let alert = UIAlertController(title: "Locatie noua", message: "Introduceti tara si orasul\n\nPentru locatiile care nu apar sau nu se incarca corect verifica consola, api-ul returneaza un autocomplete cand nu stie sa gaseasca orasul :)", preferredStyle: .alert)
         
-        alert.addTextField { $0.text = "UK" }
-        alert.addTextField { $0.text = "London" }
+        alert.addTextField { $0.text = "FR" }
+        alert.addTextField { $0.text = "Paris" }
         
         alert.addAction(UIAlertAction(title: "Adauga", style: .default, handler: { [weak alert] (_) in
             let country = alert?.textFields![0].text

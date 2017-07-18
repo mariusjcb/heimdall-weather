@@ -21,12 +21,13 @@ extension Defaults.RestAPI
         case city                       =   "CITY"
         case latitude                   =   "LAT"
         case longitude                  =   "LONG"
+        case language                   =   "LANG"
     }
     
     enum URL: String {
         case baseURL                    =   "http://api.wunderground.com/api"
         case authenticatedURLFormat     =   "{BASE_URL}/{API_KEY}"
-        case endpointFormat             =   "/{ENDPOINT}/q/{QUERY}"
+        case endpointFormat             =   "/{ENDPOINT}/lang:{LANG}/q/{QUERY}"
     }
     
     enum QueryFormat: String {

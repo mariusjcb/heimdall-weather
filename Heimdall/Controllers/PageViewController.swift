@@ -10,8 +10,7 @@ import UIKit
 
 class PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WeatherDataManagerDelegate
 {
-    let backgroundImage = UIImageView(image: UIImage(named: "colorful-bokeh-bubbles-effect-iphone-6-dark-bubble-bokeh-rain-drops-flare-outside-iphone-6-wallpaper-18"))
-    
+    let backgroundImage = UIImageView(image: UIImage(named: "clear_bg"))
     var LocationViewControllers = [UIViewController]()
     
     override func viewDidLoad() {
@@ -34,6 +33,93 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         WeatherDataManager.shared.delegates.add(self)
         WeatherDataManager.shared.loadData()
     }
+    
+    
+    //MARK: Pages operations
+    func change(background: UIImage?) {
+        guard let background = background else { return }
+        UIView.transition(with: self.backgroundImage,
+                          duration:0.5,
+                          options: .transitionCrossDissolve,
+                          animations: { self.backgroundImage.image = background },
+                          completion: nil)
+    }
+    
+    func remove(_ vc: LocationVC) {
+        vc.view.tag = vc.index - 1
+        guard let index = LocationViewControllers.index(of: vc) else { return }
+        LocationViewControllers.remove(at: index)
+        updateIndexes()
+        updatePageControl()
+    }
+    
+    func updatePageControl() {
+        let currentPage = viewControllers!.first?.view.tag ?? 0
+        guard let locationvc = LocationViewControllers[currentPage] as? LocationVC else { return }
+        
+        setViewControllers([locationvc],
+                           direction: .forward,
+                           animated: true,
+                           completion: nil)
+        
+        change(background: UIImage(named: (locationvc.location?.condition?.icon ?? "clear") + "_bg"))
+    }
+    
+    func updateIndexes() {
+        for locvc in LocationViewControllers {
+            guard let locvc = locvc as? LocationVC else { continue }
+            guard let index = LocationViewControllers.index(of: locvc) else { continue }
+            
+            locvc.view.tag = index
+            locvc.index = index
+        }
+    }
+    
+    
+    //MARK: Set location page
+    func set(location: Location) {
+        var okVC = false
+        
+        for vc in LocationViewControllers.reversed() {
+            let vc = vc as! LocationVC
+            var ok = false
+            
+            if location.city == vc.location?.city && location.countryCode == vc.location?.countryCode {
+                ok = true
+            } else if let cLoc = WeatherDataManager.shared.currentLocation,
+                location.city == cLoc.city && location.countryCode == cLoc.countryCode && vc.index == 0 {
+                ok = true
+                vc.removeBtn.removeFromSuperview()
+            }
+            
+            guard ok else { continue }
+            
+            if vc.location == nil {
+                vc.location = location
+                if vc.index == 0 {
+                    updatePageControl()
+                }
+            } else {
+                vc.updateUI()
+            }
+            
+            okVC = true
+        }
+        
+        if okVC == false {
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationVC") as! LocationVC
+            
+            newVC.location = location
+            newVC.index = LocationViewControllers.count
+            
+            LocationViewControllers.append(newVC)
+            updatePageControl()
+        }
+    }
+    
+    
+    
+    //MARK: UIPageViewControllerDataSource
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let vcIndex = LocationViewControllers.index(of: viewController) else {
@@ -75,68 +161,16 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         return vcIndex
     }
     
-    func remove(_ vc: LocationVC) {
-        guard let index = LocationViewControllers.index(of: vc) else { return }
-        LocationViewControllers.remove(at: index)
-        updateIndexes()
-        updatePageControl()
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        let locationvc = pendingViewControllers[0] as? LocationVC
+        change(background: UIImage(named: (locationvc?.location?.condition?.icon ?? "clear") + "_bg"))
     }
     
-    func updatePageControl() {
-        let currentPage = viewControllers!.first?.view.tag ?? 0
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard completed == false else { return }
         
-        setViewControllers([LocationViewControllers[currentPage]],
-                           direction: .forward,
-                           animated: true,
-                           completion: nil)
-    }
-    
-    func updateIndexes() {
-        for locvc in LocationViewControllers {
-            guard let locvc = locvc as? LocationVC else { continue }
-            guard let index = LocationViewControllers.index(of: locvc) else { continue }
-            
-            locvc.view.tag = index
-            locvc.index = index
-        }
-    }
-    
-    //MARK: Set location page
-    func set(location: Location) {
-        var okVC = false
-        
-        for vc in LocationViewControllers.reversed() {
-            let vc = vc as! LocationVC
-            var ok = false
-            
-            if location.city == vc.location?.city && location.countryCode == vc.location?.countryCode {
-                ok = true
-            } else if let cLoc = WeatherDataManager.shared.currentLocation,
-                location.city == cLoc.city && location.countryCode == cLoc.countryCode && vc.index == 0 {
-                ok = true
-                vc.removeBtn.removeFromSuperview()
-            }
-            
-            guard ok else { continue }
-            
-            if vc.location == nil {
-                vc.location = location
-            } else {
-                vc.updateUI()
-            }
-            
-            okVC = true
-        }
-        
-        if okVC == false {
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationVC") as! LocationVC
-            
-            newVC.location = location
-            newVC.index = LocationViewControllers.count
-            
-            LocationViewControllers.append(newVC)
-            updatePageControl()
-        }
+        let locationvc = previousViewControllers[0] as? LocationVC
+        change(background: UIImage(named: (locationvc?.location?.condition?.icon ?? "clear") + "_bg"))
     }
     
     //MARK: - WeatherDataManagerDelegate
