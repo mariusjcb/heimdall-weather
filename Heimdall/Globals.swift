@@ -74,7 +74,7 @@ extension Date {
         let hourStr = String(format: "%02d", hour)
         let monthStr = String(format: "%02d", Int(month))
         let dayStr = String(format: "%02d", day)
-        print("!!! \(offset)")
+        
         self.init(hourStr, minute, yStr, monthStr, dayStr, offset)
     }
     

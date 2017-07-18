@@ -171,8 +171,8 @@ class Condition: JSONDecodable
         self.location = WeatherDataManager.shared.locations.append(location: location)
         self.location.condition = self
         
-        if Int(self.location.longitude) == Int(LocationManager.shared.longitude),
-            Int(self.location.latitude) == Int(LocationManager.shared.latitude) {
+        if self.location.longitude == LocationManager.shared.longitude,
+           self.location.latitude == LocationManager.shared.latitude {
             WeatherDataManager.shared.currentLocation = self.location
         } else {
             WeatherDataManager.shared.track(latitude: self.location.latitude, longitude: self.location.longitude)

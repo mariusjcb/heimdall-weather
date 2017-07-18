@@ -11,7 +11,7 @@ import Foundation
 struct Defaults
 {
     static let settingsPlistDictionary  =   "Heimdall Settings"
-    static let trackedUDName            =   "savedlocas"
+    static let trackedUDName            =   "a5"
     static let errorDVal                =   -99999.999
 
     static let logs                     =   true

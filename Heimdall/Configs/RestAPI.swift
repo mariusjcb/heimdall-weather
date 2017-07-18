@@ -26,8 +26,10 @@ extension Defaults.RestAPI
     
     enum URL: String {
         case baseURL                    =   "http://api.wunderground.com/api"
+        case acURL                      =   "http://autocomplete.wunderground.com/"
         case authenticatedURLFormat     =   "{BASE_URL}/{API_KEY}"
         case endpointFormat             =   "/{ENDPOINT}/lang:{LANG}/q/{QUERY}"
+        case acFormat                   =   "aq?query={QUERY}&cities=1"
     }
     
     enum QueryFormat: String {
@@ -40,12 +42,14 @@ extension Defaults.RestAPI
         case conditions                 =   "conditions"
         case hourly                     =   "hourly"
         case forecast                   =   "forecast10day"
+        case autocomplete               =   ""
         
         static let keyPaths: Dictionary<EndPoints, String> = [
             .error                      :   "response => error",
             .conditions                 :   "current_observation",
             .hourly                     :   "hourly_forecast",
-            .forecast                   :   "forecast => simpleforecast => forecastday"
+            .forecast                   :   "forecast => simpleforecast => forecastday",
+            .autocomplete               :   "RESULTS"
         ]
     }
     
@@ -114,6 +118,20 @@ extension Defaults.RestAPI
     struct ForecastAPI {
         static let weather              =   "conditions"
         static let icon                 =   "icon"
+        static let highCelsiusTemp      =   "high => celsius"
+        static let highFahrenheitTemp   =   "high => fahrenheit"
+        static let lowCelsiusTemp       =   "low => celsius"
+        static let lowFahrenheitTemp    =   "low => fahrenheit"
+        static let hour                 =   "date => hour"
+        static let minutes              =   "date => min"
+        static let year                 =   "date => year"
+        static let month                =   "date => month"
+        static let day                  =   "date => day"
+    }
+    
+    struct AutocompleteAPI {
+        static let name              =   "conditions"
+        static let type                 =   "icon"
         static let highCelsiusTemp      =   "high => celsius"
         static let highFahrenheitTemp   =   "high => fahrenheit"
         static let lowCelsiusTemp       =   "low => celsius"

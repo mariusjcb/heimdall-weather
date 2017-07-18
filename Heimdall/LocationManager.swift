@@ -47,8 +47,8 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         
-        latitude = locValue.latitude
-        longitude = locValue.longitude
+        latitude = round(locValue.latitude*100)/100
+        longitude = round(locValue.longitude*100)/100
         
         delegates.invoke {
             $0.locationDidChange(latitude: latitude, longitude: longitude)

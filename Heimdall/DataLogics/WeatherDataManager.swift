@@ -105,8 +105,8 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         let dynvar = Defaults.RestAPI.DynamicVariables.self
         
         let toTrack = [
-            dynvar.latitude.rawValue: latitude,
-            dynvar.longitude.rawValue: longitude
+            dynvar.latitude.rawValue: round(latitude*100)/100,
+            dynvar.longitude.rawValue: round(longitude*100)/100
         ]
         
         guard tracked.contains(where: { $0 == toTrack }) == false else { return }
@@ -117,8 +117,8 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         let dynvar = Defaults.RestAPI.DynamicVariables.self
         
         let toTrack = [
-            dynvar.latitude.rawValue: latitude,
-            dynvar.longitude.rawValue: longitude
+            dynvar.latitude.rawValue: round(latitude*100)/100,
+            dynvar.longitude.rawValue: round(longitude*100)/100
         ]
         
         guard let index = tracked.index(where: { $0 == toTrack }) else { return }
@@ -232,8 +232,8 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
     func weatherData(forLatitude lat: Double, longitude long: Double, as endpoint: Defaults.RestAPI.EndPoints = .conditions, handler: WeatherDataCompletion? = nil)
     {
         let params: DataManager.APIRequestParams = [
-            .latitude   :   String(describing: lat),
-            .longitude  :   String(describing: long)
+            .latitude   :   String(describing:lat),
+            .longitude  :   String(describing:long)
         ]
         
         weatherData(for: params, by: .coordinates, as: endpoint, handler: handler)
@@ -411,6 +411,7 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
     }
     
     //MARK: - Default CompletionHandlers
+    
     static func errorHandler(with error: Error, request: DataManager.APIRequest) {
         switch error {
         case .missing(let member) as SerializationError:

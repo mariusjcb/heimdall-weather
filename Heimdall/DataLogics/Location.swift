@@ -49,13 +49,15 @@ class Location: JSONDecodable
             throw SerializationError.missing(locationAPI.countryCode)
         }
         
-        guard let latitude = ToDouble(from:json.findValue(path: locationAPI.latitude)) else {
+        guard var latitude = ToDouble(from:json.findValue(path: locationAPI.latitude)) else {
             throw SerializationError.missing(locationAPI.latitude)
         }
+        latitude = round(latitude*100)/100
         
-        guard let longitude = ToDouble(from:json.findValue(path: locationAPI.longitude)) else {
+        guard var longitude = ToDouble(from:json.findValue(path: locationAPI.longitude)) else {
             throw SerializationError.missing(locationAPI.longitude)
         }
+        longitude = round(longitude*100)/100
         
         guard let elevation = ToDouble(from:json.findValue(path: locationAPI.elevation)) else {
             throw SerializationError.missing(locationAPI.elevation)
@@ -106,7 +108,9 @@ extension Location {
 extension Array where Element: Location {
     mutating func append(location newElement: Element) -> Element {
         for location in self {
-            if location.city == newElement.city, location.countryCode == newElement.countryCode, location.latitude == newElement.latitude, location.longitude == newElement.longitude {
+            if location.city == newElement.city, location.countryCode == newElement.countryCode,
+               location.latitude == newElement.latitude,
+               location.longitude == newElement.longitude {
                 return location
             }
         }
@@ -115,19 +119,21 @@ extension Array where Element: Location {
         return newElement
     }
     
-    func get(by request: DataManager.APIRequest) -> Element? {
+    func get(by request: DataManager.APIRequest) -> Location? {
         let (format, params) = (request.1, request.2)
+        if format == .coordinates { print(print(round(ToDouble(from: params[.latitude]!)!))) }
         
-        for elem in self {
-            if format == .city && elem.city == params[.city] && elem.country == params[.country] {
-                return elem
-            } else if format == .coordinates && Int(elem.longitude) == Int(ToDouble(from: params[.longitude]!)!)
-                && Int(elem.latitude) == Int(ToDouble(from: params[.latitude]!)!) {
-                return elem
+        var elem: Element? = nil
+        self.forEach {
+            if format == .city && $0.city == params[.city] && $0.countryCode == params[.country] {
+                elem = $0
+            } else if format == .coordinates && $0.longitude == round(ToDouble(from: params[.longitude]!)!*100)/100
+                && $0.latitude == round(ToDouble(from: params[.latitude]!)!*100)/100 {
+                elem = $0
             }
         }
         
-        return nil
+        return elem
     }
 }
 

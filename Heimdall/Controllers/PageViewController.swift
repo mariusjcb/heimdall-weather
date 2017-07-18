@@ -16,8 +16,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
         backgroundImage.clipsToBounds = true
+        backgroundImage.contentMode = .scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
         
         self.dataSource = self

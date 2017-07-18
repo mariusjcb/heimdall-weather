@@ -3,6 +3,9 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "static WeatherDataManager.parse(hourly : Any?, for : (Defaults.RestAPI.EndPoints, Defaults.RestAPI.QueryFormat, [Defaults.RestAPI.DynamicVariables : String]), error : Error?) throws -&gt; [Hourly]?:WeatherDataManager.swift">
+      </ContextState>
+      <ContextState
          contextName = "ViewController.demo(Any) -&gt; ():ViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -11,7 +14,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static WeatherDataManager.parse(hourly : Any?, for : (Defaults.RestAPI.EndPoints, Defaults.RestAPI.QueryFormat, [Defaults.RestAPI.DynamicVariables : String]), error : Error?) throws -&gt; [Hourly]?:WeatherDataManager.swift">
+         contextName = "Array&lt;A where ...&gt;.get(by : (Defaults.RestAPI.EndPoints, Defaults.RestAPI.QueryFormat, [Defaults.RestAPI.DynamicVariables : String])) -&gt; A?:Location.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(String)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WeatherDataManager.weatherData(for : [Defaults.RestAPI.DynamicVariables : String], by : Defaults.RestAPI.QueryFormat, as : Defaults.RestAPI.EndPoints, handler : (Any?, (Defaults.RestAPI.EndPoints, Defaults.RestAPI.QueryFormat, [Defaults.RestAPI.DynamicVariables : String]), DataManagerError?) -&gt; ()?) -&gt; ():WeatherDataManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Double">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>
