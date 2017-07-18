@@ -8,9 +8,28 @@
 
 import Foundation
 
-class Hourly: JSONDecodableWithLocation
+
+/**
+ **This class implements NSCoding**
+ 
+ 
+ You can use NSKeyedArchiver.archivedData:
+ ```
+ jsonDecodableObj = try JSONDecodableClass(json)
+ 
+ UserDefaults.standard.set(
+    NSKeyedArchiver.archivedData(
+        withRootObject: location
+    ),
+    forKey: "yourKey"
+ )
+ 
+ ```
+ */
+
+@objc class Hourly: NSObject, JSONDecodableWithLocation
 {
-    weak var location: Location?
+    //weak var location: Location?
     var time: Date
     
     let humidity: Double
@@ -103,14 +122,11 @@ class Hourly: JSONDecodableWithLocation
         self.windDirection = windDirection
         self.windDegrees = windDegrees
         
-        self.location = location
-        self.time = Date(hour, minutes, year, month, day, self.location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
+        self.time = Date(hour, minutes, year, month, day, location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
     }
     
+    
     required init?(coder aDecoder: NSCoder) {
-        WeatherDataManager.shared.locations.append(aDecoder.decodeObject(forKey: "location") as! Location)
-        self.location = aDecoder.decodeObject(forKey: "location") as? Location
-        
         icon = aDecoder.decodeObject(forKey: "icon") as! String
         windDirection = aDecoder.decodeObject(forKey: "windDirection") as! String
         humidity = aDecoder.decodeObject(forKey: "humidity") as! Double
@@ -124,9 +140,9 @@ class Hourly: JSONDecodableWithLocation
     }
 }
 
+
 extension Hourly {
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(location, forKey: "location")
         aCoder.encode(time, forKey: "time")
         aCoder.encode(humidity, forKey: "humidity")
         aCoder.encode(weather, forKey: "weather")
@@ -137,40 +153,5 @@ extension Hourly {
         aCoder.encode(fahrenheitFeels, forKey: "fahrenheitFeels")
         aCoder.encode(windDirection, forKey: "windDirection")
         aCoder.encode(windDegrees, forKey: "windDegrees")
-    }
-}
-
-extension Array where Element: Hourly {
-    init(json: Any, location: Location?) throws {
-        self.init()
-        
-        let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self
-        
-        guard let mainJSON = json as? [String: Any] else {
-            printError(NSLocalizedString("JSON can't be converted into a dictionary", comment: ""))
-            throw SerializationError.missing(NSLocalizedString("Main JSON", comment: ""))
-        }
-        
-        guard let hoursArray = mainJSON.findValue(path: keyPaths[.hourly]!) as? [[String: Any]] else {
-            printError(keyPaths[.hourly]! + " " + NSLocalizedString("Value can't be converted into Array object", comment: ""))
-            let errorAPI = Defaults.RestAPI.ErrorAPI.self
-            
-            if let error = mainJSON.locate(path: keyPaths[.error]!) as? [String: String],
-                let type = error[errorAPI.type],
-                let description = error[errorAPI.description]
-            {
-                throw SerializationError.message(type, description)
-            } else {
-                throw SerializationError.missing(keyPaths[.hourly]!)
-            }
-        }
-        
-        for hourlyJSON in hoursArray {
-            let condition = try Hourly(json: hourlyJSON, location: location)
-            
-            if let element = condition as? Element {
-                self.append(element)
-            }
-        }
     }
 }

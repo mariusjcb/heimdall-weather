@@ -31,9 +31,14 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>I want to use your location always</string>
+	<string>Man... I want to use your location always. ;)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>I want to use your location</string>
+	<string>I am here... where are u?!</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

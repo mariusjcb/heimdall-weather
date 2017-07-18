@@ -43,9 +43,11 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    //MARK: CLLocationManagerDelegate
+    //MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        guard let location = manager.location else { return }
+        
+        let locValue:CLLocationCoordinate2D = location.coordinate
         
         latitude = round(locValue.latitude*100)/100
         longitude = round(locValue.longitude*100)/100
@@ -57,5 +59,9 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     
     func startMonitoringSignificantLocationChanges() {
         self.locationManager.startMonitoringSignificantLocationChanges()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        printError(error.localizedDescription)
     }
 }

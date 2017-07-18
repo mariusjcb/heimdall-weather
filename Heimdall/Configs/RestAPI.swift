@@ -70,7 +70,7 @@ extension Defaults.RestAPI
         
         static let city                 =   "city"
         static let country              =   "state_name"
-        static let countryCode          =   "country"
+        static let countryCode          =   "country_iso3166"
         static let latitude             =   "latitude"
         static let longitude            =   "longitude"
         static let elevation            =   "elevation"

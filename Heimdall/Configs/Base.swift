@@ -11,7 +11,8 @@ import Foundation
 struct Defaults
 {
     static let settingsPlistDictionary  =   "Heimdall Settings"
-    static let trackedUDName            =   "a5"
+    static let suiteName                =   "group.ro.iliemarius.heimdall"
+    static let trackedUDName            =   "a001"
     static let errorDVal                =   -99999.999
 
     static let logs                     =   true
@@ -22,4 +23,11 @@ struct Defaults
     static let dateFormat               =   "HH:mm yy-MM-dd Z"
     
     struct RestAPI { }
+    
+    struct widget {
+        static let city                 =   "today.city"
+        static let temperature          =   "today.temperature"
+        static let condition            =   "today.condition"
+        static let icon                 =   "today.icon"
+    }
 }

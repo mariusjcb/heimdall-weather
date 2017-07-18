@@ -160,5 +160,152 @@
             </objects>
             <point key="canvasLocation" x="-57" y="17"/>
         </scene>
+        <!--New Location View Controller-->
+        <scene sceneID="2zg-Do-OAk">
+            <objects>
+                <viewController storyboardIdentifier="NewLocationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0iV-55-tld" customClass="NewLocationViewController" customModule="Heimdall" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x0W-2K-gT8"/>
+                        <viewControllerLayoutGuide type="bottom" id="zqX-LO-GF7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="p8m-q4-Pir">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunny_bg" translatesAutoresizingMaskIntoConstraints="NO" id="iNi-nc-AiS">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vsz-he-WiB">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="22U-jp-y2z">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7t-EJ-x7Q" userLabel="Cencel" customClass="UILoadButton" customModule="Heimdall" customModuleProvider="target">
+                                            <rect key="frame" x="117" y="606" width="140" height="33"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="140" id="j8O-xk-q42"/>
+                                            </constraints>
+                                            <state key="normal" title="Cancel" backgroundImage="buttonBg">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onCancel:" destination="0iV-55-tld" eventType="touchUpInside" id="InG-qQ-f1R"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ONo-AS-dJz">
+                                            <rect key="frame" x="62" y="222" width="251" height="64"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="251" id="DdQ-R2-htq"/>
+                                                <constraint firstAttribute="height" constant="64" id="via-Zc-QvM"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ONo-AS-dJz" firstAttribute="centerX" secondItem="22U-jp-y2z" secondAttribute="centerX" id="FwY-vh-1ZR"/>
+                                        <constraint firstAttribute="bottom" secondItem="b7t-EJ-x7Q" secondAttribute="bottom" constant="28" id="gEI-1X-YLP"/>
+                                        <constraint firstItem="b7t-EJ-x7Q" firstAttribute="centerX" secondItem="22U-jp-y2z" secondAttribute="centerX" id="oKF-ei-Tcw"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="lAM-BC-obo">
+                                <rect key="frame" x="62" y="50" width="250" height="142"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCY-Ml-WKf" customClass="UIFloatTextField" customModule="Heimdall" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.93000000000000005" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderFontColor">
+                                                <color key="value" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c3b-PC-Bjy" customClass="UIFloatTextField" customModule="Heimdall" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="56" width="250" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="246" id="NSd-Ht-jHf"/>
+                                            <constraint firstAttribute="height" constant="30" id="gUC-It-581"/>
+                                        </constraints>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.93000000000000005" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderFontColor">
+                                                <color key="value" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWZ-iQ-FGe" userLabel="Search" customClass="UILoadButton" customModule="Heimdall" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="112" width="250" height="30"/>
+                                        <state key="normal" title="Search" backgroundImage="buttonBg">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onSearch:" destination="0iV-55-tld" eventType="touchUpInside" id="oSd-Ym-EGH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="AS3-Pp-Nqx"/>
+                                </constraints>
+                                <variation key="heightClass=compact" spacing="13"/>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0rT-kj-TZj">
+                                <rect key="frame" x="62" y="256" width="250" height="332"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="autocompleteCell" id="pcV-gD-GSS">
+                                        <rect key="frame" x="0.0" y="28" width="250" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pcV-gD-GSS" id="HlI-lL-05M">
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="0rT-kj-TZj" firstAttribute="centerX" secondItem="iNi-nc-AiS" secondAttribute="centerX" id="59B-4z-85D"/>
+                            <constraint firstItem="iNi-nc-AiS" firstAttribute="leading" secondItem="p8m-q4-Pir" secondAttribute="leadingMargin" constant="-20" id="604-fx-iX1"/>
+                            <constraint firstItem="ONo-AS-dJz" firstAttribute="top" secondItem="lAM-BC-obo" secondAttribute="bottom" constant="30" id="9Xm-Mr-CFx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iNi-nc-AiS" secondAttribute="trailing" constant="-20" id="DdH-QX-oEB"/>
+                            <constraint firstItem="zqX-LO-GF7" firstAttribute="top" secondItem="0rT-kj-TZj" secondAttribute="bottom" constant="79" id="E1g-SQ-d7U"/>
+                            <constraint firstItem="lAM-BC-obo" firstAttribute="top" secondItem="x0W-2K-gT8" secondAttribute="bottom" constant="40" id="Rdf-ek-CEc"/>
+                            <constraint firstItem="iNi-nc-AiS" firstAttribute="top" secondItem="x0W-2K-gT8" secondAttribute="bottom" constant="-20" id="UDG-9z-7lf"/>
+                            <constraint firstItem="zqX-LO-GF7" firstAttribute="top" secondItem="iNi-nc-AiS" secondAttribute="bottom" id="aBy-TG-XDV"/>
+                            <constraint firstItem="lAM-BC-obo" firstAttribute="centerX" secondItem="p8m-q4-Pir" secondAttribute="centerX" id="g6c-4N-gEm"/>
+                            <constraint firstItem="iNi-nc-AiS" firstAttribute="centerY" secondItem="p8m-q4-Pir" secondAttribute="centerY" id="n2n-xW-9sS"/>
+                            <constraint firstItem="0rT-kj-TZj" firstAttribute="top" secondItem="lAM-BC-obo" secondAttribute="bottom" constant="28" id="yVK-zy-avY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="city" destination="rCY-Ml-WKf" id="FLE-v4-h37"/>
+                        <outlet property="country" destination="c3b-PC-Bjy" id="DB1-jG-KMm"/>
+                        <outlet property="searchBtn" destination="RWZ-iQ-FGe" id="SDh-cq-Mwl"/>
+                        <outlet property="status" destination="ONo-AS-dJz" id="4WH-sm-FSt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ioA-kV-8Ak" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58.399999999999999" y="739.88005997001505"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="buttonBg" width="23" height="33"/>
+        <image name="sunny_bg" width="1080" height="1920"/>
+    </resources>
 </document>

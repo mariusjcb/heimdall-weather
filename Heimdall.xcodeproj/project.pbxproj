@@ -12,8 +12,6 @@
 		7A1A1B151F1036480023A8C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B131F1036480023A8C1 /* Main.storyboard */; };
 		7A1A1B1A1F1036480023A8C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B191F1036480023A8C1 /* Assets.xcassets */; };
 		7A1A1B1D1F1036480023A8C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B1B1F1036480023A8C1 /* LaunchScreen.storyboard */; };
-		7A1A1B281F1036480023A8C1 /* HeimdallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B271F1036480023A8C1 /* HeimdallTests.swift */; };
-		7A1A1B331F1036480023A8C1 /* HeimdallUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B321F1036480023A8C1 /* HeimdallUITests.swift */; };
 		7A1A1B421F1036CE0023A8C1 /* WeatherDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B411F1036CE0023A8C1 /* WeatherDataManager.swift */; };
 		7A1A1B441F10393F0023A8C1 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B431F10393F0023A8C1 /* Globals.swift */; };
 		7A1A1B4B1F104A9A0023A8C1 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B4A1F104A9A0023A8C1 /* RestAPI.swift */; };
@@ -30,7 +28,26 @@
 		7A8464721F113387007CFB35 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8464711F113387007CFB35 /* DataManager.swift */; };
 		7A9D10BA1F1CA53E0050495F /* DailyForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D10B81F1CA53E0050495F /* DailyForecastTableViewCell.swift */; };
 		7A9D10BB1F1CA53E0050495F /* DailyForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9D10B91F1CA53E0050495F /* DailyForecastTableViewCell.xib */; };
+		7AAD24E01F1E5A5600BD1814 /* URL+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD24DF1F1E5A5600BD1814 /* URL+Helper.swift */; };
+		7AAD24E21F1E5A7700BD1814 /* String+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD24E11F1E5A7700BD1814 /* String+Helper.swift */; };
+		7AAD24E41F1E5A9300BD1814 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD24E31F1E5A9300BD1814 /* Date+Helper.swift */; };
+		7AAD24E81F1E5B3C00BD1814 /* Location+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD24E71F1E5B3C00BD1814 /* Location+Helper.swift */; };
+		7AAD24EA1F1E5B7F00BD1814 /* Hourly+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD24E91F1E5B7F00BD1814 /* Hourly+Helper.swift */; };
+		7AAD24ED1F1E5BB800BD1814 /* Forecast+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD24EC1F1E5BB800BD1814 /* Forecast+Helper.swift */; };
+		7AAD24F51F1E5CBB00BD1814 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAD24F41F1E5CBB00BD1814 /* NotificationCenter.framework */; };
+		7AAD24F81F1E5CBB00BD1814 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD24F71F1E5CBB00BD1814 /* TodayViewController.swift */; };
+		7AAD24FB1F1E5CBB00BD1814 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AAD24F91F1E5CBB00BD1814 /* MainInterface.storyboard */; };
+		7AAD24FF1F1E5CBB00BD1814 /* Heimdall Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7AAD24F21F1E5CBB00BD1814 /* Heimdall Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7AAD25051F1E699C00BD1814 /* Dictionary+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD25041F1E699C00BD1814 /* Dictionary+Helper.swift */; };
 		7ABB455E1F1CCD0100D0BABD /* BorderedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABB455D1F1CCD0100D0BABD /* BorderedCollectionView.swift */; };
+		7ACDB10D1F1E7CC9002EA283 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B5A1F1088AB0023A8C1 /* Base.swift */; };
+		7ACDB1151F1E9324002EA283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B191F1036480023A8C1 /* Assets.xcassets */; };
+		7ACDB1171F1EA8B0002EA283 /* UILoadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDB1161F1EA8B0002EA283 /* UILoadButton.swift */; };
+		7ACDB1191F1EA8FB002EA283 /* UIFloatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDB1181F1EA8FB002EA283 /* UIFloatTextField.swift */; };
+		7ACDB11B1F1EA922002EA283 /* UIView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDB11A1F1EA922002EA283 /* UIView+Helper.swift */; };
+		7ACDB11D1F1EA93C002EA283 /* CGPoint+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDB11C1F1EA93C002EA283 /* CGPoint+Helper.swift */; };
+		7ACDB1201F1EBA7E002EA283 /* NewLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDB11F1F1EBA7E002EA283 /* NewLocationViewController.swift */; };
+		7ACDB1221F1EBDB5002EA283 /* UIApplication+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDB1211F1EBDB5002EA283 /* UIApplication+Helper.swift */; };
 		7AEE3B7C1F129C10003BC81F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AEE3B7E1F129C10003BC81F /* Localizable.strings */; };
 		7AEE3B871F12AABB003BC81F /* Hourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEE3B861F12AABB003BC81F /* Hourly.swift */; };
 		7AF8F05E1F13290000B58EAA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8F05D1F13290000B58EAA /* LocationManager.swift */; };
@@ -51,7 +68,28 @@
 			remoteGlobalIDString = 7A1A1B0B1F1036470023A8C1;
 			remoteInfo = Heimdall;
 		};
+		7AAD24FD1F1E5CBB00BD1814 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A1A1B041F1036470023A8C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AAD24F11F1E5CBB00BD1814;
+			remoteInfo = "Heimdall Widget";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7AAD25031F1E5CBB00BD1814 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7AAD24FF1F1E5CBB00BD1814 /* Heimdall Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7A1A1B0C1F1036470023A8C1 /* Heimdall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heimdall.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,11 +100,7 @@
 		7A1A1B1C1F1036480023A8C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7A1A1B1E1F1036480023A8C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A1A1B231F1036480023A8C1 /* HeimdallTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeimdallTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1A1B271F1036480023A8C1 /* HeimdallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeimdallTests.swift; sourceTree = "<group>"; };
-		7A1A1B291F1036480023A8C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A1A1B2E1F1036480023A8C1 /* HeimdallUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeimdallUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1A1B321F1036480023A8C1 /* HeimdallUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeimdallUITests.swift; sourceTree = "<group>"; };
-		7A1A1B341F1036480023A8C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A1A1B411F1036CE0023A8C1 /* WeatherDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherDataManager.swift; path = DataLogics/WeatherDataManager.swift; sourceTree = "<group>"; };
 		7A1A1B431F10393F0023A8C1 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		7A1A1B4A1F104A9A0023A8C1 /* RestAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestAPI.swift; path = Configs/RestAPI.swift; sourceTree = "<group>"; };
@@ -83,7 +117,27 @@
 		7A8464711F113387007CFB35 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = DataLogics/DataManager.swift; sourceTree = "<group>"; };
 		7A9D10B81F1CA53E0050495F /* DailyForecastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyForecastTableViewCell.swift; sourceTree = "<group>"; };
 		7A9D10B91F1CA53E0050495F /* DailyForecastTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailyForecastTableViewCell.xib; sourceTree = "<group>"; };
+		7AAD24DF1F1E5A5600BD1814 /* URL+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+Helper.swift"; path = "Helpers/URL+Helper.swift"; sourceTree = "<group>"; };
+		7AAD24E11F1E5A7700BD1814 /* String+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Helper.swift"; path = "Helpers/String+Helper.swift"; sourceTree = "<group>"; };
+		7AAD24E31F1E5A9300BD1814 /* Date+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Helper.swift"; path = "Helpers/Date+Helper.swift"; sourceTree = "<group>"; };
+		7AAD24E71F1E5B3C00BD1814 /* Location+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Location+Helper.swift"; path = "Helpers/Location+Helper.swift"; sourceTree = "<group>"; };
+		7AAD24E91F1E5B7F00BD1814 /* Hourly+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Hourly+Helper.swift"; path = "Helpers/Hourly+Helper.swift"; sourceTree = "<group>"; };
+		7AAD24EC1F1E5BB800BD1814 /* Forecast+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Forecast+Helper.swift"; path = "Helpers/Forecast+Helper.swift"; sourceTree = "<group>"; };
+		7AAD24F21F1E5CBB00BD1814 /* Heimdall Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Heimdall Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AAD24F41F1E5CBB00BD1814 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		7AAD24F71F1E5CBB00BD1814 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		7AAD24FA1F1E5CBB00BD1814 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		7AAD24FC1F1E5CBB00BD1814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AAD25041F1E699C00BD1814 /* Dictionary+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Dictionary+Helper.swift"; path = "Helpers/Dictionary+Helper.swift"; sourceTree = "<group>"; };
 		7ABB455D1F1CCD0100D0BABD /* BorderedCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BorderedCollectionView.swift; path = View/BorderedCollectionView.swift; sourceTree = "<group>"; };
+		7ACDB10C1F1E7BE8002EA283 /* Heimdall.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Heimdall.entitlements; sourceTree = "<group>"; };
+		7ACDB10E1F1E85C7002EA283 /* Heimdall Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Heimdall Widget.entitlements"; sourceTree = "<group>"; };
+		7ACDB1161F1EA8B0002EA283 /* UILoadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILoadButton.swift; path = View/UILoadButton.swift; sourceTree = "<group>"; };
+		7ACDB1181F1EA8FB002EA283 /* UIFloatTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIFloatTextField.swift; path = View/UIFloatTextField.swift; sourceTree = "<group>"; };
+		7ACDB11A1F1EA922002EA283 /* UIView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Helper.swift"; path = "Helpers/UIView+Helper.swift"; sourceTree = "<group>"; };
+		7ACDB11C1F1EA93C002EA283 /* CGPoint+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+Helper.swift"; path = "View/CGPoint+Helper.swift"; sourceTree = "<group>"; };
+		7ACDB11F1F1EBA7E002EA283 /* NewLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewLocationViewController.swift; path = Controllers/NewLocationViewController.swift; sourceTree = "<group>"; };
+		7ACDB1211F1EBDB5002EA283 /* UIApplication+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIApplication+Helper.swift"; path = "Helpers/UIApplication+Helper.swift"; sourceTree = "<group>"; };
 		7AEE3B811F129D3F003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/Main.strings"; sourceTree = "<group>"; };
 		7AEE3B821F129D40003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		7AEE3B831F129D40003BC81F /* ro-RO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ro-RO"; path = "ro-RO.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -114,6 +168,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AAD24EF1F1E5CBB00BD1814 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AAD24F51F1E5CBB00BD1814 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -121,8 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				7A1A1B0E1F1036470023A8C1 /* Heimdall */,
-				7A1A1B261F1036480023A8C1 /* HeimdallTests */,
-				7A1A1B311F1036480023A8C1 /* HeimdallUITests */,
+				7AAD24F61F1E5CBB00BD1814 /* Heimdall Widget */,
+				7AAD24F31F1E5CBB00BD1814 /* Frameworks */,
 				7A1A1B0D1F1036470023A8C1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -133,6 +195,7 @@
 				7A1A1B0C1F1036470023A8C1 /* Heimdall.app */,
 				7A1A1B231F1036480023A8C1 /* HeimdallTests.xctest */,
 				7A1A1B2E1F1036480023A8C1 /* HeimdallUITests.xctest */,
+				7AAD24F21F1E5CBB00BD1814 /* Heimdall Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,33 +203,17 @@
 		7A1A1B0E1F1036470023A8C1 /* Heimdall */ = {
 			isa = PBXGroup;
 			children = (
+				7ACDB10C1F1E7BE8002EA283 /* Heimdall.entitlements */,
 				7A1A1B131F1036480023A8C1 /* Main.storyboard */,
 				7A72C2771F14780700C766E9 /* Controllers */,
 				7A1A1B511F107C1A0023A8C1 /* Models */,
 				7A72C2741F1458B700C766E9 /* Views */,
-				7A1A1B501F107C0E0023A8C1 /* DataLogics */,
+				7A1A1B501F107C0E0023A8C1 /* DataLogic */,
 				7A1A1B491F103E510023A8C1 /* Configs */,
+				7AAD24E61F1E5AC400BD1814 /* Helpers */,
 				7A1A1B401F1036990023A8C1 /* Supporting Files */,
 			);
 			path = Heimdall;
-			sourceTree = "<group>";
-		};
-		7A1A1B261F1036480023A8C1 /* HeimdallTests */ = {
-			isa = PBXGroup;
-			children = (
-				7A1A1B271F1036480023A8C1 /* HeimdallTests.swift */,
-				7A1A1B291F1036480023A8C1 /* Info.plist */,
-			);
-			path = HeimdallTests;
-			sourceTree = "<group>";
-		};
-		7A1A1B311F1036480023A8C1 /* HeimdallUITests */ = {
-			isa = PBXGroup;
-			children = (
-				7A1A1B321F1036480023A8C1 /* HeimdallUITests.swift */,
-				7A1A1B341F1036480023A8C1 /* Info.plist */,
-			);
-			path = HeimdallUITests;
 			sourceTree = "<group>";
 		};
 		7A1A1B401F1036990023A8C1 /* Supporting Files */ = {
@@ -176,7 +223,6 @@
 				7A1A1B191F1036480023A8C1 /* Assets.xcassets */,
 				7A1A1B1B1F1036480023A8C1 /* LaunchScreen.storyboard */,
 				7A1A1B1E1F1036480023A8C1 /* Info.plist */,
-				7A1A1B431F10393F0023A8C1 /* Globals.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -192,7 +238,7 @@
 			name = Configs;
 			sourceTree = "<group>";
 		};
-		7A1A1B501F107C0E0023A8C1 /* DataLogics */ = {
+		7A1A1B501F107C0E0023A8C1 /* DataLogic */ = {
 			isa = PBXGroup;
 			children = (
 				7A8464711F113387007CFB35 /* DataManager.swift */,
@@ -201,7 +247,7 @@
 				7A72C26E1F14416600C766E9 /* MulticastDelegate.swift */,
 				7A1A1B4E1F107C080023A8C1 /* DataBuilder.swift */,
 			);
-			name = DataLogics;
+			name = DataLogic;
 			sourceTree = "<group>";
 		};
 		7A1A1B511F107C1A0023A8C1 /* Models */ = {
@@ -211,6 +257,7 @@
 				7A1A1B521F107E950023A8C1 /* Condition.swift */,
 				7AEE3B861F12AABB003BC81F /* Hourly.swift */,
 				7A72C26C1F14288900C766E9 /* Forecast.swift */,
+				7AAD24EB1F1E5B8D00BD1814 /* Helpers */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -223,6 +270,8 @@
 				7A72C2711F1458B100C766E9 /* HourForecastCollectionViewCell.xib */,
 				7A9D10B81F1CA53E0050495F /* DailyForecastTableViewCell.swift */,
 				7A9D10B91F1CA53E0050495F /* DailyForecastTableViewCell.xib */,
+				7ACDB1161F1EA8B0002EA283 /* UILoadButton.swift */,
+				7ACDB1181F1EA8FB002EA283 /* UIFloatTextField.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -232,8 +281,53 @@
 			children = (
 				7A1A1B111F1036470023A8C1 /* LocationVC.swift */,
 				7A72C2751F14780300C766E9 /* PageViewController.swift */,
+				7ACDB11F1F1EBA7E002EA283 /* NewLocationViewController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		7AAD24E61F1E5AC400BD1814 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				7AAD25041F1E699C00BD1814 /* Dictionary+Helper.swift */,
+				7A1A1B431F10393F0023A8C1 /* Globals.swift */,
+				7AAD24DF1F1E5A5600BD1814 /* URL+Helper.swift */,
+				7AAD24E11F1E5A7700BD1814 /* String+Helper.swift */,
+				7AAD24E31F1E5A9300BD1814 /* Date+Helper.swift */,
+				7ACDB11A1F1EA922002EA283 /* UIView+Helper.swift */,
+				7ACDB11C1F1EA93C002EA283 /* CGPoint+Helper.swift */,
+				7ACDB1211F1EBDB5002EA283 /* UIApplication+Helper.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		7AAD24EB1F1E5B8D00BD1814 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				7AAD24E71F1E5B3C00BD1814 /* Location+Helper.swift */,
+				7AAD24E91F1E5B7F00BD1814 /* Hourly+Helper.swift */,
+				7AAD24EC1F1E5BB800BD1814 /* Forecast+Helper.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		7AAD24F31F1E5CBB00BD1814 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7AAD24F41F1E5CBB00BD1814 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7AAD24F61F1E5CBB00BD1814 /* Heimdall Widget */ = {
+			isa = PBXGroup;
+			children = (
+				7ACDB10E1F1E85C7002EA283 /* Heimdall Widget.entitlements */,
+				7AAD24F71F1E5CBB00BD1814 /* TodayViewController.swift */,
+				7AAD24F91F1E5CBB00BD1814 /* MainInterface.storyboard */,
+				7AAD24FC1F1E5CBB00BD1814 /* Info.plist */,
+			);
+			path = "Heimdall Widget";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,10 +340,12 @@
 				7A1A1B081F1036470023A8C1 /* Sources */,
 				7A1A1B091F1036470023A8C1 /* Frameworks */,
 				7A1A1B0A1F1036470023A8C1 /* Resources */,
+				7AAD25031F1E5CBB00BD1814 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7AAD24FE1F1E5CBB00BD1814 /* PBXTargetDependency */,
 			);
 			name = Heimdall;
 			productName = Heimdall;
@@ -292,6 +388,23 @@
 			productReference = 7A1A1B2E1F1036480023A8C1 /* HeimdallUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		7AAD24F11F1E5CBB00BD1814 /* Heimdall Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AAD25001F1E5CBB00BD1814 /* Build configuration list for PBXNativeTarget "Heimdall Widget" */;
+			buildPhases = (
+				7AAD24EE1F1E5CBB00BD1814 /* Sources */,
+				7AAD24EF1F1E5CBB00BD1814 /* Frameworks */,
+				7AAD24F01F1E5CBB00BD1814 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Heimdall Widget";
+			productName = "Heimdall Widget";
+			productReference = 7AAD24F21F1E5CBB00BD1814 /* Heimdall Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -307,6 +420,12 @@
 						DevelopmentTeam = 2S2RSVRNML;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 0;
 							};
@@ -314,6 +433,7 @@
 					};
 					7A1A1B221F1036480023A8C1 = {
 						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 7A1A1B0B1F1036470023A8C1;
 					};
@@ -321,6 +441,16 @@
 						CreatedOnToolsVersion = 8.3.3;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 7A1A1B0B1F1036470023A8C1;
+					};
+					7AAD24F11F1E5CBB00BD1814 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 2S2RSVRNML;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -341,6 +471,7 @@
 				7A1A1B0B1F1036470023A8C1 /* Heimdall */,
 				7A1A1B221F1036480023A8C1 /* HeimdallTests */,
 				7A1A1B2D1F1036480023A8C1 /* HeimdallUITests */,
+				7AAD24F11F1E5CBB00BD1814 /* Heimdall Widget */,
 			);
 		};
 /* End PBXProject section */
@@ -373,6 +504,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AAD24F01F1E5CBB00BD1814 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ACDB1151F1E9324002EA283 /* Assets.xcassets in Resources */,
+				7AAD24FB1F1E5CBB00BD1814 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -380,24 +520,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ACDB11D1F1EA93C002EA283 /* CGPoint+Helper.swift in Sources */,
+				7ACDB1191F1EA8FB002EA283 /* UIFloatTextField.swift in Sources */,
 				7A1A1B4D1F106B7F0023A8C1 /* ComputedDefaults.swift in Sources */,
 				7A8464721F113387007CFB35 /* DataManager.swift in Sources */,
+				7ACDB1171F1EA8B0002EA283 /* UILoadButton.swift in Sources */,
 				7A9D10BA1F1CA53E0050495F /* DailyForecastTableViewCell.swift in Sources */,
 				7A1A1B5B1F1088AB0023A8C1 /* Base.swift in Sources */,
 				7A72C26F1F14416600C766E9 /* MulticastDelegate.swift in Sources */,
 				7A1A1B531F107E950023A8C1 /* Condition.swift in Sources */,
 				7A72C26D1F14288A00C766E9 /* Forecast.swift in Sources */,
+				7AAD24E41F1E5A9300BD1814 /* Date+Helper.swift in Sources */,
+				7AAD24E81F1E5B3C00BD1814 /* Location+Helper.swift in Sources */,
 				7A1A1B571F1083A80023A8C1 /* Location.swift in Sources */,
 				7A1A1B121F1036470023A8C1 /* LocationVC.swift in Sources */,
 				7AEE3B871F12AABB003BC81F /* Hourly.swift in Sources */,
+				7AAD24EA1F1E5B7F00BD1814 /* Hourly+Helper.swift in Sources */,
 				7A72C2721F1458B100C766E9 /* HourForecastCollectionViewCell.swift in Sources */,
 				7ABB455E1F1CCD0100D0BABD /* BorderedCollectionView.swift in Sources */,
+				7ACDB1221F1EBDB5002EA283 /* UIApplication+Helper.swift in Sources */,
+				7AAD25051F1E699C00BD1814 /* Dictionary+Helper.swift in Sources */,
 				7A1A1B421F1036CE0023A8C1 /* WeatherDataManager.swift in Sources */,
+				7AAD24E01F1E5A5600BD1814 /* URL+Helper.swift in Sources */,
 				7A1A1B4B1F104A9A0023A8C1 /* RestAPI.swift in Sources */,
 				7AF8F05E1F13290000B58EAA /* LocationManager.swift in Sources */,
+				7AAD24E21F1E5A7700BD1814 /* String+Helper.swift in Sources */,
+				7AAD24ED1F1E5BB800BD1814 /* Forecast+Helper.swift in Sources */,
+				7ACDB11B1F1EA922002EA283 /* UIView+Helper.swift in Sources */,
 				7A1A1B4F1F107C080023A8C1 /* DataBuilder.swift in Sources */,
 				7A72C2761F14780300C766E9 /* PageViewController.swift in Sources */,
 				7A1A1B441F10393F0023A8C1 /* Globals.swift in Sources */,
+				7ACDB1201F1EBA7E002EA283 /* NewLocationViewController.swift in Sources */,
 				7A1A1B101F1036470023A8C1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,7 +559,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1A1B281F1036480023A8C1 /* HeimdallTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,7 +566,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1A1B331F1036480023A8C1 /* HeimdallUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AAD24EE1F1E5CBB00BD1814 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ACDB10D1F1E7CC9002EA283 /* Base.swift in Sources */,
+				7AAD24F81F1E5CBB00BD1814 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +590,11 @@
 			isa = PBXTargetDependency;
 			target = 7A1A1B0B1F1036470023A8C1 /* Heimdall */;
 			targetProxy = 7A1A1B2F1F1036480023A8C1 /* PBXContainerItemProxy */;
+		};
+		7AAD24FE1F1E5CBB00BD1814 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AAD24F11F1E5CBB00BD1814 /* Heimdall Widget */;
+			targetProxy = 7AAD24FD1F1E5CBB00BD1814 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -450,6 +615,14 @@
 				7AEE3B821F129D40003BC81F /* ro-RO */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		7AAD24F91F1E5CBB00BD1814 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7AAD24FA1F1E5CBB00BD1814 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 		7AEE3B7E1F129C10003BC81F /* Localizable.strings */ = {
@@ -564,7 +737,9 @@
 		7A1A1B381F1036480023A8C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Heimdall/Heimdall.entitlements;
 				DEVELOPMENT_TEAM = 2S2RSVRNML;
 				INFOPLIST_FILE = Heimdall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -577,7 +752,9 @@
 		7A1A1B391F1036480023A8C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Heimdall/Heimdall.entitlements;
 				DEVELOPMENT_TEAM = 2S2RSVRNML;
 				INFOPLIST_FILE = Heimdall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -593,10 +770,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = HeimdallTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ro.iliemarius.HeimdallTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Heimdall.app/Heimdall";
 			};
@@ -607,6 +786,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = HeimdallTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ro.iliemarius.HeimdallTests;
@@ -639,6 +819,34 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Heimdall;
+			};
+			name = Release;
+		};
+		7AAD25011F1E5CBB00BD1814 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Heimdall Widget/Heimdall Widget.entitlements";
+				DEVELOPMENT_TEAM = 2S2RSVRNML;
+				INFOPLIST_FILE = "Heimdall Widget/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ro.iliemarius.Heimdall.Heimdall-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		7AAD25021F1E5CBB00BD1814 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Heimdall Widget/Heimdall Widget.entitlements";
+				DEVELOPMENT_TEAM = 2S2RSVRNML;
+				INFOPLIST_FILE = "Heimdall Widget/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ro.iliemarius.Heimdall.Heimdall-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -677,6 +885,15 @@
 			buildConfigurations = (
 				7A1A1B3E1F1036480023A8C1 /* Debug */,
 				7A1A1B3F1F1036480023A8C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AAD25001F1E5CBB00BD1814 /* Build configuration list for PBXNativeTarget "Heimdall Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AAD25011F1E5CBB00BD1814 /* Debug */,
+				7AAD25021F1E5CBB00BD1814 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -8,10 +8,27 @@
 
 import Foundation
 
-class Condition: JSONDecodable
+
+/**
+ **This class implements NSCoding**
+ 
+ 
+ You can use NSKeyedArchiver.archivedData:
+ ```
+ jsonDecodableObj = try JSONDecodableClass(json)
+ 
+ UserDefaults.standard.set(
+    NSKeyedArchiver.archivedData(
+        withRootObject: location
+    ),
+    forKey: "yourKey"
+ )
+ 
+ ```
+ */
+
+@objc class Condition: NSObject, JSONDecodable
 {
-    unowned let location: Location
-    
     let uv: Double
     let humidity: String
     let weather: String
@@ -134,14 +151,6 @@ class Condition: JSONDecodable
             throw SerializationError.missing(conditionAPI.windKpH)
         }
         
-        let locationKeyPath = Defaults.RestAPI.LocationAPI.keyPaths[.conditions]!
-        guard let locationJSON = json.locate(path: locationKeyPath) else {
-            throw SerializationError.missing(locationKeyPath)
-        }
-        
-        guard let timeOffset = json.findValue(path: conditionAPI.timeOffset) as? String else {
-            throw SerializationError.missing(conditionAPI.timeOffset)
-        }
         
         self.uv = uv
         self.humidity = humidity
@@ -163,21 +172,8 @@ class Condition: JSONDecodable
         self.pressureMetric = pressureMetric
         
         self.time = Date()
-        
-        let location = try Location(json: locationJSON)
-        location.timeOffset = timeOffset
-        
-        
-        self.location = WeatherDataManager.shared.locations.append(location: location)
-        self.location.condition = self
-        
-        if self.location.longitude == LocationManager.shared.longitude,
-           self.location.latitude == LocationManager.shared.latitude {
-            WeatherDataManager.shared.currentLocation = self.location
-        } else {
-            WeatherDataManager.shared.track(latitude: self.location.latitude, longitude: self.location.longitude)
-        }
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         uv = aDecoder.decodeObject(forKey: "uv") as! Double
@@ -199,11 +195,9 @@ class Condition: JSONDecodable
         windKpH = aDecoder.decodeObject(forKey: "windKpH") as! Double
         pressureInch = aDecoder.decodeObject(forKey: "pressureInch") as! Double
         pressureMetric = aDecoder.decodeObject(forKey: "pressureMetric") as! Double
-        
-        WeatherDataManager.shared.locations.append(aDecoder.decodeObject(forKey: "location") as! Location)
-        self.location = aDecoder.decodeObject(forKey: "location") as! Location
     }
 }
+
 
 extension Condition {
     func encode(with aCoder: NSCoder) {

@@ -8,9 +8,27 @@
 
 import Foundation
 
-class Forecast: JSONDecodableWithLocation
+/**
+ **This class implements NSCoding**
+ 
+ 
+ You can use NSKeyedArchiver.archivedData:
+ ```
+ jsonDecodableObj = try JSONDecodableClass(json)
+ 
+ UserDefaults.standard.set(
+    NSKeyedArchiver.archivedData(
+        withRootObject: location
+    ),
+    forKey: "yourKey"
+ )
+ 
+ ```
+ */
+
+@objc class Forecast: NSObject, JSONDecodableWithLocation
 {
-    weak var location: Location?
+    //weak var location: Location?
     var time: Date
     
     let weather: String
@@ -21,6 +39,7 @@ class Forecast: JSONDecodableWithLocation
     
     let highFahrenheit: Double
     let lowFahrenheit: Double
+    
     
     //MARK: - Failable Initializer
     required init(json: Any, location: Location?) throws {
@@ -82,14 +101,11 @@ class Forecast: JSONDecodableWithLocation
         self.highFahrenheit = highFahrenheit
         self.lowFahrenheit = lowFahrenheit
         
-        self.location = location
-        self.time = Date(hour, minutes, year, month, day, self.location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
+        self.time = Date(hour, minutes, year, month, day, location?.timeOffset ?? String(describing: TimeZone.current.secondsFromGMT()))
     }
     
+    
     required init?(coder aDecoder: NSCoder) {
-        WeatherDataManager.shared.locations.append(aDecoder.decodeObject(forKey: "location") as! Location)
-        self.location = aDecoder.decodeObject(forKey: "location") as? Location
-        
         icon = aDecoder.decodeObject(forKey: "icon") as! String
         weather = aDecoder.decodeObject(forKey: "weather") as! String
         lowCelsius = aDecoder.decodeObject(forKey: "lowCelsius") as! Double
@@ -100,9 +116,9 @@ class Forecast: JSONDecodableWithLocation
     }
 }
 
+
 extension Forecast {
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(location, forKey: "location")
         aCoder.encode(time, forKey: "time")
         aCoder.encode(weather, forKey: "weather")
         aCoder.encode(weather, forKey: "weather")
@@ -111,40 +127,5 @@ extension Forecast {
         aCoder.encode(lowCelsius, forKey: "lowCelsius")
         aCoder.encode(highFahrenheit, forKey: "highFahrenheit")
         aCoder.encode(lowFahrenheit, forKey: "lowFahrenheit")
-    }
-}
-
-extension Array where Element: Forecast {
-    init(json: Any, location: Location?) throws {
-        self.init()
-        
-        let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self
-        
-        guard let mainJSON = json as? [String: Any] else {
-            printError(NSLocalizedString("JSON can't be converted into a dictionary", comment: ""))
-            throw SerializationError.missing(NSLocalizedString("Main JSON", comment: ""))
-        }
-        
-        guard let forecastArray = mainJSON.findValue(path: keyPaths[.forecast]!) as? [[String: Any]] else {
-            printError(keyPaths[.forecast]! + " " + NSLocalizedString("Value can't be converted into Array object", comment: ""))
-            let errorAPI = Defaults.RestAPI.ErrorAPI.self
-            
-            if let error = mainJSON.locate(path: keyPaths[.error]!) as? [String: String],
-                let type = error[errorAPI.type],
-                let description = error[errorAPI.description]
-            {
-                throw SerializationError.message(type, description)
-            } else {
-                throw SerializationError.missing(keyPaths[.forecast]!)
-            }
-        }
-        
-        for forecastJSON in forecastArray {
-            let condition = try Forecast(json: forecastJSON, location: location)
-            
-            if let element = condition as? Element {
-                self.append(element)
-            }
-        }
     }
 }

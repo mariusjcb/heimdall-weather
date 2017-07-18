@@ -36,4 +36,9 @@ class BorderedCollectionView: UICollectionView {
         
         updateLayers()
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        updateLayers()
+    }
 }

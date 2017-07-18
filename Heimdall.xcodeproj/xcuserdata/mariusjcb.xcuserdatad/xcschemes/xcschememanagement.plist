@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Heimdall Widget.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Heimdall.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>7A1A1B2D1F1036480023A8C1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7AAD24F11F1E5CBB00BD1814</key>
 		<dict>
 			<key>primary</key>
 			<true/>

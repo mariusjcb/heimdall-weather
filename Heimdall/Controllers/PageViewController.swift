@@ -27,6 +27,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             return
         }
         
+        
         LocationViewControllers.append(firstVC)
         updatePageControl()
         
@@ -34,8 +35,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         WeatherDataManager.shared.loadData()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     //MARK: Pages operations
+    
     func change(background: UIImage?) {
         guard let background = background else { return }
         UIView.transition(with: self.backgroundImage,
@@ -46,19 +51,24 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     func remove(_ vc: LocationVC) {
-        vc.view.tag = vc.index - 1
+        guard vc.index > 0 else { return }
+        
         guard let index = LocationViewControllers.index(of: vc) else { return }
+        vc.index -= 1
+        
         LocationViewControllers.remove(at: index)
+        updatePageControl(direction: .reverse, to: index-1)
+        
         updateIndexes()
-        updatePageControl()
     }
     
-    func updatePageControl() {
-        let currentPage = viewControllers!.first?.view.tag ?? 0
+    func updatePageControl(direction: UIPageViewControllerNavigationDirection = .forward, to index: Int? = nil) {
+        let currentPage = index ?? (viewControllers!.first as? LocationVC)?.index ?? 0
+        
         guard let locationvc = LocationViewControllers[currentPage] as? LocationVC else { return }
         
         setViewControllers([locationvc],
-                           direction: .forward,
+                           direction: direction,
                            animated: true,
                            completion: nil)
         
@@ -72,6 +82,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             
             locvc.view.tag = index
             locvc.index = index
+            
+            locvc.hourly?.updateLayers()
         }
     }
     
@@ -89,7 +101,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             } else if let cLoc = WeatherDataManager.shared.currentLocation,
                 location.city == cLoc.city && location.countryCode == cLoc.countryCode && vc.index == 0 {
                 ok = true
-                vc.removeBtn.removeFromSuperview()
+                vc.removeBtn?.removeFromSuperview()
             }
             
             guard ok else { continue }
@@ -154,11 +166,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        guard let vcIndex = LocationViewControllers.index(of: pageViewController) else {
-            return 0
-        }
-        
-        return vcIndex
+        return (pageViewController.viewControllers!.first as? LocationVC)?.index ?? 0
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
@@ -173,10 +181,11 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         change(background: UIImage(named: (locationvc?.location?.condition?.icon ?? "clear") + "_bg"))
     }
     
+    
     //MARK: - WeatherDataManagerDelegate
     
     func weatherDataWill(request: DataManager.APIRequest) {
-        print("LOADING...")
+        printLog("LOADING...")
     }
     
     func weatherDidChange(for location: Location, request: DataManager.APIRequest) {
@@ -184,6 +193,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     func didReceiveWeatherFetchingError(request: DataManager.APIRequest, error: WeatherError?) {
-        print("EROARE...")
+        printLog("EROARE...")
     }
 }

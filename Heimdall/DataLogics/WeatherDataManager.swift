@@ -38,8 +38,8 @@ protocol WeatherDataManagerDelegate {
  Implementare:
  =============
  ```
- DataManager.sharedInstance.anyProperty = value
- DataManager.sharedInstance.anyMethod()
+ WeatherDataManager.shared.anyProperty = value
+ WeatherDataManager.shared.anyMethod()
  
  ```
  */
@@ -60,19 +60,21 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
     
     var delegates = MulticastDelegate<WeatherDataManagerDelegate>()
     
-    // NSPointerArray.weakObjects()
     final var locations = [Location]()
     final weak var currentLocation: Location?
     var tracked = [TrackedLocation]() {
         didSet {
-            UserDefaults.standard.set(tracked, forKey: Defaults.trackedUDName)
+            UserDefaults.init(suiteName: Defaults.suiteName)?.set(tracked, forKey: Defaults.trackedUDName)
         }
     }
     
     private var _apiURL: URL?
     var apiURL: URL? { return _apiURL }
     
+    
+    
     //MARK: - Initlizer
+    
     private init(URLString url: String?)
     {
         super.init()
@@ -86,11 +88,17 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         } else { printError(NSLocalizedString("API URL is nil", comment: "")) }
     }
     
+    
+    
+    //MARK: - Load functions
+    
     func loadData() {
-        LocationManager.shared.delegates.add(self)
-        LocationManager.shared.startMonitoringSignificantLocationChanges()
-        
-        if let loaded = UserDefaults.standard.object(forKey: Defaults.trackedUDName) as? [TrackedLocation] {
+        loadCurrentLocationWeather()
+        loadTrackedLocations()
+    }
+    
+    func loadTrackedLocations() {
+        if let loaded = UserDefaults.init(suiteName: Defaults.suiteName)?.object(forKey: Defaults.trackedUDName) as? [TrackedLocation] {
             tracked = loaded
             
             let dynvar = Defaults.RestAPI.DynamicVariables.self
@@ -100,7 +108,15 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         }
     }
     
+    func loadCurrentLocationWeather() {
+        LocationManager.shared.delegates.add(self)
+        LocationManager.shared.startMonitoringSignificantLocationChanges()
+    }
+    
+    
+    
     //MARK: - Data
+    
     func track(latitude: Double, longitude: Double) {
         let dynvar = Defaults.RestAPI.DynamicVariables.self
         
@@ -125,7 +141,10 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         tracked.remove(at: index)
     }
     
+    
+    
     //MARK: - RestAPI Usage
+    
     private func query(for params: DataManager.APIRequestParams, by format: Defaults.RestAPI.QueryFormat = .coordinates,
                        as endpoint: Defaults.RestAPI.EndPoints = .conditions) -> String {
         var endpointFormat = Defaults.RestAPI.URL.endpointFormat.rawValue
@@ -146,7 +165,11 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         let lang = Locale.current.identifier.uppercased()
         endpointFormat.replace(variable: Defaults.RestAPI.DynamicVariables.language.rawValue, with: lang)
         
-        return endpointFormat
+        guard let endpointFormatURL = endpointFormat.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
+            return endpointFormat
+        }
+        
+        return endpointFormatURL
     }
     
     func weatherData(for params: DataManager.APIRequestParams, by format: Defaults.RestAPI.QueryFormat = .coordinates,
@@ -239,8 +262,11 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         weatherData(for: params, by: .coordinates, as: endpoint, handler: handler)
     }
     
+    
+    
     //MARK: - Quick call methods
-    static func conditions(forLatitude lat: Double, longitude long: Double) {print(lat)
+    
+    static func conditions(forLatitude lat: Double, longitude long: Double) {
         shared.weatherData(forLatitude: lat, longitude: long, as: .conditions, handler: WeatherDataManager.conditionAPIHandler)
     }
     
@@ -307,9 +333,11 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         }
     }
     
-    //Unmanaged.passUnretained(obj).toOpaque()
+    
+    
     //MARK: - Fetch methods
-    static func parse(condition response: Any?, for request: DataManager.APIRequest, error: Error?) throws -> Condition? {
+    
+    static func parse(condition response: Any?, for request: DataManager.APIRequest, error: Error?) throws -> Location? {
         if error != nil { return nil }
         
         let endpoint = request.0
@@ -326,15 +354,28 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
             return nil
         }
         
-        let condition = try Condition(json: response!)
+        //MARK: Parse location from condition json
+        let location = WeatherDataManager.shared.locations.append(location: try Location(json: response!))
+        location.condition = try Condition(json: response!)
+        
+        
+        if location.longitude == LocationManager.shared.longitude,
+            location.latitude == LocationManager.shared.latitude {
+            WeatherDataManager.shared.currentLocation = location
+            shared.updateWidget()
+        } else {
+            WeatherDataManager.shared.track(latitude: location.latitude, longitude: location.longitude)
+        }
+        
         
         shared.delegates.invoke { (delegate) in
             DispatchQueue.main.async {
-                delegate.weatherDidChange(for: condition.location, request: request)
+                delegate.weatherDidChange(for: location, request: request)
             }
         }
         
-        return condition
+        
+        return location
     }
     
     static func parse(hourly response: Any?, for request: DataManager.APIRequest, error: Error?) throws -> [Hourly]? {
@@ -410,6 +451,8 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         return forecastConditions
     }
     
+    
+    
     //MARK: - Default CompletionHandlers
     
     static func errorHandler(with error: Error, request: DataManager.APIRequest) {
@@ -459,9 +502,22 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         }
     }
     
-    //MARK: LocationManagerDelegate
     
+    
+    //MARK: - LocationManagerDelegate
+
     func locationDidChange(latitude: Double, longitude: Double) {
         WeatherDataManager.weather(forLatitude: latitude, longitude: longitude)
+    }
+    
+    
+    
+    //MARK: - Today Extension
+    
+    func updateWidget() {
+        UserDefaults.init(suiteName: Defaults.suiteName)?.set(currentLocation?.city, forKey: Defaults.widget.city)
+        UserDefaults.init(suiteName: Defaults.suiteName)?.set(currentLocation?.condition?.celsius, forKey: Defaults.widget.temperature)
+        UserDefaults.init(suiteName: Defaults.suiteName)?.set(currentLocation?.condition?.weather, forKey: Defaults.widget.condition)
+        UserDefaults.init(suiteName: Defaults.suiteName)?.set(currentLocation?.condition?.icon, forKey: Defaults.widget.icon)
     }
 }

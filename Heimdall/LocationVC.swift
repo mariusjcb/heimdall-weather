@@ -12,29 +12,15 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
 {
     var index = 0
     
-    weak var location: Location? {
+    weak var location: Location? = nil {
         didSet {
             updateUI()
         }
     }
     
     @IBAction func on(_ sender: Any) {
-        let alert = UIAlertController(title: "Locatie noua", message: "Introduceti tara si orasul\n\nPentru locatiile care nu apar sau nu se incarca corect verifica consola, api-ul returneaza un autocomplete cand nu stie sa gaseasca orasul :)", preferredStyle: .alert)
-        
-        alert.addTextField { $0.text = "FR" }
-        alert.addTextField { $0.text = "Paris" }
-        
-        alert.addAction(UIAlertAction(title: "Adauga", style: .default, handler: { [weak alert] (_) in
-            let country = alert?.textFields![0].text
-            let city = alert?.textFields![1].text
-            WeatherDataManager.weather(forCity: city!, country: country!)
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Anuleaza", style: .default, handler: { [weak alert] (_) in
-            alert?.dismiss(animated: true, completion: nil)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
+        let addlocationvc = storyboard?.instantiateViewController(withIdentifier: "NewLocationViewController")
+        UIApplication.topViewController()?.present(addlocationvc!, animated: true, completion: nil)
     }
     
     @IBOutlet weak var removeBtn: UIButton!
@@ -76,7 +62,7 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
     func updateUI() {
         guard let location = location else { return }
         
-        print(location.city + ", " + location.country + ": " + String(describing: location.condition?.celsius))
+        printLog(location.city + ", " + location.country + ": " + String(describing: location.condition?.celsius))
         city?.text = location.city
         
         if let condition = location.condition
@@ -88,14 +74,14 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
         let formatter = DateFormatter()
         formatter.dateFormat = Defaults.dateFormat
         
-        print(location.city + ", " + location.country + " Hourly Weather:")
+        printLog(location.city + ", " + location.country + " Hourly Weather:")
         for hour in location.hourForecast {
-            print(formatter.string(from: hour.time) + ": " + hour.weather + ", " + String(describing: hour.celsius))
+            printLog(formatter.string(from: hour.time) + ": " + hour.weather + ", " + String(describing: hour.celsius))
         }
         
-        print(location.city + ", " + location.country + " Daily Weather:")
+        printLog(location.city + ", " + location.country + " Daily Weather:")
         for day in location.forecast {
-            print(formatter.string(from: day.time) + ": " + day.weather + ", " + String(describing: day.highCelsius) + " | " + String(describing: day.lowCelsius))
+            printLog(formatter.string(from: day.time) + ": " + day.weather + ", " + String(describing: day.highCelsius) + " | " + String(describing: day.lowCelsius))
         }
         
         hourly?.reloadData()

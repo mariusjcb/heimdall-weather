@@ -8,7 +8,26 @@
 
 import Foundation
 
-class Location: JSONDecodable
+
+/**
+ **This class implements NSCoding**
+ 
+ 
+ You can use NSKeyedArchiver.archivedData:
+ ```
+ jsonDecodableObj = try JSONDecodableClass(json)
+ 
+ UserDefaults.standard.set(
+    NSKeyedArchiver.archivedData(
+        withRootObject: location
+    ),
+    forKey: "yourKey"
+ )
+ 
+ ```
+ */
+
+@objc class Location: NSObject, JSONDecodable
 {
     let city: String
     
@@ -30,11 +49,40 @@ class Location: JSONDecodable
 
     //MARK: - Failable Initializer
     required init(json: Any) throws {
+        let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self
         let locationAPI = Defaults.RestAPI.LocationAPI.self
+        let conditionAPI = Defaults.RestAPI.ConditionAPI.self
         
-        guard let json = json as? [String: Any] else {
+        guard let mainJSON = json as? [String: Any] else {
             printError(NSLocalizedString("JSON can't be converted into a dictionary", comment: ""))
             throw SerializationError.missing(NSLocalizedString("Main JSON", comment: ""))
+        }
+        
+        
+        //MARK: Condition JSON
+        guard let conditionJSON = mainJSON.locate(path: keyPaths[.conditions]!) else {
+            printError(keyPaths[.conditions]! + " " + NSLocalizedString("JSON Key doesn't exist or can't be converted into dictionary object", comment: ""))
+            let errorAPI = Defaults.RestAPI.ErrorAPI.self
+            
+            if let error = mainJSON.locate(path: keyPaths[.error]!) as? [String: String],
+                let type = error[errorAPI.type],
+                let description = error[errorAPI.description]
+            {
+                throw SerializationError.message(type, description)
+            } else {
+                throw SerializationError.missing(keyPaths[.conditions]!)
+            }
+        }
+        
+        guard let timeOffset = conditionJSON.findValue(path: conditionAPI.timeOffset) as? String else {
+            throw SerializationError.missing(conditionAPI.timeOffset)
+        }
+        
+        
+        //MARK: Location JSON
+        let locationKeyPath = Defaults.RestAPI.LocationAPI.keyPaths[.conditions]!
+        guard let json = conditionJSON.locate(path: locationKeyPath) else {
+            throw SerializationError.missing(locationKeyPath)
         }
         
         guard let city = json.findValue(path: locationAPI.city) as? String else {
@@ -63,6 +111,7 @@ class Location: JSONDecodable
             throw SerializationError.missing(locationAPI.elevation)
         }
         
+        
         self.city = city
         self.country = country
         self.countryCode = countryCode
@@ -70,8 +119,9 @@ class Location: JSONDecodable
         self.longitude = longitude
         self.elevation = elevation
         
-        self.timeOffset = String(describing: TimeZone.current.secondsFromGMT())
+        self.timeOffset = timeOffset
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         city = aDecoder.decodeObject(forKey: "city") as! String
@@ -81,12 +131,21 @@ class Location: JSONDecodable
         longitude = aDecoder.decodeObject(forKey: "longitude") as! Double
         elevation = aDecoder.decodeObject(forKey: "elevation") as! Double
         timeOffset = aDecoder.decodeObject(forKey: "timeOffset") as! String
-        condition = aDecoder.decodeObject(forKey: "condition") as? Condition
-        forecast = aDecoder.decodeObject(forKey: "forecast") as! [Forecast]
-        hourForecast = aDecoder.decodeObject(forKey: "hourForecast") as! [Hourly]
+        
+        if let condData = aDecoder.decodeObject(forKey: "condition") as? Data {
+            condition = NSKeyedUnarchiver.unarchiveObject(with: condData) as? Condition
+        }
+        
+        forecast = NSKeyedUnarchiver.unarchiveObject(with:
+            aDecoder.decodeObject(forKey: "forecast") as! Data) as! [Forecast]
+        
+        hourForecast = NSKeyedUnarchiver.unarchiveObject(with:
+            aDecoder.decodeObject(forKey: "hourForecast") as! Data) as! [Hourly]
+        
         lastForecastsUpdate = aDecoder.decodeObject(forKey: "lastForecastsUpdate") as? Date
     }
 }
+
 
 extension Location {
     func encode(with aCoder: NSCoder) {
@@ -97,48 +156,23 @@ extension Location {
         aCoder.encode(longitude, forKey: "longitude")
         aCoder.encode(elevation, forKey: "elevation")
         aCoder.encode(timeOffset, forKey: "timeOffset")
-        aCoder.encode(condition, forKey: "condition")
-        aCoder.encode(forecast, forKey: "forecast")
-        aCoder.encode(hourForecast, forKey: "hourForecast")
-        aCoder.encode(lastForecastsUpdate, forKey: "lastForecastsUpdate")
-    }
-}
-
-
-extension Array where Element: Location {
-    mutating func append(location newElement: Element) -> Element {
-        for location in self {
-            if location.city == newElement.city, location.countryCode == newElement.countryCode,
-               location.latitude == newElement.latitude,
-               location.longitude == newElement.longitude {
-                return location
-            }
+        
+        aCoder.encode(NSKeyedArchiver.archivedData(withRootObject: forecast),
+                      forKey: "forecast")
+        
+        aCoder.encode(NSKeyedArchiver.archivedData(withRootObject: hourForecast),
+                      forKey: "hourForecast")
+        
+        
+        if condition != nil {
+            aCoder.encode(NSKeyedArchiver.archivedData(withRootObject: condition!),
+                          forKey: "condition")
         }
         
-        self.append(newElement)
-        return newElement
-    }
-    
-    func get(by request: DataManager.APIRequest) -> Location? {
-        let (format, params) = (request.1, request.2)
-        if format == .coordinates { print(print(round(ToDouble(from: params[.latitude]!)!))) }
-        
-        var elem: Element? = nil
-        self.forEach {
-            if format == .city && $0.city == params[.city] && $0.countryCode == params[.country] {
-                elem = $0
-            } else if format == .coordinates && $0.longitude == round(ToDouble(from: params[.longitude]!)!*100)/100
-                && $0.latitude == round(ToDouble(from: params[.latitude]!)!*100)/100 {
-                elem = $0
-            }
+        if lastForecastsUpdate != nil {
+            aCoder.encode(lastForecastsUpdate!, forKey: "lastForecastsUpdate")
         }
-        
-        return elem
     }
-}
-
-func ==(lhs: Location, rhs: Location) -> Bool {
-    return lhs.city == rhs.city && lhs.countryCode == rhs.countryCode
 }
 
 protocol JSONDecodableWithLocation: NSCoding {
