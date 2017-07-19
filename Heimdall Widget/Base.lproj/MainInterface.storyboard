@@ -89,8 +89,8 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ih-jY-HEV">
-                                <rect key="frame" x="0.0" y="18" width="280" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ih-jY-HEV">
+                                <rect key="frame" x="0.5" y="0.0" width="280" height="59"/>
                                 <string key="text">Open Heimdall
 to fetch weather data</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -100,6 +100,10 @@ to fetch weather data</string>
                         </subviews>
                         <constraints>
                             <constraint firstItem="4ih-jY-HEV" firstAttribute="bottom" secondItem="FKl-LY-JtV" secondAttribute="top" id="4kw-Gx-1gM"/>
+                            <constraint firstItem="4ih-jY-HEV" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="RAP-5d-rfl"/>
+                            <constraint firstItem="4ih-jY-HEV" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" id="aSY-Le-w1I"/>
+                            <constraint firstItem="4ih-jY-HEV" firstAttribute="height" secondItem="S3S-Oj-5AN" secondAttribute="height" id="e8h-FH-7DJ"/>
+                            <constraint firstItem="4ih-jY-HEV" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="iPR-iq-o1o"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

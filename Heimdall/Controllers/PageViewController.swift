@@ -22,13 +22,11 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         super.viewDidLoad()
         
         
-        
         // add background to collection uiview
         
         backgroundImage.clipsToBounds = true
         backgroundImage.contentMode = .scaleAspectFill
         view.insertSubview(backgroundImage, at: 0)
-        
         
         
         // set control delegates to this class
@@ -38,13 +36,11 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.delegate = self
         
         
-        
         // guard for anyway...
         
         guard let firstVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationVC") else {
             return
         }
-        
         
         
         // add the firstVC to the array of LocationViewControllers (pages)
@@ -103,14 +99,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         guard let index = LocationViewControllers.index(of: vc) else { return }
         
-        
-        
         // remove from LocationViewControllers
         
         LocationViewControllers.remove(at: index)
         
         
-
+    
         // update PageViewController datas and pages index
         
         updatePageControl(direction: .reverse, to: index-1)
@@ -152,6 +146,11 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
                            completion: nil)
         
         
+        // update layers
+        
+        locationvc.updateLayers()
+        
+        
         // change pagevc background
         
         backgroundImage.changeImage(
@@ -181,7 +180,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             
             // update layers
 
-            locvc.hourly?.updateLayers()
+            locvc.updateLayers()
         }
     }
     

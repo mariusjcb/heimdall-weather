@@ -10,6 +10,7 @@ import UIKit
 
 class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataSource
 {
+    
     //MARK: - Properties
     
     var index = 0
@@ -19,7 +20,6 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
             updateUI()
         }
     }
-    
     
     
     //MARK: - IBOutlets & IBActions
@@ -108,6 +108,10 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
     }
     
     
+    func updateLayers() {
+        hourly?.updateLayers()
+    }
+    
     
     func updateUI() {
         guard let location = location else { return }
@@ -138,9 +142,7 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
             printLog(formatter.string(from: hour.time) + ": " + hour.weather + ", " + String(describing: hour.celsius))
         }
         
-        
         hourly?.reloadData()
-        hourly?.updateLayers()
         
         
         
@@ -153,6 +155,12 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
         }
         
         daily?.reloadData()
+        
+        
+        
+        // update layers
+        
+        updateLayers()
         
     }
     
@@ -171,6 +179,11 @@ class LocationVC: UIViewController, UICollectionViewDataSource, UITableViewDataS
                                             to: $0.time
                 ).hour! < 24
         }
+        
+        
+        // update layers
+        
+        hourly?.updateLayers()
         
         
         // return hours or 0 if forecast doesn't exist

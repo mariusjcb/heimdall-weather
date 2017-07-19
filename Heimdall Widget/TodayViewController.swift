@@ -65,23 +65,34 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func updateWidget()
     {
-        guard let ud = UserDefaults.init(suiteName: Defaults.suiteName) else {
-            stack.isHidden = true
-            openapp.isHidden = false
-            return
-        }
+        stack.isHidden = true
+        openapp.isHidden = false
+        
+        guard let ud = UserDefaults.init(suiteName: Defaults.suiteName) else { return }
+        
+        
+        
+        // check if exist datas
+        
+        guard let city = ud.string(forKey: Defaults.widget.city) else { return }
+        guard let condition = ud.string(forKey: Defaults.widget.condition) else { return }
+        
+        guard let temp = ToDouble(from: ud.string(forKey: Defaults.widget.temperature)) else { return }
+        
+        guard let icon = ud.string(forKey: Defaults.widget.icon) else { return }
         
         stack.isHidden = false
         openapp.isHidden = true
         
-        city.text = ud.string(forKey: Defaults.widget.city)
-        
-        condition.text = ud.string(forKey: Defaults.widget.condition)
         
         
-        temp.text = String(describing:
-            Int(ToDouble(from: ud.string(forKey: Defaults.widget.temperature)) ?? 0)) + Defaults.degreeSymbol
+        // set values
         
-        icon.image = UIImage(named: ud.string(forKey: Defaults.widget.icon) ?? "clear")
+        self.city.text = city
+        self.condition.text = condition
+        
+        self.temp.text = String(describing: Int(temp)) + Defaults.degreeSymbol
+        
+        self.icon.image = UIImage(named: icon)
     }
 }

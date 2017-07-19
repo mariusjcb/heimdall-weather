@@ -12,7 +12,7 @@ struct Defaults
 {
     static let settingsPlistDictionary  =   "Heimdall Settings"
     static let suiteName                =   "group.ro.iliemarius.heimdall"
-    static let trackedUDName            =   "a001"
+    static let trackedUDName            =   "trackedLocationsUD"
     static let errorDVal                =   -99999.999
     static let degreeSymbol             =   "°"
 
@@ -26,9 +26,9 @@ struct Defaults
     struct RestAPI { }
     
     struct widget {
-        static let city                 =   "today.city"
-        static let temperature          =   "today.temperature"
-        static let condition            =   "today.condition"
-        static let icon                 =   "today.icon"
+        static let city                 =   "todayExtension.city"
+        static let temperature          =   "todayExtension.temperature"
+        static let condition            =   "todayExtension.condition"
+        static let icon                 =   "todayExtension.icon"
     }
 }
