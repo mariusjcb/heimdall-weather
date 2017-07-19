@@ -47,6 +47,7 @@ import Foundation
     
     
     
+    
     //MARK: - Failable Initializer
     required init(json: Any, location: Location?) throws {
         let hourlyAPI = Defaults.RestAPI.HourlyAPI.self

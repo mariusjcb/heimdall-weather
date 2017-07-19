@@ -40,6 +40,9 @@
 		7AAD24FF1F1E5CBB00BD1814 /* Heimdall Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7AAD24F21F1E5CBB00BD1814 /* Heimdall Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AAD25051F1E699C00BD1814 /* Dictionary+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD25041F1E699C00BD1814 /* Dictionary+Helper.swift */; };
 		7ABB455E1F1CCD0100D0BABD /* BorderedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABB455D1F1CCD0100D0BABD /* BorderedCollectionView.swift */; };
+		7ACC25C71F1F33FC006512DC /* UIImage+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACC25C61F1F33FC006512DC /* UIImage+Helper.swift */; };
+		7ACC25C81F1F5A44006512DC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B431F10393F0023A8C1 /* Globals.swift */; };
+		7ACC25C91F1F5A61006512DC /* String+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD24E11F1E5A7700BD1814 /* String+Helper.swift */; };
 		7ACDB10D1F1E7CC9002EA283 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A1B5A1F1088AB0023A8C1 /* Base.swift */; };
 		7ACDB1151F1E9324002EA283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1A1B191F1036480023A8C1 /* Assets.xcassets */; };
 		7ACDB1171F1EA8B0002EA283 /* UILoadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDB1161F1EA8B0002EA283 /* UILoadButton.swift */; };
@@ -130,6 +133,7 @@
 		7AAD24FC1F1E5CBB00BD1814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AAD25041F1E699C00BD1814 /* Dictionary+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Dictionary+Helper.swift"; path = "Helpers/Dictionary+Helper.swift"; sourceTree = "<group>"; };
 		7ABB455D1F1CCD0100D0BABD /* BorderedCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BorderedCollectionView.swift; path = View/BorderedCollectionView.swift; sourceTree = "<group>"; };
+		7ACC25C61F1F33FC006512DC /* UIImage+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Helper.swift"; path = "Helpers/UIImage+Helper.swift"; sourceTree = "<group>"; };
 		7ACDB10C1F1E7BE8002EA283 /* Heimdall.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Heimdall.entitlements; sourceTree = "<group>"; };
 		7ACDB10E1F1E85C7002EA283 /* Heimdall Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Heimdall Widget.entitlements"; sourceTree = "<group>"; };
 		7ACDB1161F1EA8B0002EA283 /* UILoadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILoadButton.swift; path = View/UILoadButton.swift; sourceTree = "<group>"; };
@@ -297,6 +301,7 @@
 				7ACDB11A1F1EA922002EA283 /* UIView+Helper.swift */,
 				7ACDB11C1F1EA93C002EA283 /* CGPoint+Helper.swift */,
 				7ACDB1211F1EBDB5002EA283 /* UIApplication+Helper.swift */,
+				7ACC25C61F1F33FC006512DC /* UIImage+Helper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -533,6 +538,7 @@
 				7AAD24E41F1E5A9300BD1814 /* Date+Helper.swift in Sources */,
 				7AAD24E81F1E5B3C00BD1814 /* Location+Helper.swift in Sources */,
 				7A1A1B571F1083A80023A8C1 /* Location.swift in Sources */,
+				7ACC25C71F1F33FC006512DC /* UIImage+Helper.swift in Sources */,
 				7A1A1B121F1036470023A8C1 /* LocationVC.swift in Sources */,
 				7AEE3B871F12AABB003BC81F /* Hourly.swift in Sources */,
 				7AAD24EA1F1E5B7F00BD1814 /* Hourly+Helper.swift in Sources */,
@@ -573,6 +579,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ACC25C91F1F5A61006512DC /* String+Helper.swift in Sources */,
+				7ACC25C81F1F5A44006512DC /* Globals.swift in Sources */,
 				7ACDB10D1F1E7CC9002EA283 /* Base.swift in Sources */,
 				7AAD24F81F1E5CBB00BD1814 /* TodayViewController.swift in Sources */,
 			);

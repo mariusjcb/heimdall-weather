@@ -41,6 +41,8 @@ import Foundation
     let lowFahrenheit: Double
     
     
+    
+    
     //MARK: - Failable Initializer
     required init(json: Any, location: Location?) throws {
         let forecastAPI = Defaults.RestAPI.ForecastAPI.self

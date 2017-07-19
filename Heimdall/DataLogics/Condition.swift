@@ -56,6 +56,9 @@ import Foundation
     let pressureInch: Double
     let pressureMetric: Double
     
+    
+    
+    
     //MARK: - Failable Initializer
     required init(json: Any) throws {
         let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self

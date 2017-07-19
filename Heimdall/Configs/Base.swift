@@ -14,6 +14,7 @@ struct Defaults
     static let suiteName                =   "group.ro.iliemarius.heimdall"
     static let trackedUDName            =   "a001"
     static let errorDVal                =   -99999.999
+    static let degreeSymbol             =   "°"
 
     static let logs                     =   true
     static let debugJSON                =   false

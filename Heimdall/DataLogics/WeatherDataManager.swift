@@ -24,22 +24,27 @@ protocol WeatherDataManagerDelegate {
 }
 
 /**
- Manager pentru toate apelurile catre API, va serializa datele din JSON in array de Modele (obiecte Model din MVC) sau invers.
- Specific arhitecturii MVVM, functioneaza ca un Singleton.
+ Manager for all calls to WeatherAPI. It will be able to serialize JSON to Model array
+ It works like on MVVM arch as a Singleton
  
  
- Responsabilitati:
+ RESPONSABLE WITH:
  =================
- - Apelarea API-ului
- - Parsarea datelor din JSON
- - Serializarea datelor
+ * Load tracked location weather on init
+ * Load current location weather on init
+ * Set tracked locations or untrack
+ * Call WeatherAPI
+ * Update UserDefaults data to save tracked locations and to share current condition with Today Extension
  
  
- Implementare:
- =============
+ This class also implements a lot of completion handlers for you.
+ 
+ 
+ EXAMPLE:
+ ========
  ```
- WeatherDataManager.shared.anyProperty = value
- WeatherDataManager.shared.anyMethod()
+ WeatherDataManager.shared.delegate = myDelegate
+ WeatherDataManager.shared.loadData()
  
  ```
  */

@@ -72,13 +72,32 @@ class NewLocationViewController: UIViewController, UITextFieldDelegate, WeatherD
     }
     
     func weatherDidChange(for location: Location, request: DataManager.APIRequest) {
-        searchBtn.animateOut()
-        dismiss(animated: true, completion: nil)
+        if request.0 == .forecast {
+            searchBtn.animateOut()
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     func didReceiveWeatherFetchingError(request: DataManager.APIRequest, error: WeatherError?) {
         searchBtn.animateOut()
-        status.text = "ERROR: \(error?.localizedDescription ?? "NIL")"
+        guard let error = error else { return }
+        
+        switch error {
+        case .message(let type, let message):
+            status.text = "\(type): \(message)"
+        case .cathed(let message):
+            status.text = "CATCHED: \(message)"
+        case .missing(let missing):
+            status.text = "JSON Missing: \(missing) for Endpoint \(request.0)"
+        case .locationNotFound:
+            if request.0 == .conditions {
+                status.text = "ERROR: Location not found in API"
+            } else {
+                status.text = "ERROR: Location not found in WeatherDataManager"
+            }
+        default:
+            status.text = "ERROR: \(error.localizedDescription)"
+        }
     }
     
     

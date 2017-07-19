@@ -24,6 +24,7 @@
 "Empty path" = "Empty path";
 "Is not a required endpoint by completion handler" = "Is not a required endpoint by completion handler";
 "Main JSON" = "Main JSON";
+"Wrong RestAPI response" = "Wrong RestAPI response";
 "URL called:" = "URL called:";
 "Missing" = "Missing";
 "Couldn't write file" = "Couldn't write file";

@@ -23,6 +23,7 @@
 "Data is nil" = "Obiectul data este nul";
 "Empty path" = "Cale goala";
 "Is not a required endpoint by completion handler" = "Nu este un endpoint cerut de completion handler";
+"Wrong RestAPI response" = "Raspuns eronat de la API";
 "Main JSON" = "JSON Principal";
 "URL called:" = "URL apelat:";
 "Missing" = "Lipseste";

@@ -24,6 +24,6 @@ class HourForecastCollectionViewCell: UICollectionViewCell {
         self.time.text = time
         self.day.text = day
         self.icon.image = UIImage(named: icon)
-        self.temp.text = temp + "°"
+        self.temp.text = temp + Defaults.degreeSymbol
     }
 }

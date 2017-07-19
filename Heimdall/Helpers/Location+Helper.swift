@@ -9,6 +9,16 @@
 import Foundation
 
 extension Array where Element: Location {
+    
+    /**
+     **Helper to append Location to array**
+     
+     This function append a new location to [Location] array and return it.
+     If the location already exists into array method will return existing element
+     
+     - parameter location: Location, is not an optional type
+     */
+
     mutating func append(location newElement: Element) -> Element {
         for location in self {
             if location.city == newElement.city, location.countryCode == newElement.countryCode,
@@ -21,6 +31,17 @@ extension Array where Element: Location {
         self.append(newElement)
         return newElement
     }
+    
+    
+    
+    /**
+     **Helper to get Location from array by DataManager.APIRequest**
+     
+     This function search a location into array by request parameters
+     If the location not found will return *nil*
+     
+     - parameter by: DataManager.APIRequest, endpoint is not required
+     */
     
     func get(by request: DataManager.APIRequest) -> Location? {
         let (format, params) = (request.1, request.2)

@@ -1,9 +1,9 @@
 //
-//  TodayViewController.swift
-//  Heimdall Widget
+//   TodayViewController.swift
+//   Heimdall Widget
 //
-//  Created by Marius Ilie on 18/07/2017.
-//  Copyright © 2017 Marius Ilie. All rights reserved.
+//   Created by Marius Ilie on 18/07/2017.
+//   Copyright © 2017 Marius Ilie. All rights reserved.
 //
 
 import UIKit
@@ -19,6 +19,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var icon: UIImageView!
     
+    @IBOutlet weak var stack: UIStackView!
+    
+    @IBOutlet weak var openapp: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +30,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         view?.frame.size = preferredContentSize
         
         extensionContext?.widgetLargestAvailableDisplayMode = .compact
+        
+        
+        // add gesture
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openMainApp))
+        
+        view.addGestureRecognizer(gestureRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,17 +54,33 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     
+    func openMainApp() {
+        
+        guard let myAppUrl = URL(string: "Heimdall://") else { return }
+        
+        extensionContext?.open(myAppUrl)
+        
+    }
+    
+    
     func updateWidget()
     {
         guard let ud = UserDefaults.init(suiteName: Defaults.suiteName) else {
+            stack.isHidden = true
+            openapp.isHidden = false
             return
         }
+        
+        stack.isHidden = false
+        openapp.isHidden = true
         
         city.text = ud.string(forKey: Defaults.widget.city)
         
         condition.text = ud.string(forKey: Defaults.widget.condition)
         
-        temp.text = "\(ud.string(forKey: Defaults.widget.temperature) ?? "--")°"
+        
+        temp.text = String(describing:
+            Int(ToDouble(from: ud.string(forKey: Defaults.widget.temperature)) ?? 0)) + Defaults.degreeSymbol
         
         icon.image = UIImage(named: ud.string(forKey: Defaults.widget.icon) ?? "clear")
     }

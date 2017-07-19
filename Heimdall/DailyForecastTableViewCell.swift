@@ -23,8 +23,8 @@ class DailyForecastTableViewCell: UITableViewCell {
         
         self.day.text = day
         self.icon.image = UIImage(named: icon)
-        self.min.text = min + "°"
-        self.max.text = max + "°"
+        self.min.text = min + Defaults.degreeSymbol
+        self.max.text = max + Defaults.degreeSymbol
     }
     
 }

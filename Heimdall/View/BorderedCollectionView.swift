@@ -14,6 +14,11 @@ class BorderedCollectionView: UICollectionView {
     
     let bottomBorder = CALayer()
     
+    
+    /**
+     This method update width of top and bottom borders and call *setNeedsLayout()*
+     */
+    
     func updateLayers() {
         let width = contentSize.width > frame.width ? contentSize.width : frame.width
         
@@ -26,13 +31,23 @@ class BorderedCollectionView: UICollectionView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
+        
+        // set top border
+        
         topBorder.borderColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
         topBorder.borderWidth = 1;
         layer.addSublayer(topBorder)
         
+        
+        
+        // set bottom border
+        
         bottomBorder.borderColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.3).cgColor;
         bottomBorder.borderWidth = 1;
         layer.addSublayer(bottomBorder)
+        
+        
+        // update layers
         
         updateLayers()
     }

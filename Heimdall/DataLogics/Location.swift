@@ -46,12 +46,18 @@ import Foundation
     
     var lastForecastsUpdate: Date? = nil
     
-
+    
+    
+    
     //MARK: - Failable Initializer
-    required init(json: Any) throws {
+    required init(json: Any) throws
+    {
         let keyPaths = Defaults.RestAPI.EndPoints.keyPaths.self
+        
         let locationAPI = Defaults.RestAPI.LocationAPI.self
+        
         let conditionAPI = Defaults.RestAPI.ConditionAPI.self
+        
         
         guard let mainJSON = json as? [String: Any] else {
             printError(NSLocalizedString("JSON can't be converted into a dictionary", comment: ""))
@@ -59,9 +65,12 @@ import Foundation
         }
         
         
+        
         //MARK: Condition JSON
         guard let conditionJSON = mainJSON.locate(path: keyPaths[.conditions]!) else {
-            printError(keyPaths[.conditions]! + " " + NSLocalizedString("JSON Key doesn't exist or can't be converted into dictionary object", comment: ""))
+            printError(keyPaths[.conditions]! + " "
+                + NSLocalizedString("JSON Key doesn't exist or can't be converted into dictionary object", comment: ""))
+            
             let errorAPI = Defaults.RestAPI.ErrorAPI.self
             
             if let error = mainJSON.locate(path: keyPaths[.error]!) as? [String: String],
@@ -110,6 +119,7 @@ import Foundation
         guard let elevation = ToDouble(from:json.findValue(path: locationAPI.elevation)) else {
             throw SerializationError.missing(locationAPI.elevation)
         }
+        
         
         
         self.city = city
