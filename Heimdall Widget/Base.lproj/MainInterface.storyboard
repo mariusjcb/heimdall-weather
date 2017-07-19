@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="59"/>
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="17N-sS-ng5">
@@ -90,7 +90,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ih-jY-HEV">
-                                <rect key="frame" x="0.5" y="0.0" width="280" height="59"/>
+                                <rect key="frame" x="0.5" y="0.0" width="280" height="80"/>
                                 <string key="text">Open Heimdall
 to fetch weather data</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -111,7 +111,7 @@ to fetch weather data</string>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="280" height="59"/>
+                    <size key="freeformSize" width="280" height="80"/>
                     <connections>
                         <outlet property="city" destination="kzo-pC-cwv" id="p2Q-Pp-BQv"/>
                         <outlet property="condition" destination="EcB-5Y-PRy" id="NWi-8Y-VcV"/>
