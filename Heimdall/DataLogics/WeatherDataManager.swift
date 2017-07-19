@@ -170,9 +170,11 @@ class WeatherDataManager: DataManager, LocationManagerDelegate {
         let lang = Locale.current.identifier.uppercased()
         endpointFormat.replace(variable: Defaults.RestAPI.DynamicVariables.language.rawValue, with: lang)
         
-        guard let endpointFormatURL = endpointFormat.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
+        guard var endpointFormatURL = endpointFormat.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
             return endpointFormat
         }
+        
+        endpointFormatURL = endpointFormatURL.replacingOccurrences(of: "%20", with: "_")
         
         return endpointFormatURL
     }
